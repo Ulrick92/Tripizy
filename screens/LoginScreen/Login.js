@@ -13,13 +13,6 @@ import axios from "axios";
 // import "./style";
 
 export default class Login extends Component {
-  state = {
-    // vérifier si l'user est authentifié
-    isAuthenticated: false,
-    email: "arno@airbnb-api.com", // email à remplacer
-    password: "password01" // password à remplacer
-  };
-
   static navigationOptions = {
     title: "Login",
     headerStyle: {
@@ -32,18 +25,26 @@ export default class Login extends Component {
     }
   };
 
-  handleSumbit = () => {
+  state = {
+    // vérifier si l'user est authentifié
+    isAuthenticated: false,
+    email: "arno@airbnb-api.com", // email à remplacer
+    password: "password01" // password à remplacer
+  };
+
+  handleSubmit = () => {
     const { email, password } = this.state;
 
     axios
       // api à remplacer
-      .get("https://airbnb-api.now.sh/api/user/log_in", {
+      .post("https://airbnb-api.now.sh/api/user/log_in", {
         email,
         password
       })
       .then(response => {
+        console.log("reponse", response);
         if (response.data.token) {
-          AsyncStorege.setItem("token", response.data.token).then(() => {
+          AsyncStorage.setItem("token", response.data.token).then(() => {
             // authentifier l'user
             this.setState({
               isAuthenticated: true
@@ -52,40 +53,40 @@ export default class Login extends Component {
             navigate("Signup"); // Signup à remplacer par List
           });
         }
+      })
+      .catch(error => {
+        // handle error
+        console.log("erreur", error);
       });
   };
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            this.handleSubmit(item);
+      <KeyboardAvoidingView style={styles.container}>
+        <Text style={styles.welcome}>Hello !</Text>
+        <TextInput
+          style={styles.input}
+          value={this.state.email}
+          onChangeText={value => {
+            this.setState({
+              email: value
+            });
           }}
-        >
-          <Text style={styles.welcome}>Hello !</Text>
-
-          <TextInput
-            style={styles.input}
-            value={this.state.email}
-            onChangeText={value => {
-              this.setState({
-                email: value
-              });
-            }}
-          />
-          <TextInput
-            style={styles.input}
-            value={this.state.password}
-            secureTextEntry={true}
-            onChangeText={value => {
-              this.setState({
-                password: value
-              });
-            }}
-          />
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.password}
+          secureTextEntry={true}
+          onChangeText={value => {
+            this.setState({
+              password: value
+            });
+          }}
+        />
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+          <Text style={styles.buttonText}>CONNECTION</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -94,7 +95,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "purple",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   input: {
     width: 250,
@@ -102,7 +104,21 @@ const styles = StyleSheet.create({
     color: "white",
     borderColor: "white",
     borderBottomWidth: 1,
-    paddingLeft: 10
+    paddingLeft: 10,
+    alignItems: "center"
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "grey",
+    height: 50,
+    width: 250,
+    justifyContent: "center",
+    borderColor: "white",
+    borderRadius: 25
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center"
   },
   welcome: {
     textAlign: "center",

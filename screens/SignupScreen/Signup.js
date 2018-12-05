@@ -1,17 +1,21 @@
 import React, { Component } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-// import "./style";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  AsyncStorage,
+  TextInput,
+  KeyboardAvoidingView,
+  StyleSheet
+} from "react-native";
+import axios from "axios";
 
-export default class SignUp extends Component {
-  state = {
-    // vérifier si l'user est authentifié
-    isAuthenticated: false,
-    email: "arno@airbnb-api.com", // email à remplacer
-    password: "password01" // password à remplacer
-  };
+/* import "./style.css"; */
 
+class Signup extends Component {
   static navigationOptions = {
-    title: "Signup",
+    title: "Create an account",
     headerStyle: {
       backgroundColor: "yellow"
     },
@@ -22,72 +26,100 @@ export default class SignUp extends Component {
     }
   };
 
-  handleClick = () => {
-    const { navigate } = this.props.navigation;
-    navigate("Login");
+  state = {
+    username: "Farid",
+    email: "farid@lereacteur.io",
+    password: "azerty"
   };
 
+//   handleChange = (event) => { 
+
+//     const target = event.target,
+//     const username = target.username,
+//     const email = target.email,
+//     const password = target.password
+ 
+// this.setState({ 
+//   [username]: value, 
+//   [email]: value, 
+//   [password]: value });
+
+//   };
+    
+handleSubmit = event => {
+
+  const { username, email, password } = this.state;
+
+  axios
+.post("https://airbnb-api.now.sh/api//user/sign_up"), {
+username,
+email,
+password
+}
+.then(response => {
+  console.log("response", response);
+if (response.data && response.data.token) {
+  username: response.data.account.username,
+  _id: response.data._id,
+  token: response.data.token
+  }
+  navigate("Signup"); // Signup à remplacer par List ?
+})
+.catch(error => {
+  console.log(error)
+});
+event.preventDefault();
+};
+  
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>tripizy</Text>
-        <TouchableOpacity style={styles.buttonSignup}>
-          <Text style={styles.buttonText}>CONTINUE WITH GOOGLE</Text>
+      <KeyboardAvoidingView style={styles.container}>
+        <Text style={styles.welcome}>CREATE AN ACCOUNT</Text>
+        <TextInput
+          style={styles.input}
+          value={this.state.name}
+          placeholder={"Username"}
+          onChangeText={value => {
+            this.setState({
+              name: value
+            });
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.email}
+          placeholder={"Email"}
+          onChangeText={value => {
+            this.setState({
+              email: value
+            });
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.password}
+          placeholder={"Password"}
+          secureTextEntry={true}
+          onChangeText={value => {
+            this.setState({
+              password: value
+            });
+          }}
+        />
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+          <Text style={styles.buttonText}>NEXT</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonSignup}>
-          <Text style={styles.buttonText}>CONTINUE WITH FACEBOOK</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonSignup}>
-          <Text style={styles.buttonText}>SIGNUP WITH EMAIL</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.clickableText}>Enter as guest</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity title="Go to Login" onPress={this.handleClick}>
-          <Text style={styles.clickableText}>LOGIN</Text>
-        </TouchableOpacity>
-      </View>
+        <Text>Login with Facebook or Google</Text>
+      </KeyboardAvoidingView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "purple",
-    alignItems: "center",
-    paddingVertical: 50
-  },
-  title: {
-    color: "white",
-    fontSize: 50,
-    fontWeight: "200",
-    textAlign: "center",
-    marginBottom: 100
-  },
-  buttonSignup: {
-    marginTop: 20,
-    backgroundColor: "grey",
-    height: 50,
-    width: 250,
-    justifyContent: "center",
-    borderColor: "white",
-    borderRadius: 25
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center"
-  },
-  clickableText: {
-    fontSize: 20,
-    color: "white",
-    marginTop: 30,
-    height: 50,
-    width: 200,
-    textAlign: "center"
-  }
-});
+export default Signup;
+
+
+
+
+
+
