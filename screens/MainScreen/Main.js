@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet
+} from "react-native";
 // import "./style";
 
 export default class SignUp extends Component {
   static navigationOptions = {
-    title: "Signup",
+    title: "Welcome",
     headerStyle: {
-      backgroundColor: "yellow"
+      backgroundColor: "#002982"
     },
     headerTitleStyle: {
       fontSize: 24,
@@ -14,6 +20,7 @@ export default class SignUp extends Component {
       fontWeight: "200"
     }
   };
+
   state = {
     // vérifier si l'user est authentifié
     isAuthenticated: false,
@@ -21,34 +28,42 @@ export default class SignUp extends Component {
     password: "password01" // password à remplacer
   };
 
-  handleClick = () => {
-    const { navigate } = this.props.navigation;
-    navigate("Login");
-  };
-
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>tripizy</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>CONTINUE WITH GOOGLE</Text>
-        </TouchableOpacity>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={require("../../assets/images/stockholm.jpg")}
+        >
+          <Text style={styles.title}>tripizy</Text>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>CONTINUE WITH GOOGLE</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>CONTINUE WITH FACEBOOK</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>CONTINUE WITH FACEBOOK</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>SIGNUP WITH EMAIL</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            title="Go to Sign Up"
+            onPress={() => this.props.navigation.navigate("SignUp")}
+          >
+            <Text style={styles.buttonText}>SIGN UP WITH EMAIL</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Text style={styles.clickableText}>Enter as guest</Text>
-        </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.clickableText}>Enter as guest</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity title="Go to Login" onPress={this.handleClick}>
-          <Text style={styles.clickableText}>LOGIN</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            title="Go to Login"
+            onPress={() => this.props.navigation.navigate("LogIn")}
+          >
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
@@ -56,26 +71,29 @@ export default class SignUp extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  backgroundImage: {
     flex: 1,
-    backgroundColor: "purple",
-    alignItems: "center",
-    paddingVertical: 50
+    width: "100%",
+    alignItems: "center"
   },
   title: {
     color: "white",
     fontSize: 50,
     fontWeight: "200",
     textAlign: "center",
+    marginTop: 70,
     marginBottom: 100
   },
   button: {
     marginTop: 20,
-    backgroundColor: "grey",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 25
+    borderRadius: 5
   },
   buttonText: {
     color: "white",
