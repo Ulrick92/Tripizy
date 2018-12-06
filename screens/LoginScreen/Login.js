@@ -37,7 +37,7 @@ export default class Login extends Component {
 
     axios
       // api à remplacer
-      .post("https://airbnb-api.now.sh/api/user/log_in", {
+      .post("http://localhost:3000/user/log_in", {
         email,
         password
       })
@@ -50,7 +50,7 @@ export default class Login extends Component {
               isAuthenticated: true
             });
             const { navigate } = this.props.navigation;
-            navigate("Signup"); // Signup à remplacer par List
+            navigate("SignUp"); // Signup à remplacer par List
           });
         }
       })
