@@ -32,45 +32,41 @@ class Signup extends Component {
     password: "azerty"
   };
 
-//   handleChange = (event) => { 
+  //   handleChange = (event) => {
 
-//     const target = event.target,
-//     const username = target.username,
-//     const email = target.email,
-//     const password = target.password
- 
-// this.setState({ 
-//   [username]: value, 
-//   [email]: value, 
-//   [password]: value });
+  //     const target = event.target,
+  //     const username = target.username,
+  //     const email = target.email,
+  //     const password = target.password
 
-//   };
-    
-handleSubmit = event => {
+  // this.setState({
+  //   [username]: value,
+  //   [email]: value,
+  //   [password]: value });
 
-  const { username, email, password } = this.state;
+  //   };
 
-  axios
-.post("https://airbnb-api.now.sh/api//user/sign_up"), {
-username,
-email,
-password
-}
-.then(response => {
-  console.log("response", response);
-if (response.data && response.data.token) {
-  username: response.data.account.username,
-  _id: response.data._id,
-  token: response.data.token
-  }
-  navigate("Signup"); // Signup à remplacer par List ?
-})
-.catch(error => {
-  console.log(error)
-});
-event.preventDefault();
-};
-  
+  handleSubmit = event => {
+    const { username, email, password } = this.state;
+
+    axios.post("http://localhost:3000/user/sign_up"),
+      {
+        username,
+        email,
+        password
+      }
+        .then(response => {
+          console.log("response", response);
+          if (response.data && response.data.token) {
+            navigate("Signup"); // Signup à remplacer par List ?
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    event.preventDefault();
+  };
+
   render() {
     return (
       <KeyboardAvoidingView style={styles.container}>
@@ -117,9 +113,3 @@ event.preventDefault();
 }
 
 export default Signup;
-
-
-
-
-
-
