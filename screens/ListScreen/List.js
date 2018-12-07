@@ -10,7 +10,7 @@ import {
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
-    title: "Travel Books",
+    title: "Travel Books test",
     headerStyle: {
       backgroundColor: "#37449E"
     },
