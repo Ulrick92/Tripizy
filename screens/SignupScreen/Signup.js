@@ -47,7 +47,7 @@ class SignUp extends Component {
       .then(response => {
         console.log("response", response.data);
         if (response.data && response.data.token) {
-          this.props.navigation.navigate("Home", {
+          this.props.navigation.navigate("List", {
             _id: response.data._id,
             first_name: response.data.first_name,
             last_name: response.data.last_name,

@@ -5,16 +5,16 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
 import ListScreen from "../screens/ListScreen/List";
-// import SettingsScreen from "../screens/SettingsScreen";
-import TipsScreen from "../screens/TipsScreen";
+import MyTripsScreen from "../screens/MyTripsScreen/MyTrips";
 import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
+import TipsScreen from "../screens/TipsScreen/Tips";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen
+const ListStack = createStackNavigator({
+  List: ListScreen
 });
-HomeStack.navigationOptions = {
+
+ListStack.navigationOptions = {
   tabBarLabel: "Travel Books",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -27,10 +27,12 @@ HomeStack.navigationOptions = {
     />
   )
 };
-const LinksStack = createStackNavigator({
-  Links: ListScreen
+
+const MyTripsStack = createStackNavigator({
+  MyTrips: MyTripsScreen
 });
-LinksStack.navigationOptions = {
+
+MyTripsStack.navigationOptions = {
   tabBarLabel: "My Trips",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -39,9 +41,11 @@ LinksStack.navigationOptions = {
     />
   )
 };
+
 const TipsStack = createStackNavigator({
   Tips: TipsScreen
 });
+
 TipsStack.navigationOptions = {
   tabBarLabel: "Tips",
   tabBarIcon: ({ focused }) => (
@@ -55,10 +59,12 @@ TipsStack.navigationOptions = {
     />
   )
 };
-const UserStack = createStackNavigator({
-  User: UserProfileScreen
+
+const UserProfileStack = createStackNavigator({
+  UserProfile: UserProfileScreen
 });
-UserStack.navigationOptions = {
+
+UserProfileStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -68,8 +74,8 @@ UserStack.navigationOptions = {
   )
 };
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  ListStack,
+  MyTripsStack,
   TipsStack,
-  UserStack
+  UserProfileStack
 });
