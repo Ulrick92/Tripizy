@@ -1,51 +1,3 @@
-// import React from "react";
-// import { Platform } from "react-native";
-// import {
-//   createStackNavigator,
-//   createBottomTabNavigator
-// } from "react-navigation";
-
-// import TabBarIcon from "../components/TabBarIcon";
-// import SignupScreen from "../screens/SignupScreen";
-// import LoginScreen from "../screens/LoginScreen/Login";
-
-// const SignupStack = createStackNavigator({
-//   Signup: SignupScreen
-// });
-
-// SignupStack.navigationOptions = {
-//   tabBarLabel: "Signup",
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={
-//         Platform.OS === "ios"
-//           ? `ios-information-circle${focused ? "" : "-outline"}`
-//           : "md-information-circle"
-//       }
-//     />
-//   )
-// };
-
-// const LoginStack = createStackNavigator({
-//   Links: LoginScreen
-// });
-
-// LinksStack.navigationOptions = {
-//   tabBarLabel: "Login",
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-//     />
-//   )
-// };
-
-// export default createBottomTabNavigator({
-//   SignupStack,
-//   LoginStack
-// });
-
 import React from "react";
 import { Platform } from "react-native";
 import {
@@ -54,17 +6,17 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import ListScreen from "../screens/ListScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import TipsScreen from "../screens/TipsScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
+  tabBarLabel: "Travel Books",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -78,15 +30,33 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen
+  Links: ListScreen
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
+  tabBarLabel: "My Trips",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
+};
+
+const TipsStack = createStackNavigator({
+  Tips: TipsScreen
+});
+
+TipsStack.navigationOptions = {
+  tabBarLabel: "Tips",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === "ios"
+          ? `ios-information-circle${focused ? "" : "-outline"}`
+          : "md-information-circle"
+      }
     />
   )
 };
@@ -96,7 +66,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: "Settings",
+  tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -108,5 +78,6 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
+  TipsStack,
   SettingsStack
 });

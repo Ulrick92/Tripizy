@@ -1,14 +1,26 @@
-import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground
+} from "react-native";
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: 'app.json',
+    title: "User account",
+    headerStyle: {
+      backgroundColor: "#37449E"
+    },
+    headerTintColor: "#fff"
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-    return <ExpoConfigView />;
+    return (
+      <View>
+        <Text>Hello World</Text>
+      </View>
+    );
   }
 }
