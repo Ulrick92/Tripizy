@@ -9,7 +9,7 @@ import HomeScreen from "../screens/HomeScreen";
 import ListScreen from "../screens/ListScreen/List";
 // import SettingsScreen from "../screens/SettingsScreen";
 import TipsScreen from "../screens/TipsScreen";
-import UserProfileScreen from "../screens/UserProfile";
+import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen
@@ -71,5 +71,5 @@ export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   TipsStack,
-  SettingsStack
+  UserStack
 });
