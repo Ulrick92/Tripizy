@@ -5,7 +5,8 @@ import {
   View,
   Text,
   Platform,
-  ImageBackground
+  ImageBackground,
+  TouchableOpacity
 } from "react-native";
 
 export default class LinksScreen extends React.Component {
@@ -26,36 +27,38 @@ export default class LinksScreen extends React.Component {
       <ScrollView style={styles.container}>
         {/* mettre la card à cet endroit */}
         <View style={{ margin: 20 }}>
-          <ImageBackground
-            source={require("../../assets/images/sri_lanka.png")}
-            style={{
-              width: "100%",
-              height: 200,
-              justifyContent: "flex-end"
-            }}
-          >
-            <Text
+          <TouchableOpacity>
+            <ImageBackground
+              source={require("../../assets/images/sri_lanka.png")}
               style={{
-                padding: 5,
-                position: "absolute",
-                bottom: 10,
-                left: 10,
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                fontSize: 20
-                // opacity: 0.5,
-                // backgroundColor: "black"
+                width: "100%",
+                height: 200,
+                justifyContent: "flex-end"
               }}
             >
-              Sri Lanka
-            </Text>
-          </ImageBackground>
+              <Text
+                style={{
+                  padding: 5,
+                  position: "absolute",
+                  bottom: 10,
+                  left: 10,
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  fontSize: 20
+                  // opacity: 0.5,
+                  // backgroundColor: "black"
+                }}
+              >
+                Sri Lanka
+              </Text>
+            </ImageBackground>
 
-          <View style={{ flexDirection: "row" }}>
-            <Text>Sri Lanka</Text>
-            <Text>From 10th sept 2018</Text>
-          </View>
-          <Text>Countries visited :</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text>Sri Lanka</Text>
+              <Text>From 10th sept 2018</Text>
+            </View>
+            <Text>Countries visited :</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ margin: 20 }}>

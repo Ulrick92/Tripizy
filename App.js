@@ -7,19 +7,19 @@ import SignUpContainer from "./screens/SignUpScreen/SignUp";
 import ListContainer from "./screens/ListScreen/List";
 
 const AppNavigator = createStackNavigator({
+  List: {
+    screen: ListContainer
+  },
   Main: {
     screen: MainContainer
   },
   LogIn: {
     screen: LogInContainer
   },
-
   SignUp: {
     screen: SignUpContainer
-  },
-  List: {
-    screen: ListContainer
   }
+
   // UserProfile: {
   //   screen: UserProfile
   // }
