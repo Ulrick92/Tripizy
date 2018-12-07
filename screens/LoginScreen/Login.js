@@ -65,7 +65,7 @@ export default class LogIn extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.title}>Hello !</Text>
         <TextInput
           style={styles.input}

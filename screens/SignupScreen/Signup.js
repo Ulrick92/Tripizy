@@ -63,7 +63,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.title}>CREATE AN ACCOUNT</Text>
         <TextInput
           style={styles.input}
