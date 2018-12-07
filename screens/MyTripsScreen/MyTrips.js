@@ -27,7 +27,7 @@ export default class LinksScreen extends React.Component {
         {/* mettre la card à cet endroit */}
         <View style={{ margin: 20 }}>
           <ImageBackground
-            source={require("../assets/images/sri_lanka.png")}
+            source={require("../../assets/images/sri_lanka.png")}
             style={{
               width: "100%",
               height: 200,
@@ -61,7 +61,7 @@ export default class LinksScreen extends React.Component {
 
         <View style={{ margin: 20 }}>
           <ImageBackground
-            source={require("../assets/images/oman.png")}
+            source={require("../../assets/images/oman.png")}
             style={{
               width: "100%",
               height: 200,
@@ -94,7 +94,7 @@ export default class LinksScreen extends React.Component {
 
         <View style={{ margin: 20 }}>
           <ImageBackground
-            source={require("../assets/images/bosnia.png")}
+            source={require("../../assets/images/bosnia.png")}
             style={{
               width: "100%",
               height: 200,

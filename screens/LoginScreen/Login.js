@@ -49,7 +49,7 @@ export default class LogIn extends Component {
               isAuthenticated: true
             });
             const { navigate } = this.props.navigation;
-            navigate("Home");
+            navigate("List");
 
             AsyncStorage.getItem("token", (err, result) => {
               console.log("result", result);
