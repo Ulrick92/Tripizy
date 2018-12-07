@@ -1,16 +1,13 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
-  View,
   Text,
-  Image,
   TouchableOpacity,
   AsyncStorage,
   TextInput,
-  KeyboardAvoidingView,
-  StyleSheet
+  KeyboardAvoidingView
 } from "react-native";
+import styles from "./styles";
 import axios from "axios";
-// import "./style";
 
 export default class LogIn extends Component {
   static navigationOptions = {
@@ -24,24 +21,14 @@ export default class LogIn extends Component {
       color: "white",
       fontWeight: "200"
     }
-
-    // title: "Login",
-    // headerTintColor: "purple",
-    // headerStyle: {
-    //   backgroundColor: "yellow"
-    // },
-    // headerTitleStyle: {
-    //   fontSize: 24,
-    //   color: "purple",
-    //   fontWeight: "200"
-    // }
   };
 
   state = {
     // vérifier si l'user est authentifié
+    // pour test : farid@lereacteur.io - azerty
     isAuthenticated: false,
-    email: "arno@airbnb-api.com", // email à remplacer
-    password: "password01" // password à remplacer
+    email: "",
+    password: ""
   };
 
   handleSubmit = () => {
@@ -62,7 +49,7 @@ export default class LogIn extends Component {
               isAuthenticated: true
             });
             const { navigate } = this.props.navigation;
-            navigate("Main"); // Main à remplacer par List
+            navigate("Home");
 
             AsyncStorage.getItem("token", (err, result) => {
               console.log("result", result);
@@ -82,7 +69,9 @@ export default class LogIn extends Component {
         <Text style={styles.title}>Hello !</Text>
         <TextInput
           style={styles.input}
+          autoCapitalize="none"
           value={this.state.email}
+          placeholder={"Email"}
           onChangeText={value => {
             this.setState({
               email: value
@@ -91,7 +80,9 @@ export default class LogIn extends Component {
         />
         <TextInput
           style={styles.input}
+          autoCapitalize="none"
           value={this.state.password}
+          placeholder={"Password"}
           secureTextEntry={true}
           onChangeText={value => {
             this.setState({
@@ -106,44 +97,3 @@ export default class LogIn extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "white"
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#0040cc",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  input: {
-    width: 250,
-    height: 60,
-    color: "white",
-    borderColor: "white",
-    borderBottomWidth: 1,
-    paddingLeft: 10,
-    alignItems: "center"
-  },
-  button: {
-    marginTop: 20,
-    backgroundColor: "grey",
-    height: 50,
-    width: 250,
-    justifyContent: "center",
-    borderColor: "white",
-    borderRadius: 10
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center"
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "white"
-  }
-});
