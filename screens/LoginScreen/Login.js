@@ -12,17 +12,29 @@ import {
 import axios from "axios";
 // import "./style";
 
-export default class Login extends Component {
+export default class LogIn extends Component {
   static navigationOptions = {
     title: "Login",
+    headerTintColor: "white",
     headerStyle: {
-      backgroundColor: "yellow"
+      backgroundColor: "#002982"
     },
     headerTitleStyle: {
       fontSize: 24,
       color: "white",
       fontWeight: "200"
     }
+
+    // title: "Login",
+    // headerTintColor: "purple",
+    // headerStyle: {
+    //   backgroundColor: "yellow"
+    // },
+    // headerTitleStyle: {
+    //   fontSize: 24,
+    //   color: "purple",
+    //   fontWeight: "200"
+    // }
   };
 
   state = {
@@ -36,13 +48,13 @@ export default class Login extends Component {
     const { email, password } = this.state;
 
     axios
-      // api à remplacer
+
       .post("http://localhost:3000/user/log_in", {
         email,
         password
       })
       .then(response => {
-        console.log("reponse", response);
+        console.log("response", response.data);
         if (response.data.token) {
           AsyncStorage.setItem("token", response.data.token).then(() => {
             // authentifier l'user
@@ -50,20 +62,24 @@ export default class Login extends Component {
               isAuthenticated: true
             });
             const { navigate } = this.props.navigation;
-            navigate("SignUp"); // Signup à remplacer par List
+            navigate("Main"); // Main à remplacer par List
+
+            AsyncStorage.getItem("token", (err, result) => {
+              console.log("result", result);
+            });
           });
         }
       })
       .catch(error => {
         // handle error
-        console.log("erreur", error);
+        console.log("error", error);
       });
   };
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container}>
-        <Text style={styles.welcome}>Hello !</Text>
+        <Text style={styles.title}>Hello !</Text>
         <TextInput
           style={styles.input}
           value={this.state.email}
@@ -92,9 +108,14 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: "center",
+    fontSize: 30,
+    color: "white"
+  },
   container: {
     flex: 1,
-    backgroundColor: "purple",
+    backgroundColor: "#0040cc",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -114,13 +135,13 @@ const styles = StyleSheet.create({
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 25
+    borderRadius: 10
   },
   buttonText: {
     color: "white",
     textAlign: "center"
   },
-  welcome: {
+  title: {
     textAlign: "center",
     fontSize: 30,
     color: "white"
