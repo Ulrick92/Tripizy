@@ -7,8 +7,10 @@ import {
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import ListScreen from "../screens/ListScreen/List";
-import SettingsScreen from "../screens/SettingsScreen";
+// import SettingsScreen from "../screens/SettingsScreen";
 import TipsScreen from "../screens/TipsScreen";
+import UserProfileScreen from "../screens/UserProfile";
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
@@ -53,10 +55,10 @@ TipsStack.navigationOptions = {
     />
   )
 };
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
+const UserStack = createStackNavigator({
+  User: UserProfileScreen
 });
-SettingsStack.navigationOptions = {
+UserStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
