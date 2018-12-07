@@ -4,17 +4,14 @@ import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
-
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import ListScreen from "../screens/ListScreen";
+import ListScreen from "../screens/ListScreen/List";
 import SettingsScreen from "../screens/SettingsScreen";
 import TipsScreen from "../screens/TipsScreen";
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
-
 HomeStack.navigationOptions = {
   tabBarLabel: "Travel Books",
   tabBarIcon: ({ focused }) => (
@@ -28,11 +25,9 @@ HomeStack.navigationOptions = {
     />
   )
 };
-
 const LinksStack = createStackNavigator({
   Links: ListScreen
 });
-
 LinksStack.navigationOptions = {
   tabBarLabel: "My Trips",
   tabBarIcon: ({ focused }) => (
@@ -42,11 +37,9 @@ LinksStack.navigationOptions = {
     />
   )
 };
-
 const TipsStack = createStackNavigator({
   Tips: TipsScreen
 });
-
 TipsStack.navigationOptions = {
   tabBarLabel: "Tips",
   tabBarIcon: ({ focused }) => (
@@ -60,11 +53,9 @@ TipsStack.navigationOptions = {
     />
   )
 };
-
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen
 });
-
 SettingsStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
@@ -74,7 +65,6 @@ SettingsStack.navigationOptions = {
     />
   )
 };
-
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,

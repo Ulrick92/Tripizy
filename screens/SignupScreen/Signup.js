@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import {
-  View,
   Text,
-  Image,
   TouchableOpacity,
-  AsyncStorage,
   TextInput,
-  KeyboardAvoidingView,
-  StyleSheet
+  KeyboardAvoidingView
 } from "react-native";
+import styles from "./styles";
 import axios from "axios";
 
 /* import "./style.css"; */
@@ -28,11 +25,11 @@ class SignUp extends Component {
   };
 
   state = {
-    first_name: "Sofiane",
-    last_name: "Baddag",
-    email: "sofiane@lereacteur.io",
-    password: "qwerty",
-    birthday: "02/22/1992"
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    birthday: ""
   };
 
   handleSubmit = event => {
@@ -48,9 +45,9 @@ class SignUp extends Component {
         password
       })
       .then(response => {
-        console.log("kamehameha", response.data);
+        console.log("response", response.data);
         if (response.data && response.data.token) {
-          this.props.navigation.navigate("Main", {
+          this.props.navigation.navigate("Home", {
             _id: response.data._id,
             first_name: response.data.first_name,
             last_name: response.data.last_name,
@@ -136,42 +133,42 @@ class SignUp extends Component {
 
 export default SignUp;
 
-const styles = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "white"
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#0040cc",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  input: {
-    width: 250,
-    height: 60,
-    color: "white",
-    borderColor: "white",
-    borderBottomWidth: 1,
-    paddingLeft: 10,
-    alignItems: "center"
-  },
-  button: {
-    marginTop: 20,
-    backgroundColor: "grey",
-    height: 50,
-    width: 250,
-    justifyContent: "center",
-    borderColor: "white",
-    borderRadius: 10
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center"
-  },
-  option: {
-    color: "white",
-    marginTop: 30
-  }
-});
+// const styles = StyleSheet.create({
+//   title: {
+//     textAlign: "center",
+//     fontSize: 30,
+//     color: "white"
+//   },
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#0040cc",
+//     justifyContent: "center",
+//     alignItems: "center"
+//   },
+//   input: {
+//     width: 250,
+//     height: 60,
+//     color: "white",
+//     borderColor: "white",
+//     borderBottomWidth: 1,
+//     paddingLeft: 10,
+//     alignItems: "center"
+//   },
+//   button: {
+//     marginTop: 20,
+//     backgroundColor: "grey",
+//     height: 50,
+//     width: 250,
+//     justifyContent: "center",
+//     borderColor: "white",
+//     borderRadius: 10
+//   },
+//   buttonText: {
+//     color: "white",
+//     textAlign: "center"
+//   },
+//   option: {
+//     color: "white",
+//     marginTop: 30
+//   }
+// });
