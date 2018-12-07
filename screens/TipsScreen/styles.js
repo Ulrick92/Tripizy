@@ -28,7 +28,7 @@ export default StyleSheet.create({
     textAlign: "center",
     // backgroundColor: "blue",
     borderWidth: 1,
-    borderRadius: "5",
+    borderRadius: 5,
     borderColor: "black"
   },
   inputIOS: {

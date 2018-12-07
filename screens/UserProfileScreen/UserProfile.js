@@ -14,8 +14,10 @@ export default class UserProfile extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.coverContainer}>
+          <View style={styles.profileContainer} />
           {/* <View style={styles.profilePicture} /> */}
         </View>
+        <Text style={{ textAlign: "center", top: 55 }}>Male, 34, Paris</Text>
 
         <View style={styles.buttonLeisure}>
           <Button onPress={this._onPressButton} title="About" />
@@ -26,7 +28,7 @@ export default class UserProfile extends React.Component {
 
         <Text style={styles.photos}>Photos</Text>
         <View style={styles.bioContainer}>
-          <Form type={bioForm} />
+          <Form style={styles.bioNom} type={bioForm} />
         </View>
 
         <TouchableOpacity style={styles.button} onPress={this.onPress}>
