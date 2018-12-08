@@ -19,6 +19,7 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-picker-select": "^5.1.0",
+    "react-native-star-rating": "^1.1.0",
     "react-navigation": "^3.0.5",
     "tcomb-form-native": "^0.6.20"
   },
