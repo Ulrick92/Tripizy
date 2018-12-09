@@ -8,7 +8,7 @@ import TravelBookNavigator from "./TravelBookNavigator";
 export default createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-  Auth: AuthStackNavigator, // Tomoko
   Main: MainTabNavigator, // Laurent
-  TravelBook: TravelBookNavigator // Laurent
+  TravelBook: TravelBookNavigator, // Laurent
+  Auth: AuthStackNavigator // Tomoko
 });

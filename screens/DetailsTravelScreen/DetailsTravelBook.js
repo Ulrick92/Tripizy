@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  ScrollView
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 export default class DetailsTravelBook extends React.Component {
   static navigationOptions = {
@@ -12,61 +20,42 @@ export default class DetailsTravelBook extends React.Component {
 
   render() {
     return (
-      <View style={styles.travelCard}>
-        <ImageBackground
-          source={require("../../assets/images/sri_lanka.png")}
-          style={styles.backgroundImage}
-        >
-          <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
-          <Text style={styles.dateBackgroundImage}>
-            December 2018 - 337 days
-          </Text>
-        </ImageBackground>
+      <ScrollView style={styles.container}>
+        <View style={styles.travelCard}>
+          <ImageBackground
+            source={require("../../assets/images/sri_lanka.png")}
+            style={styles.backgroundImage}
+          >
+            <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
+            <Text style={styles.dateBackgroundImage}>
+              December 2018 - 337 days
+            </Text>
+          </ImageBackground>
 
-        {/* Bottom part Card */}
-        <View style={styles.bottomPart}>
-          <View style={styles.userPart}>
-            <Image
-              style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
-              source={require("../../assets/images/userProfile.png")}
+          {/* Bottom part Card */}
+
+          <MapView
+            style={{ width: "100%", height: 200 }}
+            initialRegion={{
+              latitude: 10.299167,
+              longitude: -85.84,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }}
+            showsUserLocation={true}
+          >
+            <Marker
+              coordinate={{ latitude: 10.298974, longitude: -85.837935 }}
+              title="Casa Bobo"
+              description="Temple of love"
             />
-            <Text>Ulrich L.</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-around"
-              }}
-            >
-              <Image
-                style={{ width: 15, height: 15, borderRadius: 15 / 2 }}
-                source={require("../../assets/images/france.png")}
-              />
-              <Image
-                style={{ width: 15, height: 15, borderRadius: 15 / 2 }}
-                source={require("../../assets/images/backpack.png")}
-              />
-            </View>
-          </View>
-
-          <View style={styles.descriptionPart}>
-            <Text numberOfLines={1}>Countries (2) : Costa Rica, Guatemala</Text>
-            <Text numberOfLines={1} style={{ fontSize: 12 }}>
-              Traveller spirit : Family
-            </Text>
-            <Text numberOfLines={1} style={{ fontSize: 12 }}>
-              4 Traveller(s)
-            </Text>
-            <Text numberOfLines={3} style={{ fontSize: 12 }}>
-              Description : Quam ob rem circumspecta cautela observatum est
-              deinceps et cum edita montium petere coeperint grassatores, loci
-              iniquitati milites cedunt. ubi autem in planitie potuerint
-              reperiri, quod contingit adsidue, nec exsertare lacertos nec
-              crispare permissi tela, quae vehunt bina vel terna, pecudum ritu
-              inertium trucidantur.
-            </Text>
-          </View>
+            <Marker
+              coordinate={{ latitude: 10.594366, longitude: -85.544151 }}
+              title="Liberia Airport"
+            />
+          </MapView>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
