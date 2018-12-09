@@ -1,12 +1,20 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
 
-export default class TravelBookCard extends React.Component {
+export default class DetailsTravelBook extends React.Component {
+  static navigationOptions = {
+    title: "Travel Books",
+    headerStyle: {
+      backgroundColor: "#37449E"
+    },
+    headerTintColor: "#fff"
+  };
+
   render() {
     return (
       <View style={styles.travelCard}>
         <ImageBackground
-          source={require("../assets/images/sri_lanka.png")}
+          source={require("../../assets/images/sri_lanka.png")}
           style={styles.backgroundImage}
         >
           <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
@@ -20,7 +28,7 @@ export default class TravelBookCard extends React.Component {
           <View style={styles.userPart}>
             <Image
               style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
-              source={require("../assets/images/userProfile.png")}
+              source={require("../../assets/images/userProfile.png")}
             />
             <Text>Ulrich L.</Text>
             <View
@@ -31,11 +39,11 @@ export default class TravelBookCard extends React.Component {
             >
               <Image
                 style={{ width: 15, height: 15, borderRadius: 15 / 2 }}
-                source={require("../assets/images/france.png")}
+                source={require("../../assets/images/france.png")}
               />
               <Image
                 style={{ width: 15, height: 15, borderRadius: 15 / 2 }}
-                source={require("../assets/images/backpack.png")}
+                source={require("../../assets/images/backpack.png")}
               />
             </View>
           </View>
