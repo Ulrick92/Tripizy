@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
 
 export default class ListScreen extends React.Component {
@@ -14,7 +14,15 @@ export default class ListScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <TravelBookCard />
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("DetailsTravel");
+            }}
+          >
+            <TravelBookCard />
+          </TouchableOpacity>
+        </View>
         <TravelBookCard />
         <TravelBookCard />
         <TravelBookCard />
