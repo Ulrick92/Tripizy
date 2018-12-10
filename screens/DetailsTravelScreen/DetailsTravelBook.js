@@ -1,91 +1,136 @@
 import React from "react";
+import { createAppContainer, createStackNavigator } from "react-navigation";
 import {
   StyleSheet,
   View,
   Text,
   ImageBackground,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import Icon from "react-native-vector-icons/FontAwesome";
+import StepCard from "../../components/StepCard";
 
 export default class DetailsTravelBook extends React.Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: "Travel Books",
     headerStyle: {
       backgroundColor: "#37449E"
     },
     headerTintColor: "#fff"
-  };
+    /* headerLeft: (
+      <Icon size={15} name={"arrow-left"} onPress={() => navigation.goBack()} />
+    ) */
+  });
+  // static navigationOptions = ({ navigation }) => ({
+  //   title: "Mon Airbnb",
+  //   headerLeft: (
+  //     <Icon
+  //       style={[styles.goBack]}
+  //       size={15}
+  //       name={"arrow-left"}
+  //       onPress={() => {
+  //         navigation.goBack();
+  //       }}
+  //     />
+  //   )
+  // });
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.travelCard}>
-          <ImageBackground
-            source={require("../../assets/images/sri_lanka.png")}
-            style={styles.backgroundImage}
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("DetailsMap");
+            }}
           >
-            <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
-            <Text style={styles.dateBackgroundImage}>
-              December 2018 - 337 days
-            </Text>
-          </ImageBackground>
+            <ImageBackground
+              source={require("../../assets/images/sri_lanka.png")}
+              style={styles.backgroundImage}
+            >
+              <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
+              <Text style={styles.dateBackgroundImage}>
+                December 2018 - 337 days
+              </Text>
+            </ImageBackground>
+          </TouchableOpacity>
 
           {/* Bottom part Card */}
 
-          <MapView
-            style={{
-              width: "100%",
-              height: 200,
-              marginBottom: 10,
-              shadowOpacity: 50
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("DetailsMap");
             }}
-            initialRegion={{
-              latitude: 10.299167,
-              longitude: -85.84,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
-            }}
-            showsUserLocation={true}
           >
-            <Marker
-              coordinate={{ latitude: 10.298974, longitude: -85.837935 }}
-              title="Casa Bobo"
-              description="Temple of love"
-            />
-            <Marker
-              coordinate={{ latitude: 10.594366, longitude: -85.544151 }}
-              title="Liberia Airport"
-            />
-          </MapView>
+            <View style={{ position: "relative" }}>
+              <MapView
+                style={{
+                  width: "100%",
+                  height: 200,
+                  marginBottom: 10,
+                  shadowOpacity: 50
+                  // position: "absolute"
+                }}
+                initialRegion={{
+                  latitude: 10.299167,
+                  longitude: -85.84,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421
+                }}
+                showsUserLocation={true}
+              >
+                <Marker
+                  coordinate={{ latitude: 10.298974, longitude: -85.837935 }}
+                  title="Casa Bobo"
+                  description="Temple of love"
+                />
+                <Marker
+                  coordinate={{ latitude: 10.594366, longitude: -85.544151 }}
+                  title="Liberia Airport"
+                />
+              </MapView>
+            </View>
+          </TouchableOpacity>
+
           <View>
             <Text style={{ marginBottom: 10 }}>
               Description : Post haec Gallus Hierapolim profecturus ut
               expeditioni specie tenus adesset, Antiochensi plebi suppliciter
               obsecranti ut inediae dispelleret metum, quae per multas
               difficilisque causas adfore iam sperabatur, non ut mos est
-              principibus, quorum diffusa potestas localibus subinde medetur
-              aerumnis, disponi quicquam statuit vel ex provinciis alimenta
-              transferri conterminis, sed consularem Syriae Theophilum prope
-              adstantem ultima metuenti multitudini dedit id adsidue replicando
-              quod invito rectore nullus egere poterit victu.
+              principibus.
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
                 backgroundColor: "#37449E",
-                fontSize: 18,
-                color: "white"
+                fontWeight: "bold",
+                fontSize: 17,
+                color: "white",
+                padding: 3
               }}
             >
               Day 1
             </Text>
-            <Text style={{ backgroundColor: "#D9ECF2", color: "#37449E" }}>
+            <Text
+              style={{
+                width: 300,
+                marginLeft: 5,
+
+                backgroundColor: "#D9ECF2",
+                color: "#37449E",
+                padding: 3,
+                fontSize: 15
+              }}
+            >
               Saturday 1st December
             </Text>
           </View>
+          <StepCard />
         </View>
       </ScrollView>
     );
