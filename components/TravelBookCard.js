@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
   userPart: {
     justifyContent: "center",
-    backgroundColor: "#A3BADC",
+    backgroundColor: "#EAE1E2",
     padding: 5,
     shadowOpacity: 50,
     width: 65
