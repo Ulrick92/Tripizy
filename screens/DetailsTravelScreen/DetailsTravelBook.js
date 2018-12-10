@@ -35,7 +35,12 @@ export default class DetailsTravelBook extends React.Component {
           {/* Bottom part Card */}
 
           <MapView
-            style={{ width: "100%", height: 200 }}
+            style={{
+              width: "100%",
+              height: 200,
+              marginBottom: 10,
+              shadowOpacity: 50
+            }}
             initialRegion={{
               latitude: 10.299167,
               longitude: -85.84,
@@ -54,6 +59,33 @@ export default class DetailsTravelBook extends React.Component {
               title="Liberia Airport"
             />
           </MapView>
+          <View>
+            <Text style={{ marginBottom: 10 }}>
+              Description : Post haec Gallus Hierapolim profecturus ut
+              expeditioni specie tenus adesset, Antiochensi plebi suppliciter
+              obsecranti ut inediae dispelleret metum, quae per multas
+              difficilisque causas adfore iam sperabatur, non ut mos est
+              principibus, quorum diffusa potestas localibus subinde medetur
+              aerumnis, disponi quicquam statuit vel ex provinciis alimenta
+              transferri conterminis, sed consularem Syriae Theophilum prope
+              adstantem ultima metuenti multitudini dedit id adsidue replicando
+              quod invito rectore nullus egere poterit victu.
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={{
+                backgroundColor: "#37449E",
+                fontSize: 18,
+                color: "white"
+              }}
+            >
+              Day 1
+            </Text>
+            <Text style={{ backgroundColor: "#D9ECF2", color: "#37449E" }}>
+              Saturday 1st December
+            </Text>
+          </View>
         </View>
       </ScrollView>
     );
@@ -69,7 +101,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     justifyContent: "flex-end",
-    shadowOpacity: 50
+    shadowOpacity: 50,
+    marginBottom: 5
   },
   textBackgroundImage: {
     padding: 5,
