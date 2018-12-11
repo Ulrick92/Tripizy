@@ -55,15 +55,15 @@ export default class MyTripsScreen extends Component {
     }
   }
 
-  componentDidMount() {
-    axios.get("http://localhost:3000/user").then(response => {
-      console.log("response.data", response.data);
-      // on envoie les infos dans le state.travelbooks
-      this.setState({
-        travelbooks: response.data.travelbooks
-      });
-    });
-  }
+  // componentDidMount() {
+  //   axios.get("https://back-tripizy.herokuapp.com/user").then(response => {
+  //     console.log("response.data", response.data);
+  //     // on envoie les infos dans le state.travelbooks
+  //     this.setState({
+  //       travelbooks: response.data.travelbooks
+  //     });
+  //   });
+  // }
 }
 
 const styles = StyleSheet.create({

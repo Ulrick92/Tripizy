@@ -127,8 +127,8 @@ export default class LogIn extends Component {
     // vérifier si l'user est authentifié
     // pour test : farid@lereacteur.io - azerty
     isAuthenticated: false,
-    email: "",
-    password: ""
+    email: "farid@lereacteur.io",
+    password: "azerty"
   };
 
   handleSubmit = () => {
@@ -136,7 +136,7 @@ export default class LogIn extends Component {
 
     axios
 
-      .post("http://localhost:3000/user/log_in", {
+      .post("https://back-tripizy.herokuapp.com/user/log_in", {
         email,
         password
       })
@@ -149,7 +149,7 @@ export default class LogIn extends Component {
               isAuthenticated: true
             });
             const { navigate } = this.props.navigation;
-            navigate("MyTrips", {
+            navigate("List", {
               travelbooks: response.data.travelbooks
             });
 

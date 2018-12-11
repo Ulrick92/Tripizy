@@ -5,6 +5,7 @@ import CountryContainer from "../screens/TravelBookFormScreen/Country";
 import DatesContainer from "../screens/TravelBookFormScreen/Dates";
 import PhotosContainer from "../screens/TravelBookFormScreen/Photos";
 import CategoryContainer from "../screens/TravelBookFormScreen/Category";
+import PreviewContainer from "../screens/TravelBookFormScreen/Preview";
 
 const AppNavigator = createStackNavigator({
   TitleAndDescription: {
@@ -21,6 +22,9 @@ const AppNavigator = createStackNavigator({
   },
   Category: {
     screen: CategoryContainer
+  },
+  Preview: {
+    screen: PreviewContainer
   }
 });
 

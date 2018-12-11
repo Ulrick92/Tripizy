@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  AsyncStorage,
   StyleSheet
 } from "react-native";
 // import styles from "./styles";
@@ -24,8 +25,8 @@ class Dates extends Component {
   };
 
   state = {
-    start_date: "",
-    end_date: ""
+    start_date: "03/02/2019",
+    end_date: "03/16/2019"
   };
 
   redirectToLoginPage = () => {
@@ -35,42 +36,49 @@ class Dates extends Component {
   handleSubmit = event => {
     const { start_date, end_date } = this.state;
 
-    if (!this.props.user.token) {
-      this.redirectToLoginPage();
-    } else {
-      axios
-        .post("http://localhost:3000/travelbook/publish", {
-          start_date,
-          end_date
-        })
-        .then(response => {
-          console.log("response", response.data);
-          this.props.navigation.navigate(
-            "Photos",
-            {
-              _id: response.data._id,
-              start_date: response.data.start_date,
-              end_date: response.data.end_date
-            },
+    AsyncStorage.getItem("token", (err, token) => {
+      console.log("result", token);
 
-            {
-              headers: {
-                authorization: `Bearer ${this.props.user.token}`
-              }
-            }
-          );
-        })
-        .catch(error => {
-          console.log(error);
+      if (!token) {
+        this.redirectToLoginPage();
+      } else {
+        // axios
+        //   .post("http://localhost:3000/travelbook/publish", {
+        //     start_date,
+        //     end_date
+        //   })
+        //   .then(response => {
+        //     console.log("response", response.data);
+        this.props.navigation.navigate("Category", {
+          title: this.props.navigation.state.params.title,
+          country: this.props.navigation.state.params.country,
+          city: this.props.navigation.state.params.city,
+          start_date: this.state.start_date,
+          end_date: this.state.end_date
         });
-      event.preventDefault();
-    }
+        console.log("title", this.props.navigation.state.params.title);
+        console.log("country", this.props.navigation.state.params.country);
+        console.log("city", this.props.navigation.state.params.city);
+        console.log(this.state.start_date);
+        console.log(this.state.end_date);
+        //       {
+        //         headers: {
+        //           authorization: `Bearer ${this.props.user.token}`
+        //         }
+        //       }
+        //     );
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+      }
+    });
   };
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.title}>CREATE AN ACCOUNT</Text>
+        <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
         <Text style={styles.hint}>What are the dates ?</Text>
         <Text style={styles.indicator}>From : </Text>
         <TextInput
