@@ -1,51 +1,62 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: "blue",
-    paddingBottom: 400
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: "lightgrey"
+  //   // paddingBottom: 400
+  // },
   coverContainer: {
     flex: 0.8,
+    height: 200,
     backgroundColor: "red"
   },
-  profileContainer: {
-    flex: 0.7,
+  // profileContainer: {
+  //   backgroundColor: "blue"
+  // },
+  donneeUser: {
+    backgroundColor: "lightblue",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 50,
-    width: 100,
-    left: 135,
-    top: 90,
-    // height: 500,
+    top: 200
 
-    backgroundColor: "blue"
+    // top: 60
   },
-  button: {
-    borderRadius: 20,
-    alignItems: "center",
-    // backgroundColor: "blue",
-    color: "white",
-    marginRight: 100,
-    marginLeft: 100,
-    paddingTop: 0
-  },
-  buttonText: {
-    color: "white"
-  },
+  // button: {
+  //   borderRadius: 20,
+  //   alignItems: "center",
+  //   // backgroundColor: "blue",
+  //   color: "white",
+  //   marginRight: 100,
+  //   marginLeft: 100,
+  //   paddingTop: 0
+  // },
+  // buttonText: {
+  //   color: "white"
+  // },
   buttonLeisure: {
-    top: 90,
+    backgroundColor: "lightblue",
+    top: 290,
     flexDirection: "row",
     justifyContent: "space-between"
   },
   photos: {
-    top: 180
+    position: "relative",
+    top: 280
   },
   bioContainer: {
-    top: 300
+    position: "relative",
+    top: 420
   },
-  buttonBIO: {
-    top: 300
+  button: {
+    backgroundColor: "lightblue",
+    alignItems: "center",
+    position: "relative",
+    top: 430,
+    left: 90,
+    padding: 7,
+    width: 200,
+    borderRadius: 10
   }
 });
