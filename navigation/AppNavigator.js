@@ -13,5 +13,5 @@ export default createSwitchNavigator({
   Auth: AuthStackNavigator, // Tomoko
   Main: MainTabNavigator, // Laurent
   TravelBook: TravelBookNavigator, // Laurent
-  Form: FormStackNavigator
+  Form: FormStackNavigator //Tomoko
 });

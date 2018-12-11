@@ -4,7 +4,8 @@ export default StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: "white"
+    color: "white",
+    fontWeight: "200"
   },
   container: {
     flex: 1,
@@ -23,12 +24,12 @@ export default StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: "grey",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 10
+    borderRadius: 5
   },
   buttonText: {
     color: "white",

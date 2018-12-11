@@ -12,21 +12,21 @@ import axios from "axios";
 
 export default class TitleAndDescription extends Component {
   static navigationOptions = {
-    title: "Title and Description",
+    title: "Create a Travel Book",
     headerTintColor: "white",
     headerStyle: {
       backgroundColor: "#002982"
     },
     headerTitleStyle: {
-      fontSize: 24,
+      fontSize: 20,
       color: "white",
       fontWeight: "200"
     }
   };
 
   state = {
-    title: "Honeymoon in Sri Lanka",
-    description: "Two weeks to spend on the east coast"
+    title: "Thanksgiving in Boston",
+    description: "Stay with Heidi and kids"
   };
 
   redirectToLoginPage = () => {
@@ -42,31 +42,12 @@ export default class TitleAndDescription extends Component {
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        // axios
-        //   .post(
-        //     "http://localhost:3000/travelbook/publish",
-        //     {
-        //       title,
-        //       description
-        //     },
-        //     {
-        //       headers: {
-        //         authorization: `Bearer ${token}`
-        //       }
-        //     }
-        //   )
-        //   .then(response => {
         this.props.navigation.navigate("Country", {
           title: this.state.title,
           description: this.state.description
         });
         console.log(this.state.title);
         console.log(this.state.description);
-        // console.log("response", response.data);
-        // })
-        // .catch(error => {
-        //   console.log(error);
-        // });
       }
     });
   };
@@ -74,7 +55,7 @@ export default class TitleAndDescription extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
+        <Text style={styles.title}>Title and Description</Text>
         <Text style={styles.hint}>What is the title of your travel book ?</Text>
         <TextInput
           style={styles.input}
@@ -103,12 +84,16 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: "white"
+    color: "white",
+    marginBottom: 30,
+    fontWeight: "200"
   },
   hint: {
     textAlign: "center",
-    fontSize: 20,
-    color: "white"
+    fontSize: 18,
+    color: "white",
+    marginBottom: 10,
+    fontWeight: "200"
   },
   container: {
     flex: 1,
@@ -127,12 +112,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: "grey",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 10
+    borderRadius: 5
   },
   buttonText: {
     color: "white",

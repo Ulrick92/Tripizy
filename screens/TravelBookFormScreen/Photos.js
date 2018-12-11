@@ -2,42 +2,36 @@ import React, { Component } from "react";
 import {
   Text,
   TouchableOpacity,
-  TextInput,
+  Button,
   KeyboardAvoidingView,
   AsyncStorage,
+  Image,
   StyleSheet
 } from "react-native";
+import { ImagePicker, Permissions } from "expo";
 // import styles from "./styles";
-import axios from "axios";
 
 class Photos extends Component {
   static navigationOptions = {
-    title: "Pictures",
+    title: "Create a Travel Book",
     headerTintColor: "white",
     headerStyle: {
       backgroundColor: "#002982"
     },
     headerTitleStyle: {
-      fontSize: 24,
+      fontSize: 20,
       color: "white",
       fontWeight: "200"
     }
   };
 
   state = {
-    photos: []
+    photos: null // image en base64
   };
 
   redirectToLoginPage = () => {
     this.props.history.push("/log_in");
   };
-
-  // handleFiles = photos => {
-  //   const newPhotos = [...this.state.photos, ...photos.base64];
-  //   this.setState({
-  //     photos: newPhotos
-  //   });
-  // };
 
   handleSubmit = event => {
     const { photos } = this.state;
@@ -48,72 +42,57 @@ class Photos extends Component {
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        // axios
-        //   .post(
-        //     "http://localhost:3000/travelbook/publish",
-        //     {
-        //       photos
-        //     },
-        //     {
-        //       headers: {
-        //         authorization: `Bearer ${this.props.user.token}`
-        //       }
-        //     }
-        //   )
-        //   .then(response => {
-        //     console.log("response", response.data);
-
         this.props.navigation.navigate("Category", {
+          title: this.props.navigation.state.params.title,
+          country: this.props.navigation.state.params.country,
+          city: this.props.navigation.state.params.city,
+          start_date: this.props.navigation.state.params.start_date,
+          end_date: this.props.navigation.state.params.end_date,
           photos: this.state.photos
         });
         console.log(this.state.photos);
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
       }
     });
   };
 
-  render() {
-    const photosArray = [];
-    for (let i = 0; i < this.state.photos.length; i++) {
-      photosArray.push(
-        <Text>*</Text>
-        // <Image
-        //   key={i}
-        //   onClick={() => {
-        //     // En cliquant sur l'image, le fichier sera supprimé
-        //     const newPhotos = [...this.state.photos];
-        //     newPhotos.splice(i, 1);
-        //     this.setState({ photos: newPhotos });
-        //   }}
-        //   src={this.state.photos[i]}
-        //   alt="Travel"
-        // />
-      );
+  askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // you would probably do something to verify that permissions
+    // are actually granted, but I'm skipping that for brevity
+  };
 
-      return (
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <Text style={styles.title}>CREATE AN ACCOUNT</Text>
-          <Text style={styles.hint}>Do you want to add a cover picture ?</Text>
-          <Text>Sélection des dernières photos</Text>
-          <TouchableOpacity style={styles.clickableImage}>
-            {/* <ReactFileReader
-              style={styles.picture}
-              fileTypes={[".png", ".jpg"]}
-              base64={true}
-              multipleFiles={true} // `false si une seule image`
-              handleFiles={this.handleFiles}
-            /> */}
-          </TouchableOpacity>
-          <Text>Click to import from your device</Text>
-          <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-            <Text style={styles.buttonText}>NEXT</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      );
-    }
+  useLibraryHandler = async () => {
+    await this.askPermissionsAsync();
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true
+    });
+    this.setState({ photos: result.uri });
+  };
+
+  render() {
+    return (
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
+        <Text style={styles.hint}>Do you want to add a cover picture ?</Text>
+
+        <Button
+          title="Pick an image from camera roll"
+          onPress={this.useLibraryHandler}
+        />
+        {this.state.photos && (
+          <Image
+            source={{ uri: this.state.photos }}
+            style={{ width: 200, height: 200 }}
+          />
+        )}
+
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+          <Text style={styles.buttonText}>NEXT</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    );
   }
 }
 
@@ -123,12 +102,16 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: "white"
+    color: "white",
+    marginBottom: 30,
+    fontWeight: "200"
   },
   hint: {
     textAlign: "center",
-    fontSize: 20,
-    color: "white"
+    fontSize: 18,
+    color: "white",
+    marginBottom: 10,
+    fontWeight: "200"
   },
   container: {
     flex: 1,
@@ -147,12 +130,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: "grey",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 10
+    borderRadius: 5
   },
   buttonText: {
     color: "white",
