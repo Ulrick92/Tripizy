@@ -132,6 +132,15 @@ export default class DetailsTravelBook extends React.Component {
           </View>
           <StepCard />
         </View>
+        <TouchableOpacity style={styles.button}>
+          <Text
+            style={styles.buttonText}
+            title="Go to Create a Travel Book"
+            onPress={() => this.props.navigation.navigate("StepForm")}
+          >
+            +
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -185,5 +194,22 @@ const styles = StyleSheet.create({
     // backgroundColor: "#A3BADC",
     paddingLeft: 10,
     width: 291
+  },
+  button: {
+    alignSelf: "flex-end",
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+    backgroundColor: "#fff",
+    borderRadius: 100,
+    position: "absolute",
+    right: 10
+
+    // marginBottom: 150
+  },
+  buttonText: {
+    fontSize: 30
   }
 });

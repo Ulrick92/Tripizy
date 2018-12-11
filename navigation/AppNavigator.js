@@ -5,6 +5,7 @@ import AuthStackNavigator from "./AuthStackNavigator";
 import MainTabNavigator from "./MainTabNavigator";
 import TravelBookNavigator from "./TravelBookNavigator";
 import FormStackNavigator from "./FormStackNavigator";
+import StepFormStackNavigator from "./StepFormStackNavigator";
 
 export default createSwitchNavigator({
   // You could add another route here for authentication.
@@ -13,5 +14,6 @@ export default createSwitchNavigator({
   Auth: AuthStackNavigator, // Tomoko
   Main: MainTabNavigator, // Laurent
   TravelBook: TravelBookNavigator, // Laurent
-  Form: FormStackNavigator //Tomoko
+  Form: FormStackNavigator, // Tomoko
+  Step: StepFormStackNavigator // Laurent
 });
