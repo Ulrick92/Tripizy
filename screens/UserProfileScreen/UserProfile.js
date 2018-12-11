@@ -27,13 +27,16 @@ export default class UserProfile extends React.Component {
       // } else {
       console.log("par ici");
       axios
-        .get("http://localhost:3000/user/5c0e9483ab7c2f1876558be2", {
-          headers: {
-            authorization: `Bearer ${token}`
+        .get(
+          "https://back-tripizy.herokuapp.com/user/5c0ea12a1586f90016bd16d9",
+          {
+            headers: {
+              authorization: `Bearer ${token}`
+            }
           }
-        })
+        )
         .then(res => {
-          console.log("6ix9ine", res.data.first_name);
+          console.log("6ix9ine", res.data);
           console.log("6ix9ine", res.data.last_name);
           this.setState({
             first_name: res.data.first_name,
@@ -60,7 +63,7 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "",
+      first_name: "ateyaba",
       last_name: ""
     };
   }

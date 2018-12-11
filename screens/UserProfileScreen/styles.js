@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   // container: {
   //   flex: 1,
-  //   // backgroundColor: "blue",
-  //   paddingBottom: 400
+  //   backgroundColor: "lightgrey"
+  //   // paddingBottom: 400
   // },
   coverContainer: {
     flex: 0.8,
@@ -15,7 +15,7 @@ export default StyleSheet.create({
   //   backgroundColor: "blue"
   // },
   donneeUser: {
-    // backgroundColor: "lightblue",
+    backgroundColor: "lightblue",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
