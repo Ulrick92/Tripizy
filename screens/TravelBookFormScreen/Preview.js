@@ -53,6 +53,23 @@ export default class Preview extends Component {
       </KeyboardAvoidingView>
     );
   }
+
+  //   componentDidMount() {
+  //     // componentWillMount() {
+  //     axios
+  //       .get(
+  //         // on appelle axios avec l'id récupérer via "navigate"
+  //         "https://back-tripizy.herokuapp.com/travelbook/publish/" +
+  //           this.props.navigation.state.params.
+  //       )
+  //       .then(response => {
+  //         // on envoie les infos dans le state.room
+  //         console.log("response.data", response.data);
+  //         this.setState({
+  //           room: response.data
+  //         });
+  //       });
+  //   }
 }
 
 const styles = StyleSheet.create({

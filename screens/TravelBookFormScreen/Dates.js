@@ -12,21 +12,21 @@ import axios from "axios";
 
 class Dates extends Component {
   static navigationOptions = {
-    title: "Dates",
+    title: "Create a Travel Book",
     headerTintColor: "white",
     headerStyle: {
       backgroundColor: "#002982"
     },
     headerTitleStyle: {
-      fontSize: 24,
+      fontSize: 20,
       color: "white",
       fontWeight: "200"
     }
   };
 
   state = {
-    start_date: "03/02/2019",
-    end_date: "03/16/2019"
+    start_date: "11/22/2019",
+    end_date: "11/25/2019"
   };
 
   redirectToLoginPage = () => {
@@ -42,14 +42,7 @@ class Dates extends Component {
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        // axios
-        //   .post("http://localhost:3000/travelbook/publish", {
-        //     start_date,
-        //     end_date
-        //   })
-        //   .then(response => {
-        //     console.log("response", response.data);
-        this.props.navigation.navigate("Category", {
+        this.props.navigation.navigate("Photos", {
           title: this.props.navigation.state.params.title,
           country: this.props.navigation.state.params.country,
           city: this.props.navigation.state.params.city,
@@ -61,16 +54,6 @@ class Dates extends Component {
         console.log("city", this.props.navigation.state.params.city);
         console.log(this.state.start_date);
         console.log(this.state.end_date);
-        //       {
-        //         headers: {
-        //           authorization: `Bearer ${this.props.user.token}`
-        //         }
-        //       }
-        //     );
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
       }
     });
   };
@@ -80,24 +63,24 @@ class Dates extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
         <Text style={styles.hint}>What are the dates ?</Text>
-        <Text style={styles.indicator}>From : </Text>
+        <Text style={styles.indicator} />
         <TextInput
           style={styles.input}
           autoCapitalize="none"
           value={this.state.start_date}
-          placeholder={"ex : MM/DD/YYYY"}
+          placeholder={"From : MM/DD/YYYY"}
           onChangeText={value => {
             this.setState({
               start_date: value
             });
           }}
         />
-        <Text style={styles.indicator}>To : </Text>
+        <Text style={styles.indicator}> </Text>
         <TextInput
           style={styles.input}
           autoCapitalize="none"
           value={this.state.end_date}
-          placeholder={"ex : MM/DD/YYYY"}
+          placeholder={"To : MM/DD/YYYY"}
           onChangeText={value => {
             this.setState({
               start_date: value
@@ -119,18 +102,27 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: "white"
+    color: "white",
+    marginBottom: 30,
+    fontWeight: "200"
   },
   hint: {
     textAlign: "center",
-    fontSize: 20,
-    color: "white"
+    fontSize: 18,
+    color: "white",
+    marginBottom: 10,
+    fontWeight: "200"
   },
   container: {
     flex: 1,
     backgroundColor: "#0040cc",
     justifyContent: "center",
     alignItems: "center"
+  },
+
+  indicator: {
+    textAlign: "left",
+    color: "white"
   },
   input: {
     width: 250,
@@ -143,12 +135,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: "grey",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",
     borderColor: "white",
-    borderRadius: 10
+    borderRadius: 5
   },
   buttonText: {
     color: "white",

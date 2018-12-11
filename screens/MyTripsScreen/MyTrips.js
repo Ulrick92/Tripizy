@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -29,10 +29,13 @@ export default class MyTripsScreen extends Component {
     // on vérifie que le this.state existe
     if (this.state.travelbooks !== undefined) {
       return (
-        <ScrollView style={styles.container}>
-          {/* mettre la card à cet endroit */}
-          <TravelBookCard />
-
+        <Fragment>
+          <ScrollView>
+            <View style={styles.container}>
+              {/* mettre la card à cet endroit */}
+              <TravelBookCard />
+            </View>
+          </ScrollView>
           <TouchableOpacity style={styles.button}>
             <Text
               style={styles.buttonText}
@@ -44,7 +47,7 @@ export default class MyTripsScreen extends Component {
               +
             </Text>
           </TouchableOpacity>
-        </ScrollView>
+        </Fragment>
       );
     } else {
       return (
@@ -68,7 +71,13 @@ export default class MyTripsScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+
+    flexDirection: "row",
+    position: "absolute",
+    justifyContent: "flex-end"
   },
   loading: {
     fontSize: 30,
@@ -77,16 +86,18 @@ const styles = StyleSheet.create({
   },
   button: {
     borderColor: "rgba(0,0,0,0.2)",
-    alignItems: "center",
-    justifyContent: "center",
     width: 50,
     height: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "#0040cc",
     borderRadius: 100,
-    position: "absolute"
-    // marginBottom: 150
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 10,
+    right: 10
   },
   buttonText: {
+    color: "white",
     fontSize: 30
   }
 });
