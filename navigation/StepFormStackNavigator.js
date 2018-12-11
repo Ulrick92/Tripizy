@@ -1,23 +1,19 @@
 import { createAppContainer, createStackNavigator } from "react-navigation";
 
-import ListScreen from "../screens/ListScreen/List";
 import DetailsTravelScreen from "../screens/DetailsTravelScreen/DetailsTravelBook";
-import DetailsMapScreen from "../screens/DetailsTravelScreen/DetailsMap";
 import StepFormScreen from "../screens/StepFormScreen/StepForm";
+import HotelFormScreen from "../screens/StepFormScreen/HotelForm";
 
-const TravelBookNavigator = createStackNavigator({
-  List: {
-    screen: ListScreen
-  },
+const AppNavigator = createStackNavigator({
   DetailsTravel: {
     screen: DetailsTravelScreen
   },
   StepForm: {
     screen: StepFormScreen
   },
-  DetailsMap: {
-    screen: DetailsMapScreen
+  HotelForm: {
+    screen: HotelFormScreen
   }
 });
 
-export default createAppContainer(TravelBookNavigator);
+export default createAppContainer(AppNavigator);

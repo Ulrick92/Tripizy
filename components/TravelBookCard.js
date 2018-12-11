@@ -10,6 +10,26 @@ export default class TravelBookCard extends React.Component {
           source={require("../assets/images/sri_lanka.png")}
           style={styles.backgroundImage}
         >
+          <ImageBackground
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40 / 2,
+              position: "absolute",
+              bottom: 155,
+              left: 10
+            }}
+            source={require("../assets/images/userProfile.png")}
+          >
+            <Image
+              style={{
+                width: 13,
+                height: 13,
+                borderRadius: 13 / 2
+              }}
+              source={require("../assets/images/france.png")}
+            />
+          </ImageBackground>
           <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
           <Text style={styles.dateBackgroundImage}>
             December 2018 - 337 days
@@ -17,7 +37,7 @@ export default class TravelBookCard extends React.Component {
         </ImageBackground>
 
         {/* Bottom part Card */}
-        <View style={styles.bottomPart}>
+        {/* <View style={styles.bottomPart}>
           <View style={styles.userPart}>
             <Image
               style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
@@ -116,9 +136,9 @@ export default class TravelBookCard extends React.Component {
               coordinate={{ latitude: 10.594366, longitude: -85.544151 }}
               title="Liberia Airport"
             />
-          </MapView>
+          </MapView> */}
 
-          {/* <View style={styles.descriptionPart}>
+        {/* <View style={styles.descriptionPart}>
             <Text numberOfLines={1}>Countries (2) : Costa Rica, Guatemala</Text>
             <Text numberOfLines={1} style={{ fontSize: 12 }}>
             Traveller spirit : Family
@@ -135,7 +155,7 @@ export default class TravelBookCard extends React.Component {
             inertium trucidantur.
             </Text>
           </View> */}
-        </View>
+        {/* </View> */}
       </View>
     );
   }
@@ -168,7 +188,7 @@ const styles = StyleSheet.create({
     left: 10,
     color: "white",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    fontSize: 10
+    fontSize: 12
   },
 
   bottomPart: {
