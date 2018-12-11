@@ -37,7 +37,7 @@ class SignUp extends Component {
     const parsedDate = Date.parse(birthday);
 
     axios
-      .post("http://localhost:3000/user/sign_up", {
+      .post("https://back-tripizy.herokuapp.com/user/sign_up", {
         first_name,
         last_name,
         birthday: parsedDate,

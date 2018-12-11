@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  AsyncStorage,
   StyleSheet
 } from "react-native";
 // import styles from "./styles";
@@ -31,61 +32,65 @@ class Photos extends Component {
     this.props.history.push("/log_in");
   };
 
-  handleFiles = photos => {
-    const newPhotos = [...this.state.photos, ...photos.base64];
-    this.setState({
-      photos: newPhotos
-    });
-  };
+  // handleFiles = photos => {
+  //   const newPhotos = [...this.state.photos, ...photos.base64];
+  //   this.setState({
+  //     photos: newPhotos
+  //   });
+  // };
 
   handleSubmit = event => {
     const { photos } = this.state;
 
-    if (!this.props.user.token) {
-      this.redirectToLoginPage();
-    } else {
-      axios
-        .post(
-          "http://localhost:3000/travelbook/publish",
-          {
-            photos
-          },
-          {
-            headers: {
-              authorization: `Bearer ${this.props.user.token}`
-            }
-          }
-        )
-        .then(response => {
-          console.log("response", response.data);
+    AsyncStorage.getItem("token", (err, token) => {
+      console.log("result", token);
 
-          this.props.navigation.navigate("Category", {
-            _id: response.data._id,
-            photos: response.data.photos
-          });
-        })
-        .catch(error => {
-          console.log(error);
+      if (!token) {
+        this.redirectToLoginPage();
+      } else {
+        // axios
+        //   .post(
+        //     "http://localhost:3000/travelbook/publish",
+        //     {
+        //       photos
+        //     },
+        //     {
+        //       headers: {
+        //         authorization: `Bearer ${this.props.user.token}`
+        //       }
+        //     }
+        //   )
+        //   .then(response => {
+        //     console.log("response", response.data);
+
+        this.props.navigation.navigate("Category", {
+          photos: this.state.photos
         });
-      event.preventDefault();
-    }
+        console.log(this.state.photos);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+      }
+    });
   };
 
   render() {
     const photosArray = [];
     for (let i = 0; i < this.state.photos.length; i++) {
       photosArray.push(
-        <Image
-          key={i}
-          onClick={() => {
-            // En cliquant sur l'image, le fichier sera supprimé
-            const newPhotos = [...this.state.photos];
-            newPhotos.splice(i, 1);
-            this.setState({ photos: newPhotos });
-          }}
-          src={this.state.photos[i]}
-          alt="Travel"
-        />
+        <Text>*</Text>
+        // <Image
+        //   key={i}
+        //   onClick={() => {
+        //     // En cliquant sur l'image, le fichier sera supprimé
+        //     const newPhotos = [...this.state.photos];
+        //     newPhotos.splice(i, 1);
+        //     this.setState({ photos: newPhotos });
+        //   }}
+        //   src={this.state.photos[i]}
+        //   alt="Travel"
+        // />
       );
 
       return (
@@ -94,13 +99,13 @@ class Photos extends Component {
           <Text style={styles.hint}>Do you want to add a cover picture ?</Text>
           <Text>Sélection des dernières photos</Text>
           <TouchableOpacity style={styles.clickableImage}>
-            <ReactFileReader
+            {/* <ReactFileReader
               style={styles.picture}
               fileTypes={[".png", ".jpg"]}
               base64={true}
               multipleFiles={true} // `false si une seule image`
               handleFiles={this.handleFiles}
-            />
+            /> */}
           </TouchableOpacity>
           <Text>Click to import from your device</Text>
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>

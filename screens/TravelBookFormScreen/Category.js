@@ -4,12 +4,13 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  AsyncStorage,
   StyleSheet
 } from "react-native";
 // import styles from "./styles";
 import axios from "axios";
 
-class Category extends Component {
+export default class Category extends Component {
   static navigationOptions = {
     title: "Travelling Style",
     headerTintColor: "white",
@@ -24,7 +25,7 @@ class Category extends Component {
   };
 
   state = {
-    category: ""
+    category: "Couple"
   };
 
   redirectToLoginPage = () => {
@@ -32,54 +33,80 @@ class Category extends Component {
   };
 
   handleSubmit = event => {
-    const { category } = this.state;
+    const { category, title, country, city, start_date, end_date } = this.state;
+    // const {
 
-    if (!this.props.user.token) {
-      this.redirectToLoginPage();
-    } else {
-      axios
-        .post("http://localhost:3000/travelbook/publish", {
-          category
-        })
-        .then(response => {
-          console.log("response", response.data);
-          if (response.data && response.data.user_id) {
+    // }
+
+    AsyncStorage.getItem("token", (err, token) => {
+      console.log("result", token);
+      console.log("title", this.props.navigation.state.params.title);
+      console.log("country", this.props.navigation.state.params.country);
+      console.log("city", this.props.navigation.state.params.city);
+      console.log("start_date", this.props.navigation.state.params.start_date);
+      console.log("end_date", this.props.navigation.state.params.end_date);
+
+      if (!token) {
+        this.redirectToLoginPage();
+      } else {
+        axios
+          .post("https://back-tripizy.herokuapp.com/travelbook/publish", {
+            title: this.props.navigation.state.params.title,
+            country: this.props.navigation.state.params.country,
+            city: this.props.navigation.state.params.city,
+            start_date: this.props.navigation.state.params.Date.parse(
+              start_date
+            ),
+            end_date: this.props.navigation.state.params.Date.parse(end_date),
+            // title,
+            // country,
+            // city,
+            // start_date: Date.parse(start_date),
+            // end_date: Date.parse(end_date),
+            category
+          })
+          .then(response => {
+            console.log("response", response.data);
             this.props.navigation.navigate(
               "Preview",
               {
-                _id: response.data._id,
                 title: response.data.title,
                 description: response.data.description,
                 country: response.data.country,
+                city: response.data.city,
                 start_date: response.data.start_date,
                 end_date: response.data.end_date,
-                photos: response.data.photos,
+                // photos: response.data.photos,
                 category: response.data.category
               },
               {
                 headers: {
-                  authorization: `Bearer ${this.props.user.token}`
+                  authorization: `Bearer ${token}`
                 }
               }
             );
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      event.preventDefault();
-    }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        console.log("this.state", this.state);
+      }
+    });
   };
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.title}>CREATE AN ACCOUNT</Text>
+        <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
         <Text style={styles.hint}>What is your travelling style ?</Text>
-        <Image
-          style={styles.icon}
-          //   source={{ uri: this.state.user.travelbooks[i].photos[0] }}
-
+        {/* <Image
+          style={styles.icon} */}
+        {/* //   source={{ uri: this.state.user.travelbooks[i].photos[0] }} */}
+        <TextInput
+          style={styles.input}
+          autoCapitalize="none"
+          value={this.state.category}
+          placeholder={"ex : Select categories"}
           onChangeText={value => {
             this.setState({
               category: value
@@ -94,8 +121,6 @@ class Category extends Component {
     );
   }
 }
-
-export default Category;
 
 const styles = StyleSheet.create({
   title: {
@@ -112,6 +137,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0040cc",
     justifyContent: "center",
+    alignItems: "center"
+  },
+  input: {
+    width: 250,
+    height: 60,
+    color: "white",
+    borderColor: "white",
+    borderBottomWidth: 1,
+    paddingLeft: 10,
     alignItems: "center"
   },
   button: {
