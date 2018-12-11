@@ -127,6 +127,7 @@ export default class LogIn extends Component {
     // vérifier si l'user est authentifié
     // pour test : farid@lereacteur.io - azerty
     isAuthenticated: false,
+
     email: "farid@lereacteur.io",
     password: "azerty"
   };
