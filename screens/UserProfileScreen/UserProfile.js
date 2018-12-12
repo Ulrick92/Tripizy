@@ -10,6 +10,7 @@ import {
 import t from "tcomb-form-native";
 import styles from "./styles";
 import axios from "axios";
+import moment from "moment";
 
 const Form = t.form.Form;
 
@@ -18,6 +19,13 @@ const bioForm = t.struct({
 });
 
 export default class UserProfile extends React.Component {
+  static navigationOptions = {
+    title: "Profile",
+    headerStyle: {
+      backgroundColor: "#37449E"
+    },
+    headerTintColor: "#fff"
+  };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -36,22 +44,28 @@ export default class UserProfile extends React.Component {
           }
         )
         .then(res => {
-          console.log("6ix9ine", res.data);
-          console.log("6ix9ine", res.data.last_name);
-          this.setState({
-            first_name: res.data.first_name,
-            last_name: res.data.last_name
-          });
-          // const userComponents = [];
-          // for (let i = 0; i < this.state.data.length; i++) {
-          //   userComponents.push(
-          //     this.state.data.first_name,
-          //     this.state.data.last_name
-          //   );
-
-          // this.setState({ data: res.data });
-          // // this.setState({first})
-          // console.log("pharon est là", res.data);
+          console.log("6ix9ine", res.data); // pour voir si on recupère la data de la base
+          console.log("6ix9ine", res.data.birthday);
+          this.setState(
+            {
+              first_name: res.data.first_name,
+              last_name: res.data.last_name,
+              birthday: res.data.birthday
+            },
+            () => {
+              // const birthDate = new Date(1991, 0, 31); // 31 Janvier 1991
+              const today = new Date();
+              const userBirthday = this.state.birthday;
+              console.log("this.state.birthday", this.state.birthday);
+              // console.log("bhd", bhd);
+              const age = moment(today).diff(userBirthday, "years"); // 27
+              console.log("âge de clement est : " + age + " ans");
+              this.setState({
+                userAge: age
+              });
+              this.state.userAge = age;
+            }
+          );
         })
         .catch(err => {
           console.log("salah salah salah", err);
@@ -63,8 +77,9 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "ateyaba",
-      last_name: ""
+      first_name: "",
+      last_name: "",
+      birthday: Number
     };
   }
 
@@ -84,7 +99,8 @@ export default class UserProfile extends React.Component {
         </View>
         <View style={styles.donneeUser}>
           <Text>{this.state.first_name}</Text>
-          <Text>{this.state.last_name}</Text>
+          <Text>{" " + this.state.last_name}</Text>
+          <Text>{", " + this.state.userAge + " ans"}</Text>
         </View>
 
         <Text style={styles.photos}>Photos</Text>

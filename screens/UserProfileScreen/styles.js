@@ -15,13 +15,11 @@ export default StyleSheet.create({
   //   backgroundColor: "blue"
   // },
   donneeUser: {
-    backgroundColor: "lightblue",
+    // backgroundColor: "#37449E",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     top: 200
-
-    // top: 60
   },
   // button: {
   //   borderRadius: 20,
@@ -36,7 +34,8 @@ export default StyleSheet.create({
   //   color: "white"
   // },
   buttonLeisure: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#37449E",
+
     top: 290,
     flexDirection: "row",
     justifyContent: "space-between"
@@ -50,7 +49,8 @@ export default StyleSheet.create({
     top: 420
   },
   button: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#37449E",
+
     alignItems: "center",
     position: "relative",
     top: 430,
@@ -58,5 +58,8 @@ export default StyleSheet.create({
     padding: 7,
     width: 200,
     borderRadius: 10
+  },
+  buttonBIO: {
+    color: "white"
   }
 });
