@@ -13,6 +13,7 @@ import TravelBookCard from "../../components/TravelBookCard";
 
 export default class MyTripsScreen extends Component {
   static navigationOptions = {
+    header: null,
     title: "Travel Books",
     headerStyle: {
       backgroundColor: "#37449E"

@@ -18,6 +18,10 @@ export default class ListTestScreen extends React.Component {
   //       });
   //   }
 
+  static navigationOptions = {
+    header: null
+  };
+
   state = {
     isAuthenticated: false,
     travelbook: []

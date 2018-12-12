@@ -24,7 +24,6 @@ ListStack.navigationOptions = {
           ? `ios-information-circle${focused ? "" : "-outline"}`
           : "md-information-circle"
       }
-      
     />
   )
 };

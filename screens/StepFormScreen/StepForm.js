@@ -41,43 +41,12 @@ export default class HotelForm extends Component {
         this.redirectToLoginPage();
       } else {
         this.props.navigation.navigate("HotelForm", {
-          //"Category sera la page qui s'affiche après avoir appuyé sur next
           category: this.state.category
         });
         console.log(this.state.category);
       }
     });
   };
-
-  //   handleSubmit = event => {
-  //     const { category } = this.state;
-
-  //     AsyncStorage.getItem("token", (err, token) => {
-  //       console.log("result", token);
-
-  //       if (!token) {
-  //         this.redirectToLoginPage();
-  //       } else {
-  //         axios
-  //           .post("https://back-tripizy.herokuapp.com/tips/publish", {
-  //             category
-  //           })
-  //           .then(response => {
-  //             console.log("response", response.data);
-  //             if (response.data && response.data.token) {
-  //               this.props.navigation.navigate("List", {
-  //                 _id: response.data._id,
-  //                 category: response.data.category
-  //               });
-  //             }
-  //           })
-  //           .catch(error => {
-  //             console.log(error);
-  //           });
-  //         event.preventDefault();
-  //       }
-  //     });
-  //   };
 
   render() {
     return (
@@ -99,35 +68,49 @@ export default class HotelForm extends Component {
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Bar/Club</Text>
           </View>
         </View>
-        {/* <View style={styles.categorylabel}>
-          <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Hotel</Text>
-          <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Restaurant</Text>
-          <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Drinks</Text>
-        </View> */}
-        <View style={styles.category}>
-          <FontAwesomeIcon name="road" size={50} color="black" />
-          <MaterialIconsIcon name="directions-boat" size={45} color="black" />
-          <MaterialIconsIcon name="directions-bike" size={50} color="black" />
-        </View>
-        <View style={styles.category}>
-          <MaterialIconsIcon name="beach-access" size={50} color="black" />
-          <EntypoIcon name="baidu" size={45} color="black" />
-          <FontAwesomeIcon name="fort-awesome" size={45} color="black" />
-        </View>
-        <View style={styles.category}>
-          <FontAwesomeIcon name="binoculars" size={50} color="black" />
-          <FontAwesomeIcon name="pencil" size={50} color="black" />
-          <FontAwesomeIcon name="picture-o" size={50} color="black" />
-        </View>
 
-        {/* <TextInput
-          style={styles.input}
-          autoCapitalize="none"
-          value={this.state.category}
-          placeholder={"ex : Restaurant"}
-          onChangeText={text => this.setState({ category: text })}
-        /> */}
-
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="road" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Road</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialIconsIcon name="directions-boat" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Boat</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialIconsIcon name="directions-bike" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Activity</Text>
+          </View>
+        </View>
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <MaterialIconsIcon name="beach-access" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Beach</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <EntypoIcon name="baidu" size={45} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Animals</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="fort-awesome" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Historic</Text>
+          </View>
+        </View>
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="binoculars" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>See Point</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="pencil" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Text</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="picture-o" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Pics</Text>
+          </View>
+        </View>
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={styles.buttonText}>NEXT</Text>
         </TouchableOpacity>

@@ -12,8 +12,8 @@ export default createSwitchNavigator({
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
 
   Auth: AuthStackNavigator, // Tomoko
-  Main: MainTabNavigator, // Laurent
   TravelBook: TravelBookNavigator, // Laurent
+  Main: MainTabNavigator, // Laurent
   Form: FormStackNavigator, // Tomoko
   Step: StepFormStackNavigator // Laurent
 });
