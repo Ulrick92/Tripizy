@@ -12,6 +12,7 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
+    header: null,
     title: "Travel Books",
     headerStyle: {
       backgroundColor: "#37449E"
