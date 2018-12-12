@@ -9,7 +9,9 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0040cc",
-    justifyContent: "center",
+    justifyContent: "center"
+  },
+  form: {
     alignItems: "center"
   },
   input: {
@@ -37,5 +39,9 @@ export default StyleSheet.create({
   option: {
     color: "white",
     marginTop: 30
+  },
+  viewSelect: {
+    marginTop: 20,
+    width: 250
   }
 });
