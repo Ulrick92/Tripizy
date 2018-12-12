@@ -84,15 +84,26 @@ export default class HotelForm extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.hint}>Select a Category :</Text>
         <View style={styles.category}>
-          <FontAwesomeIcon name="hotel" size={50} color="black" />
-          <MaterialIconsIcon name="restaurant" size={50} color="black" />
-          <EntypoIcon name="drink" size={45} color="black" />
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="hotel" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialIconsIcon name="restaurant" size={50} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+              Restaurant
+            </Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <EntypoIcon name="drink" size={45} color="black" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Bar/Club</Text>
+          </View>
         </View>
-        <View style={styles.categorylabel}>
+        {/* <View style={styles.categorylabel}>
           <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Hotel</Text>
           <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Restaurant</Text>
           <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Drinks</Text>
-        </View>
+        </View> */}
         <View style={styles.category}>
           <FontAwesomeIcon name="road" size={50} color="black" />
           <MaterialIconsIcon name="directions-boat" size={45} color="black" />
@@ -109,13 +120,13 @@ export default class HotelForm extends Component {
           <FontAwesomeIcon name="picture-o" size={50} color="black" />
         </View>
 
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           autoCapitalize="none"
           value={this.state.category}
           placeholder={"ex : Restaurant"}
           onChangeText={text => this.setState({ category: text })}
-        />
+        /> */}
 
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={styles.buttonText}>NEXT</Text>

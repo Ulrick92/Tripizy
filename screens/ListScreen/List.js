@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
 import axios from "axios";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
@@ -24,32 +25,32 @@ export default class ListScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("DetailsTravel");
-            }}
-          >
-            <TravelBookCard />
-          </TouchableOpacity>
-        </View>
-        <TravelBookCard />
-        <TravelBookCard />
-        <TravelBookCard />
-        <TravelBookCard />
+      <Fragment>
+        <ScrollView style={styles.container}>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("DetailsTravel");
+              }}
+            >
+              <TravelBookCard />
+            </TouchableOpacity>
+          </View>
+          <TravelBookCard />
+          <TravelBookCard />
+          <TravelBookCard />
+          <TravelBookCard />
+        </ScrollView>
         <TouchableOpacity style={styles.button}>
           <Text
             style={styles.buttonText}
-            title="Go to Create a Travel Book"
-            // onPress={() =>
-            //   this.props.navigation.navigate("TitleAndDescription")
-            // }
+            // title="Go to Create a Travel Book"
+            onPress={() => this.props.navigation.navigate("MyTrips")}
           >
-            +
+            <FontAwesomeIcon name="search" size={30} color="#37449E" />
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </Fragment>
     );
   }
 }
@@ -60,18 +61,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#EAE1E2"
   },
   button: {
+    position: "absolute",
+    bottom: 10,
     alignSelf: "flex-end",
-    borderColor: "rgba(0,0,0,0.2)",
+    shadowOpacity: 20,
     alignItems: "center",
     justifyContent: "center",
     width: 50,
     height: 50,
-    backgroundColor: "#fff",
-    borderRadius: 100,
-    position: "absolute",
+    backgroundColor: "#EAE1E2",
+    borderRadius: 100 / 2,
     right: 10
-
-    // marginBottom: 150
   },
   buttonText: {
     fontSize: 30
