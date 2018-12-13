@@ -4,13 +4,11 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
-  AsyncStorage,
-  StyleSheet
+  AsyncStorage
 } from "react-native";
-// import styles from "./styles";
-import axios from "axios";
+import styles from "./styles";
 
-class Dates extends Component {
+export default class Dates extends Component {
   static navigationOptions = {
     title: "Create a Travel Book",
     headerTintColor: "white",
@@ -25,8 +23,8 @@ class Dates extends Component {
   };
 
   state = {
-    start_date: "11/22/2019",
-    end_date: "11/25/2019"
+    start_date: "01/01/2019",
+    end_date: "01/03/2019"
   };
 
   redirectToLoginPage = () => {
@@ -61,7 +59,7 @@ class Dates extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.title}>CREATE A TRAVEL BOOK</Text>
+        <Text style={styles.title}>Dates</Text>
         <Text style={styles.hint}>What are the dates ?</Text>
         <Text style={styles.indicator} />
         <TextInput
@@ -95,55 +93,3 @@ class Dates extends Component {
     );
   }
 }
-
-export default Dates;
-
-const styles = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "white",
-    marginBottom: 30,
-    fontWeight: "200"
-  },
-  hint: {
-    textAlign: "center",
-    fontSize: 18,
-    color: "white",
-    marginBottom: 10,
-    fontWeight: "200"
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#0040cc",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-
-  indicator: {
-    textAlign: "left",
-    color: "white"
-  },
-  input: {
-    width: 250,
-    height: 60,
-    color: "white",
-    borderColor: "white",
-    borderBottomWidth: 1,
-    paddingLeft: 10,
-    alignItems: "center"
-  },
-  button: {
-    marginTop: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-    height: 50,
-    width: 250,
-    justifyContent: "center",
-    borderColor: "white",
-    borderRadius: 5
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center"
-  }
-});

@@ -46,7 +46,11 @@ export default class ListScreen extends React.Component {
           <Text
             style={styles.buttonText}
             // title="Go to Create a Travel Book"
-            onPress={() => this.props.navigation.navigate("MyTrips")}
+            onPress={() =>
+              this.props.navigation.navigate("MyTrips", {
+                // travelbooks: this.props.navigation.state.params.travelbooks
+              })
+            }
           >
             <FontAwesomeIcon name="search" size={30} color="#37449E" />
           </Text>
