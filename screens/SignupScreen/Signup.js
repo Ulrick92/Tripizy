@@ -88,14 +88,14 @@ class SignUp extends Component {
         })
         .then(response => {
           console.log("response", response.data);
-          // if (response.data && response.data.token) {
-          //   this.props.navigation.navigate("List", {
-          //     _id: response.data._id,
-          //     first_name: response.data.first_name,
-          //     last_name: response.data.last_name,
-          //     profile_pic: response.data.profile_pic[0]
-          //   });
-          // }
+          if (response.data && response.data.token) {
+            this.props.navigation.navigate("List", {
+              _id: response.data._id,
+              first_name: response.data.first_name,
+              last_name: response.data.last_name
+              // profile_pic: response.data.profile_pic[0]
+            });
+          }
         })
         .catch(error => {
           console.log(error);
@@ -186,7 +186,6 @@ class SignUp extends Component {
                 autoCapitalize="none"
                 value={this.state.adress}
                 placeholder={"Adress"}
-                secureTextEntry={true}
                 onChangeText={value => {
                   this.setState({
                     adress: value

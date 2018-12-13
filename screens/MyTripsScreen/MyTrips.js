@@ -41,7 +41,9 @@ export default class MyTripsScreen extends Component {
               style={styles.buttonText}
               title="Go to Create a Travel Book"
               onPress={() =>
-                this.props.navigation.navigate("TitleAndDescription")
+                this.props.navigation.navigate("TitleAndDescription", {
+                  travelbooks: this.state.travelbooks
+                })
               }
             >
               +
