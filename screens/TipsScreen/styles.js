@@ -10,6 +10,8 @@ export default StyleSheet.create({
   },
   button: {
     flexDirection: "row",
+    // backgroundColor: "#37449E",
+    // marginBottom: 20,
     justifyContent: "space-between",
     paddingTop: 10
   },
