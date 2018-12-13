@@ -10,14 +10,14 @@ import {
   TouchableOpacity
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import Icon from "react-native-vector-icons/FontAwesome";
+
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import StepCard from "../../components/StepCard";
 import DaysCard from "../../components/DaysCard";
 import FreeCard from "../../components/FreeCard";
 import geolib from "geolib";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import FeatherIcon from "react-native-vector-icons/Feather";
 
 var result = geolib.getCenter([
   { latitude: 10.298974, longitude: -85.837935 },
