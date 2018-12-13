@@ -44,6 +44,7 @@ export default class LogIn extends Component {
         console.log("response", response.data);
         if (response.data.token) {
           AsyncStorage.setItem("token", response.data.token).then(() => {
+            //setItem permet de garder le token en mémoire
             // authentifier l'user
             this.setState({
               isAuthenticated: true

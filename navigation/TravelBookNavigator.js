@@ -4,7 +4,7 @@ import ListStack from "./MainTabNavigator";
 // import ListScreen from "../screens/ListScreen/List";
 import DetailsTravelScreen from "../screens/DetailsTravelScreen/DetailsTravelBook";
 import DetailsMapScreen from "../screens/DetailsTravelScreen/DetailsMap";
-import StepFormScreen from "../screens/StepFormScreen/StepForm";
+import StepFormScreen from "../screens/StepFormScreen/Step1Form";
 
 const TravelBookNavigator = createStackNavigator({
   ListStack,
