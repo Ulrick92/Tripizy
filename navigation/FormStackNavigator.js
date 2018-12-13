@@ -22,10 +22,10 @@ const AppNavigator = createStackNavigator({
   },
   Category: {
     screen: CategoryContainer
-  },
-  Preview: {
-    screen: PreviewContainer
   }
+  // Preview: {
+  //   screen: PreviewContainer
+  // }
 });
 
 export default createAppContainer(AppNavigator);

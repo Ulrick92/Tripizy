@@ -26,7 +26,6 @@ export default class MyTripsScreen extends Component {
   };
 
   render() {
-    console.log("this.state.travelbooks", this.state.travelbooks);
     // on vérifie que le this.state existe
     if (this.state.travelbooks !== undefined) {
       return (
