@@ -10,7 +10,6 @@ import MyTripsStack from "./MainTabNavigator";
 
 const AppNavigator = createStackNavigator({
   MyTripsStack,
-
   TitleAndDescription: {
     screen: TitleAndDescriptionContainer
   },
