@@ -19,7 +19,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    top: 200
+    top: 150
   },
   // button: {
   //   borderRadius: 20,
@@ -35,25 +35,24 @@ export default StyleSheet.create({
   // },
   buttonLeisure: {
     backgroundColor: "#37449E",
-
-    top: 290,
+    top: 220,
     flexDirection: "row",
     justifyContent: "space-between"
   },
   photos: {
     position: "relative",
-    top: 280
+    top: 220
   },
   bioContainer: {
     position: "relative",
-    top: 420
+    top: 350
   },
   button: {
     backgroundColor: "#37449E",
 
     alignItems: "center",
     position: "relative",
-    top: 430,
+    top: 350,
     left: 90,
     padding: 7,
     width: 200,

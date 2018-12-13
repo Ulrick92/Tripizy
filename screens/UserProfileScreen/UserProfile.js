@@ -18,14 +18,14 @@ const bioForm = t.struct({
   bio: t.String
 });
 
+// static navigationOptions = {
+//   title: "Profile",
+//   headerStyle: {
+//     backgroundColor: "#37449E"
+//   },
+//   headerTintColor: "#fff"
+// };
 export default class UserProfile extends React.Component {
-  static navigationOptions = {
-    title: "Profile",
-    headerStyle: {
-      backgroundColor: "#37449E"
-    },
-    headerTintColor: "#fff"
-  };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -36,7 +36,7 @@ export default class UserProfile extends React.Component {
       console.log("par ici");
       axios
         .get(
-          "https://back-tripizy.herokuapp.com/user/5c0ea12a1586f90016bd16d9",
+          "https://back-tripizy.herokuapp.com/user/5c126661a70a320016dffec4",
           {
             headers: {
               authorization: `Bearer ${token}`
@@ -50,6 +50,7 @@ export default class UserProfile extends React.Component {
             {
               first_name: res.data.first_name,
               last_name: res.data.last_name,
+              nationality: res.data.nationality,
               birthday: res.data.birthday
             },
             () => {
@@ -79,6 +80,7 @@ export default class UserProfile extends React.Component {
     this.state = {
       first_name: "",
       last_name: "",
+      nationality: String,
       birthday: Number
     };
   }
@@ -101,6 +103,7 @@ export default class UserProfile extends React.Component {
           <Text>{this.state.first_name}</Text>
           <Text>{" " + this.state.last_name}</Text>
           <Text>{", " + this.state.userAge + " ans"}</Text>
+          <Text>{" " + this.state.nationality}</Text>
         </View>
 
         <Text style={styles.photos}>Photos</Text>
