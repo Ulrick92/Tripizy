@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  StyleSheet,
   View,
   Text,
   TouchableOpacity,
@@ -12,7 +11,7 @@ import styles from "./styles";
 import axios from "axios";
 import moment from "moment";
 
-// const countries = require("./data/Countries.json");
+import countries from "../SignupScreen/data/Countries";
 const Form = t.form.Form;
 
 const bioForm = t.struct({
@@ -64,15 +63,35 @@ export default class UserProfile extends React.Component {
               // console.log("bhd", bhd);
               const age = moment(today).diff(userBirthday, "years"); // 27
               console.log("âge de clement est : " + age + " ans");
-              this.setState({
-                userAge: age
-              });
-
+              this.setState(
+                {
+                  userAge: age,
+                  listCountries: countries
+                },
+                () => {
+                  console.log(countries);
+                  console.log("kek");
+                  const countries = this.state.countries;
+                  console.log(this.state.listCountries);
+                  for (i = 0; i < this.state.listCountries.length; i++) {
+                    {
+                      if (
+                        this.state.nationality ===
+                        this.state.listCountries[i].value
+                      ) {
+                        this.setState({
+                          nationality: this.state.listCountries[i].label
+                        });
+                        console.log("ateyaba");
+                        console.log(this.state.nationality);
+                      }
+                      // console.log(this.state.listCountries[i].value);
+                    }
+                  }
+                }
+              );
               // this.state.userAge = age;
             }
-            // () => {
-            //   for (i=0; i < this.state.countries[i].)
-            // }
           );
         })
         .catch(err => {
@@ -110,7 +129,7 @@ export default class UserProfile extends React.Component {
           <Text>{this.state.first_name}</Text>
           <Text>{" " + this.state.last_name}</Text>
           <Text>{", " + this.state.userAge + " ans"}</Text>
-          <Text>{" " + this.state.nationality}</Text>
+          <Text>{", " + this.state.nationality}</Text>
         </View>
 
         <Text style={styles.photos}>Photos</Text>
