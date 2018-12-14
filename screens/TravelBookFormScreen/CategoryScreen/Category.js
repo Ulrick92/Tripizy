@@ -77,7 +77,7 @@ export default class Category extends Component {
                 this.props.navigation.state.params.start_date
               ),
               end_date: Date.parse(this.props.navigation.state.params.end_date),
-              photos: this.props.navigation.state.params.photos,
+              files: [this.props.navigation.state.params.photos],
               category: valeur
             },
             {
