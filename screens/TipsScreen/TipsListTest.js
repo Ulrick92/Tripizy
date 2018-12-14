@@ -76,7 +76,7 @@ export default class TipsListTest extends React.Component {
           <Text
             style={styles.buttonText}
             // title="Go to Create a Travel Book"
-            onPress={() => this.props.navigation.navigate("TipsFilter")}
+            onPress={() => this.props.navigation.navigate("CityFilter")}
           >
             <FontAwesomeIcon name="globe" size={30} color="#37449E" />
           </Text>

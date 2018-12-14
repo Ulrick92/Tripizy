@@ -54,7 +54,12 @@ export default class HotelForm extends Component {
         <Text style={styles.hint}>Select a Category :</Text>
         <View style={styles.category}>
           <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="hotel" size={50} color="black" />
+            <FontAwesomeIcon
+              name="hotel"
+              size={50}
+              color="black"
+              onPress={() => this.props.navigation.navigate("HotelForm")}
+            />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
           </View>
           <View style={{ alignItems: "center" }}>

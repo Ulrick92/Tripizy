@@ -152,6 +152,14 @@ export default class DetailsTravelBook extends React.Component {
               <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonTips}>
+            <Text
+              title="Go to Create a Step"
+              onPress={() => this.props.navigation.navigate("TipsForm")}
+            >
+              <MaterialIconsIcon name="hotel" size={40} color="#37449E" />
+            </Text>
+          </TouchableOpacity>
         </Fragment>
       )
     );
@@ -211,6 +219,20 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 25,
     right: 25,
+    alignSelf: "flex-end",
+    shadowOpacity: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    backgroundColor: "#EAE1E2",
+    borderRadius: 100 / 2
+  },
+  buttonTips: {
+    position: "absolute",
+    bottom: 25,
+    left: 25,
     alignSelf: "flex-end",
     shadowOpacity: 20,
     alignItems: "center",
