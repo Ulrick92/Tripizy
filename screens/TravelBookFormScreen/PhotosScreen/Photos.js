@@ -50,7 +50,7 @@ export default class Photos extends Component {
           end_date: this.props.navigation.state.params.end_date,
           photos: this.state.photos
         });
-        console.log(this.state.photos);
+        //        console.log(this.state.photos);
       }
     });
   };
@@ -68,7 +68,12 @@ export default class Photos extends Component {
       aspect: [4, 3],
       base64: true
     });
-    this.setState({ photos: result.uri });
+    console.log("Object.keys(result)");
+
+    console.log(Object.keys(result));
+    this.setState({ photos: "data:image/jpeg;base64," + result.base64 }, () => {
+      console.log(result);
+    });
   };
 
   render() {

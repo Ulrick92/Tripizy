@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Text,
+  FlatList,
   AsyncStorage
 } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
@@ -44,24 +45,43 @@ export default class ListScreen extends React.Component {
           console.log(err);
         });
     });
+    this.setState({ countries });
   }
   render() {
+    console.log("travel ", this.state.travelbooks);
+    // console.log("country ", this.state.countries);
     return (
       <Fragment>
         <ScrollView style={styles.container}>
           <View>
-            <TouchableOpacity
+            <FlatList
+              data={this.state.travelbooks}
+              keyExtractor={item => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.itemContainer}
+                    onPress={() =>
+                      this.props.navigation.navigate("DetailsTravel", item)
+                    }
+                  >
+                    <TravelBookCard {...item} />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+            {/* <TouchableOpacity
             // onPress={() => {
             //   this.props.navigation.navigate("DetailsTravel");
             // }}
             >
               <TravelBookCard />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
+          {/* <TravelBookCard />
           <TravelBookCard />
           <TravelBookCard />
-          <TravelBookCard />
-          <TravelBookCard />
+          <TravelBookCard /> */}
         </ScrollView>
         <TouchableOpacity style={styles.button}>
           <Text
