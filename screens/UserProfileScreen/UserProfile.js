@@ -12,20 +12,23 @@ import styles from "./styles";
 import axios from "axios";
 import moment from "moment";
 
+// const countries = require("./data/Countries.json");
 const Form = t.form.Form;
 
 const bioForm = t.struct({
   bio: t.String
 });
 
-// static navigationOptions = {
-//   title: "Profile",
-//   headerStyle: {
-//     backgroundColor: "#37449E"
-//   },
-//   headerTintColor: "#fff"
-// };
 export default class UserProfile extends React.Component {
+  static navigationOptions = {
+    title: "Profile",
+    headerStyle: {
+      backgroundColor: "#37449E",
+      position: "relative",
+      bottom: 200
+    },
+    headerTintColor: "#fff"
+  };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -64,8 +67,12 @@ export default class UserProfile extends React.Component {
               this.setState({
                 userAge: age
               });
-              this.state.userAge = age;
+
+              // this.state.userAge = age;
             }
+            // () => {
+            //   for (i=0; i < this.state.countries[i].)
+            // }
           );
         })
         .catch(err => {
