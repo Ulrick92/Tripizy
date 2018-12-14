@@ -24,8 +24,9 @@ export default class Step1Form extends Component {
   };
 
   state = {
-    travelbook_id: "5c1276d5a70a320016dffece",
-    title: "My Journey"
+    travelbook_id: "5c138f8afbbb0b0016afa70d",
+    // title: "Mes vacs",
+    start_date: ""
   };
 
   redirectToLoginPage = () => {
@@ -54,7 +55,7 @@ export default class Step1Form extends Component {
       // récupère le token
       console.log("token :", token);
 
-      const { title, travelbook_id } = this.state;
+      const { travelbook_id, start_date } = this.state;
       console.log("result :", this.state);
 
       if (!token) {
@@ -65,7 +66,8 @@ export default class Step1Form extends Component {
             "https://back-tripizy.herokuapp.com/step/publish",
             {
               travelbook_id: travelbook_id,
-              title: title
+              // title: title,
+              start_date: this.state.start_date
             },
             {
               headers: {
@@ -78,7 +80,8 @@ export default class Step1Form extends Component {
             console.log("response :", response.data);
 
             this.props.navigation.navigate("DetailsTravel", {
-              title: response.data.title
+              // title: response.data.title,
+              start_date: response.data.start_date
             });
           })
           .catch(error => {
@@ -118,9 +121,9 @@ export default class Step1Form extends Component {
         <TextInput
           style={styles.input}
           autoCapitalize="none"
-          value={this.state.title}
-          placeholder={"My Journey"}
-          onChangeText={text => this.setState({ title: text })}
+          value={this.state.start_date}
+          placeholder={"From : MM/DD/YYYY"}
+          onChangeText={value => this.setState({ start_date: value })}
         />
 
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
