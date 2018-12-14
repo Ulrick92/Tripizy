@@ -23,8 +23,8 @@ export default class TitleAndDescription extends Component {
   };
 
   state = {
-    title: "New Year holiday in Finland",
-    description: "Short trip with my girlfriend"
+    title: "",
+    description: ""
   };
 
   redirectToLoginPage = () => {
@@ -32,7 +32,7 @@ export default class TitleAndDescription extends Component {
   };
 
   handleSubmit = text => {
-    const { title, description } = this.state;
+    // const { title, description } = this.state;
     const { travelbooks } = this.props.navigation.state.params;
 
     console.log(travelbooks);
@@ -44,8 +44,8 @@ export default class TitleAndDescription extends Component {
         this.redirectToLoginPage();
       } else if (travelbooks.indexOf(this.state.title) !== 0) {
         this.props.navigation.navigate("Country", {
-          title: title,
-          description: description
+          title: this.state.title,
+          description: this.state.description
         });
         console.log(this.state.title);
         console.log(this.state.description);

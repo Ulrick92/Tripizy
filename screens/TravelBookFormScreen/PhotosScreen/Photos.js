@@ -43,8 +43,9 @@ export default class Photos extends Component {
       } else {
         this.props.navigation.navigate("Category", {
           title: this.props.navigation.state.params.title,
+          description: this.props.navigation.state.params.description,
+          countries: this.props.navigation.state.params.countries,
           country: this.props.navigation.state.params.country,
-          city: this.props.navigation.state.params.city,
           start_date: this.props.navigation.state.params.start_date,
           end_date: this.props.navigation.state.params.end_date,
           photos: this.state.photos

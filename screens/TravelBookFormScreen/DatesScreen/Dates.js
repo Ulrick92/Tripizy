@@ -23,8 +23,8 @@ export default class Dates extends Component {
   };
 
   state = {
-    start_date: "01/01/2019",
-    end_date: "01/03/2019"
+    start_date: "",
+    end_date: ""
   };
 
   redirectToLoginPage = () => {
@@ -32,7 +32,7 @@ export default class Dates extends Component {
   };
 
   handleSubmit = event => {
-    const { start_date, end_date } = this.state;
+    // const { start_date, end_date } = this.state;
 
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -42,14 +42,19 @@ export default class Dates extends Component {
       } else {
         this.props.navigation.navigate("Photos", {
           title: this.props.navigation.state.params.title,
+          description: this.props.navigation.state.params.description,
+          countries: this.props.navigation.state.params.countries,
           country: this.props.navigation.state.params.country,
-          city: this.props.navigation.state.params.city,
           start_date: this.state.start_date,
           end_date: this.state.end_date
         });
         console.log("title", this.props.navigation.state.params.title);
+        console.log(
+          "description",
+          this.props.navigation.state.params.description
+        );
+        // console.log("countries", this.props.navigation.state.params.countries);
         console.log("country", this.props.navigation.state.params.country);
-        console.log("city", this.props.navigation.state.params.city);
         console.log(this.state.start_date);
         console.log(this.state.end_date);
       }
@@ -81,7 +86,7 @@ export default class Dates extends Component {
           placeholder={"To : MM/DD/YYYY"}
           onChangeText={value => {
             this.setState({
-              start_date: value
+              end_date: value
             });
           }}
         />
