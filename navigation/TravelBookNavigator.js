@@ -6,6 +6,10 @@ import DetailsTravelScreen from "../screens/DetailsTravelScreen/DetailsTravelBoo
 import DetailsMapScreen from "../screens/DetailsTravelScreen/DetailsMap";
 import StepFormScreen from "../screens/StepFormScreen/Step1Form";
 
+import MainTabNavigator from "./MainTabNavigator";
+import FormStackNavigator from "./FormStackNavigator";
+import StepFormStackNavigator from "./StepFormStackNavigator";
+
 const TravelBookNavigator = createStackNavigator({
   ListStack,
   DetailsTravel: {
@@ -16,7 +20,10 @@ const TravelBookNavigator = createStackNavigator({
   },
   DetailsMap: {
     screen: DetailsMapScreen
-  }
+  },
+  Main: MainTabNavigator, // Laurent
+  Form: FormStackNavigator, // Tomoko
+  Step: StepFormStackNavigator // Laurent
 });
 
 export default createAppContainer(TravelBookNavigator);

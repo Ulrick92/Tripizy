@@ -27,8 +27,8 @@ export default class LogIn extends Component {
     // vérifier si l'user est authentifié
 
     isAuthenticated: false,
-    email: "",
-    password: ""
+    email: "frarid@gmail.com",
+    password: "azerty"
   };
 
   handleSubmit = () => {
@@ -52,10 +52,6 @@ export default class LogIn extends Component {
             const { navigate } = this.props.navigation;
             navigate("List", {
               travelbooks: response.data.travelbooks
-            });
-
-            AsyncStorage.getItem("token", (err, result) => {
-              console.log("result", result);
             });
           });
         }

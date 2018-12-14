@@ -4,11 +4,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Text
+  Text,
+  AsyncStorage
 } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+const countries = require("../SignupScreen/data/Countries.json");
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
@@ -21,18 +23,37 @@ export default class ListScreen extends React.Component {
   };
 
   state = {
-    travelbooks: []
+    travelbooks: [],
+    countries: []
   };
-
+  componentDidMount() {
+    AsyncStorage.getItem("token", (err, token) => {
+      console.log("result", token);
+      axios
+        .get("https://back-tripizy.herokuapp.com/travelbook/", {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.setState({
+            travelbooks: response.data
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  }
   render() {
     return (
       <Fragment>
         <ScrollView style={styles.container}>
           <View>
             <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("DetailsTravel");
-              }}
+            // onPress={() => {
+            //   this.props.navigation.navigate("DetailsTravel");
+            // }}
             >
               <TravelBookCard />
             </TouchableOpacity>
