@@ -8,8 +8,8 @@ import {
   StyleSheet
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-const countries = require("../../SignupScreen/data/Countries.json");
 import styles from "./styles";
+const countries = require("../../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class Country extends Component {
   static navigationOptions = {
@@ -71,17 +71,6 @@ export default class Country extends Component {
           <Text style={styles.hint}>
             Which countries are you planning to visit ?
           </Text>
-          {/* <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            value={this.state.country}
-            placeholder={"ex : Select a country"}
-            onChangeText={value => {
-              this.setState({
-                country: value
-              });
-            }}
-          /> */}
 
           <View style={[styles.viewSelect]}>
             <RNPickerSelect
@@ -108,7 +97,7 @@ export default class Country extends Component {
     }
     return (
       <View>
-        <Text>Chargement</Text>
+        <Text>Loading</Text>
       </View>
     );
   }

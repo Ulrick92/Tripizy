@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  View,
   Text,
   TouchableOpacity,
   TextInput,
@@ -23,14 +24,10 @@ export default class Email extends Component {
   };
 
   state = {
-    email: "",
-    password: "",
-    confirmPassword: ""
+    email: "sofiane@lereacteur.io",
+    password: "azerty",
+    confirmPassword: "azerty"
   };
-
-  //   redirectToLoginPage = () => {
-  //     this.props.navigation.navigate("Login");
-  //   };
 
   handleSubmit = text => {
     const { email, password, confirmPassword } = this.state;
@@ -46,7 +43,10 @@ export default class Email extends Component {
       //   this.state.password !== undefined &&
       //   this.state.confirmPassword !== undefined
     ) {
-      this.props.navigation.navigate("Address", {
+      this.props.navigation.navigate("UserPhoto", {
+        first_name: this.props.navigation.state.params.first_name,
+        last_name: this.props.navigation.state.params.last_name,
+        birthday: this.props.navigation.state.params.birthday,
         email: email,
         password: password,
         confirmPassword: confirmPassword
@@ -62,9 +62,9 @@ export default class Email extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" enabled>
+      <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
+        <Text style={styles.title}>Email and Password</Text>
         <View style={[styles.form]}>
-          <Text style={styles.title}>Email and Password</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -100,6 +100,9 @@ export default class Email extends Component {
               });
             }}
           />
+          <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+            <Text style={styles.buttonText}>NEXT</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );

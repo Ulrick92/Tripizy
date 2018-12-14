@@ -5,7 +5,6 @@ import EmailContainer from "../screens/SignupStepsScreen/EmailScreen/Email";
 import AddressContainer from "../screens/SignupStepsScreen/AddressScreen/Address";
 
 const AppNavigator = createStackNavigator({
-  },
   NameAndBirthday: {
     screen: NameAndBirthdayContainer
   },

@@ -4,14 +4,23 @@ export default StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: "white"
+    color: "white",
+    marginBottom: 30,
+
+    fontWeight: "200"
+  },
+  hint: {
+    textAlign: "center",
+    fontSize: 18,
+    color: "white",
+    marginBottom: 10,
+    marginHorizontal: 20,
+    fontWeight: "200"
   },
   container: {
     flex: 1,
     backgroundColor: "#0040cc",
-    justifyContent: "center"
-  },
-  form: {
+    justifyContent: "center",
     alignItems: "center"
   },
   input: {
@@ -35,13 +44,5 @@ export default StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center"
-  },
-  option: {
-    color: "white",
-    marginTop: 30
-  },
-  viewSelect: {
-    marginTop: 20,
-    width: 250
   }
 });

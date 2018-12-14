@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import {
+  View,
   Text,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
-  AsyncStorage
+  KeyboardAvoidingView
 } from "react-native";
+import axios from "axios";
 import styles from "./styles";
 
 export default class NamesAndBirthday extends Component {
@@ -23,48 +24,38 @@ export default class NamesAndBirthday extends Component {
   };
 
   state = {
-    first_name: "",
-    last_name: "",
-    birthday: ""
+    first_name: "Sofiane",
+    last_name: "Baddag",
+    birthday: "05/25/1995"
   };
 
-  // redirectToLoginPage = () => {
-  //   this.props.navigation.navigate("Login");
-  // };
-
   handleSubmit = text => {
-    const { first_name, last_name } = this.state;
+    console.log(this.state.first_name);
+    console.log(this.state.last_name);
+    console.log(this.state.birthday);
 
-    if (
-      first_name !== "" &&
-      first_name &&
-      last_name !== "" &&
-      last_name
-      // this.state.first_name !== undefined &&
-      // this.state.last_name !== undefined
-    ) {
+    const { first_name, last_name, birthday } = this.state;
+
+    if (first_name !== "" && first_name && last_name !== "" && last_name) {
       this.props.navigation.navigate("Email", {
         first_name: first_name,
         last_name: last_name,
         birthday: birthday
       });
-      console.log(this.state.first_name);
-      console.log(this.state.last_name);
-      console.log(this.state.birthday);
-    } else {
-      err;
-      console.log("error", error);
+      console.log("first_name", first_name);
+      console.log("last_name", last_name);
+      console.log("birthday", birthday);
     }
   };
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" enabled>
-        <View style={[styles.form]}>
-          <Text style={styles.title}>Name</Text>
+      <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
+        <View style={styles.form}>
+          <Text style={styles.title}>First Name</Text>
           <TextInput
             style={styles.input}
-            autoCapitalize="none"
+            // autoCapitalize="none"
             value={this.state.first_name}
             placeholder={"First Name"}
             onChangeText={value => {
@@ -73,9 +64,10 @@ export default class NamesAndBirthday extends Component {
               });
             }}
           />
+          <Text style={styles.title}>Last Name</Text>
           <TextInput
             style={styles.input}
-            autoCapitalize="none"
+            // autoCapitalize="none"
             value={this.state.last_name}
             placeholder={"Last Name"}
             onChangeText={value => {
@@ -84,6 +76,7 @@ export default class NamesAndBirthday extends Component {
               });
             }}
           />
+          <Text style={styles.title}>Birthday</Text>
           <TextInput
             style={styles.input}
             value={this.state.birthday}
@@ -94,6 +87,9 @@ export default class NamesAndBirthday extends Component {
               });
             }}
           />
+          <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+            <Text style={styles.buttonText}>NEXT</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
