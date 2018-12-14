@@ -10,6 +10,7 @@ import {
 import TravelBookCard from "../../components/TravelBookCard";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+const countries = require("../SignupScreen/data/Countries.json");
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
@@ -22,7 +23,8 @@ export default class ListScreen extends React.Component {
   };
 
   state = {
-    travelbooks: []
+    travelbooks: [],
+    countries: []
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -34,9 +36,8 @@ export default class ListScreen extends React.Component {
           }
         })
         .then(response => {
-          console.log("travelbook =>", response.data);
           this.setState({
-            travelbook: response.data
+            travelbooks: response.data
           });
         })
         .catch(err => {
@@ -45,7 +46,6 @@ export default class ListScreen extends React.Component {
     });
   }
   render() {
-    console.log();
     return (
       <Fragment>
         <ScrollView style={styles.container}>
