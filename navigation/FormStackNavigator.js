@@ -5,7 +5,7 @@ import CountryContainer from "../screens/TravelBookFormScreen/CountryScreen/Coun
 import DatesContainer from "../screens/TravelBookFormScreen/DatesScreen/Dates";
 import PhotosContainer from "../screens/TravelBookFormScreen/PhotosScreen/Photos";
 import CategoryContainer from "../screens/TravelBookFormScreen/CategoryScreen/Category";
-import PreviewContainer from "../screens/TravelBookFormScreen/Preview";
+
 import MyTripsStack from "./MainTabNavigator";
 
 const AppNavigator = createStackNavigator({
@@ -25,9 +25,6 @@ const AppNavigator = createStackNavigator({
   Category: {
     screen: CategoryContainer
   }
-  // Preview: {
-  //   screen: PreviewContainer
-  // }
 });
 
 export default createAppContainer(AppNavigator);

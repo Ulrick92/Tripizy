@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 
-export default class Names extends Component {
+export default class NamesAndBirthday extends Component {
   static navigationOptions = {
     title: "Sign Up",
     headerTintColor: "white",
