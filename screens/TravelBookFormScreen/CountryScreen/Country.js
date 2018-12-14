@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import {
+  View,
   Text,
   TouchableOpacity,
-  TextInput,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  StyleSheet
 } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+const countries = require("../../SignupScreen/data/Countries.json");
 import styles from "./styles";
 
 export default class Country extends Component {
@@ -23,8 +26,8 @@ export default class Country extends Component {
   };
 
   state = {
-    country: "Finland",
-    city: "Helsinki"
+    countries: [],
+    country: 77
   };
 
   redirectToLoginPage = () => {
@@ -32,7 +35,7 @@ export default class Country extends Component {
   };
 
   handleSubmit = event => {
-    const { country, city } = this.state;
+    // const { country } = this.state;
 
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -43,39 +46,95 @@ export default class Country extends Component {
         this.props.navigation.navigate("Dates", {
           title: this.props.navigation.state.params.title,
           description: this.props.navigation.state.params.description,
-          country: this.state.country,
-          city: this.state.city
+          countries: this.state.countries,
+          country: this.state.country
         });
         console.log("title", this.props.navigation.state.params.title);
+        console.log(
+          "description",
+          this.props.navigation.state.params.description
+        );
+        // console.log(this.state.countries);
         console.log(this.state.country);
-        console.log(this.state.city);
       }
     });
   };
+  componentDidMount() {
+    this.setState({ countries });
+  }
 
   render() {
-    return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.title}>Countries</Text>
-        <Text style={styles.hint}>
-          Which countries are you planning to visit ?
-        </Text>
-        <TextInput
-          style={styles.input}
-          autoCapitalize="none"
-          value={this.state.country}
-          placeholder={"ex : Select a country"}
-          onChangeText={value => {
-            this.setState({
-              country: value
-            });
-          }}
-        />
+    if (this.state.countries.length) {
+      return (
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <Text style={styles.title}>Countries</Text>
+          <Text style={styles.hint}>
+            Which countries are you planning to visit ?
+          </Text>
+          {/* <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            value={this.state.country}
+            placeholder={"ex : Select a country"}
+            onChangeText={value => {
+              this.setState({
+                country: value
+              });
+            }}
+          /> */}
 
-        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+          <View style={[styles.viewSelect]}>
+            <RNPickerSelect
+              style={{ ...pickerSelectStyles }}
+              pickerViewStyle={[styles.pickerViewStyle]}
+              buttonsViewStyle={[styles.pickerViewStyle]}
+              buttonsTextStyle={[styles.buttonsTextStyle]}
+              value={this.state.country}
+              items={this.state.countries}
+              onValueChange={value => {
+                console.log(value);
+                this.setState({
+                  country: value
+                });
+              }}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+            <Text style={styles.buttonText}>NEXT</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      );
+    }
+    return (
+      <View>
+        <Text>Chargement</Text>
+      </View>
     );
   }
 }
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 4,
+    backgroundColor: "#fff",
+    color: "#000"
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 4,
+    backgroundColor: "white",
+    color: "black"
+  }
+});

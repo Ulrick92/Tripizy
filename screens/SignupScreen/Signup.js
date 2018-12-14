@@ -90,9 +90,7 @@ class SignUp extends Component {
           console.log("response", response.data);
           if (response.data && response.data.token) {
             this.props.navigation.navigate("List", {
-              _id: response.data._id,
-              first_name: response.data.first_name,
-              last_name: response.data.last_name
+              user: response.data
               // profile_pic: response.data.profile_pic[0]
             });
           }

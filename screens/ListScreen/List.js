@@ -21,7 +21,7 @@ export default class ListScreen extends React.Component {
   };
 
   state = {
-    first_name: ""
+    travelbooks: []
   };
 
   render() {
@@ -48,7 +48,7 @@ export default class ListScreen extends React.Component {
             // title="Go to Create a Travel Book"
             onPress={() =>
               this.props.navigation.navigate("MyTrips", {
-                // travelbooks: this.props.navigation.state.params.travelbooks
+                travelbooks: this.props.navigation.state.params.travelbooks
               })
             }
           >
