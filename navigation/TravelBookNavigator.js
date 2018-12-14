@@ -5,6 +5,7 @@ import ListStack from "./MainTabNavigator";
 import DetailsTravelScreen from "../screens/DetailsTravelScreen/DetailsTravelBook";
 import DetailsMapScreen from "../screens/DetailsTravelScreen/DetailsMap";
 import StepFormScreen from "../screens/StepFormScreen/Step1Form";
+import TipsFilterScreen from "../screens/TipsScreen/TipsFilter";
 
 import MainTabNavigator from "./MainTabNavigator";
 import FormStackNavigator from "./FormStackNavigator";
@@ -17,6 +18,9 @@ const TravelBookNavigator = createStackNavigator({
   },
   StepForm: {
     screen: StepFormScreen
+  },
+  TipsFilter: {
+    screen: TipsFilterScreen
   },
   DetailsMap: {
     screen: DetailsMapScreen

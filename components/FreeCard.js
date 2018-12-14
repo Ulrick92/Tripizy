@@ -14,7 +14,7 @@ export default class FreeCard extends React.Component {
           <View
             style={{
               flexDirection: "row",
-              backgroundColor: "#EAE1E2",
+              backgroundColor: "#EAE1E2", //taupe
               marginBottom: 5,
               borderRadius: 10
             }}
@@ -35,10 +35,7 @@ export default class FreeCard extends React.Component {
           </View>
 
           <Text style={{ marginBottom: 10 }} numberOfLines={5}>
-            Post haec Gallus Hierapolim profecturus ut expeditioni specie tenus
-            adesset, Antiochensi plebi suppliciter obsecranti ut inediae
-            dispelleret metum, quae per multas difficilisque causas adfore iam
-            sperabatur, non ut mos est principibus, quorum diffusa potestas
+            Post haec Gallus Hierapolim profecturus ut expeditioni
           </Text>
           <View style={{ flexDirection: "row" }}>
             <Image
