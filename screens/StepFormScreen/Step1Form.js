@@ -24,7 +24,7 @@ export default class Step1Form extends Component {
   };
 
   state = {
-    travelbook_id: "5c138f8afbbb0b0016afa70d",
+    travelbook_id: "5c139e9cfbbb0b0016afa713",
     // title: "Mes vacs",
     start_date: ""
   };
@@ -122,7 +122,7 @@ export default class Step1Form extends Component {
           style={styles.input}
           autoCapitalize="none"
           value={this.state.start_date}
-          placeholder={"From : MM/DD/YYYY"}
+          placeholder={"MM/DD/YYYY"}
           onChangeText={value => this.setState({ start_date: value })}
         />
 

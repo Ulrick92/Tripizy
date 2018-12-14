@@ -11,11 +11,11 @@ import {
 import axios from "axios";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-// import FontAwesomeFiveIcon from "react-native-vector-icons/FontAwesome5"; ne fonctionne pas
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
-export default class HotelForm extends Component {
+export default class TipsFilter extends Component {
   static navigationOptions = {
+    header: null,
     title: "Add a cart",
     headerStyle: {
       backgroundColor: "#37449E"
@@ -40,7 +40,7 @@ export default class HotelForm extends Component {
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        this.props.navigation.navigate("HotelForm", {
+        this.props.navigation.navigate("TipsStack", {
           category: this.state.category
         });
         console.log(this.state.category);
@@ -51,7 +51,7 @@ export default class HotelForm extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.hint}>Select a Category :</Text>
+        <Text style={styles.hint}>Select a Filter :</Text>
         <View style={styles.category}>
           <View style={{ alignItems: "center" }}>
             <FontAwesomeIcon name="hotel" size={50} color="black" />
@@ -112,7 +112,7 @@ export default class HotelForm extends Component {
           </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.buttonText}>NEXT</Text>
+          <Text style={styles.buttonText}>FILTER</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     color: "#37449E"
   },
   hint: {
-    marginTop: 50,
+    marginTop: 200,
     textAlign: "center",
     fontSize: 20,
     color: "#37449E"

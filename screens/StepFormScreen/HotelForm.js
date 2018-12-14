@@ -25,60 +25,70 @@ export default class StepForm extends Component {
   };
 
   state = {
-    category: ""
+    step_id: "5c139ed9fbbb0b0016afa716",
+    category: "Restaurant",
+    company_name: "",
+    city: "",
+    start_date: "",
+    end_date: ""
   };
 
   redirectToLoginPage = () => {
     this.props.navigation.navigate("Login");
   };
 
-  handleSubmit = text => {
-    const { category } = this.state;
-
+  handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
+
+      const {
+        step_id,
+        category,
+        company_name,
+        city,
+        start_date,
+        end_date
+      } = this.state;
+      console.log("result :", this.state);
 
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        this.props.navigation.navigate("DetailsTravel", {
-          //"Category sera la page qui s'affiche après avoir appuyé sur next
-          category: this.state.category
-        });
-        console.log(this.state.category);
+        axios
+          .post(
+            "https://back-tripizy.herokuapp.com/tips/publish",
+            {
+              step_id: step_id,
+              category: category,
+              company_name: this.state.company_name,
+              city: this.state.city,
+              start_date: this.state.start_date,
+              end_date: this.state.end_date
+            },
+            {
+              headers: {
+                authorization: `Bearer ${token}`
+              }
+            }
+          )
+
+          .then(response => {
+            console.log("response :", response.data);
+
+            this.props.navigation.navigate("DetailsTravel", {
+              category: response.data.category,
+              company_name: response.data.company_name,
+              city: response.data.city,
+              start_date: response.data.start_date,
+              end_date: response.data.end_date
+            });
+          })
+          .catch(error => {
+            console.log("Nom de l'erreur : ", error);
+          });
       }
     });
   };
-
-  //   handleSubmit = event => {
-  //     const { category } = this.state;
-
-  //     AsyncStorage.getItem("token", (err, token) => {
-  //       console.log("result", token);
-
-  //       if (!token) {
-  //         this.redirectToLoginPage();
-  //       } else {
-  //         axios
-  //           .post("https://back-tripizy.herokuapp.com/tips/publish", {
-  //             category
-  //           })
-  //           .then(response => {
-  //             console.log("response", response.data);
-  //             if (response.data && response.data.token) {
-  //               this.props.navigation.navigate("List", {
-  //                 _id: response.data._id,
-  //                 category: response.data.category
-  //               });
-  //             }
-  //           })
-  //           .catch(error => {
-  //             console.log(error);
-  //           });
-  //         event.preventDefault();
-  //       }
-  //     });
-  //   };
 
   render() {
     return (
@@ -93,9 +103,9 @@ export default class StepForm extends Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              value={this.state.city}
-              placeholder={"ex : Paris"}
-              onChangeText={text => this.setState({ city: text })}
+              value={this.state.company_name}
+              placeholder={"ex : Hotel California"}
+              onChangeText={text => this.setState({ company_name: text })}
             />
           </View>
           {/* Input Adress */}
@@ -104,9 +114,9 @@ export default class StepForm extends Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              value={this.state.adress}
-              placeholder={"ex : 55 blvd Paul Smith"}
-              onChangeText={text => this.setState({ adress: text })}
+              value={this.state.city}
+              placeholder={"ex : Ouagadougou"}
+              onChangeText={text => this.setState({ city: text })}
             />
           </View>
           <View style={styles.inputLine}>
@@ -134,9 +144,9 @@ export default class StepForm extends Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              value={this.state.adress}
+              value={this.state.start_date}
               placeholder={"22/08/2018"}
-              onChangeText={text => this.setState({ adress: text })}
+              onChangeText={value => this.setState({ start_date: value })}
             />
           </View>
           <View style={styles.inputLine}>
@@ -144,9 +154,9 @@ export default class StepForm extends Component {
             <TextInput
               style={styles.input}
               autoCapitalize="none"
-              value={this.state.adress}
+              value={this.state.end_date}
               placeholder={"23/08/2018"}
-              onChangeText={text => this.setState({ adress: text })}
+              onChangeText={value => this.setState({ end_date: value })}
             />
           </View>
           <View style={styles.inputLine}>
@@ -182,7 +192,7 @@ export default class StepForm extends Component {
           </View>
 
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-            <Text style={styles.buttonText}>NEXT</Text>
+            <Text style={styles.buttonText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

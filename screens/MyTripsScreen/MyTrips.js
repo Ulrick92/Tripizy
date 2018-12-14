@@ -30,11 +30,17 @@ export default class MyTripsScreen extends Component {
     if (this.state.travelbooks !== undefined) {
       return (
         <Fragment>
-          <ScrollView>
-            <View style={styles.container}>
-              {/* mettre la card à cet endroit */}
-              <TravelBookCard />
+          <ScrollView style={styles.container}>
+            <View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.navigation.navigate("DetailsTravel");
+                }}
+              >
+                <TravelBookCard />
+              </TouchableOpacity>
             </View>
+            <TravelBookCard />
           </ScrollView>
           <TouchableOpacity style={styles.button}>
             <Text
@@ -74,12 +80,7 @@ export default class MyTripsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-
-    flexDirection: "row",
-    position: "absolute",
-    justifyContent: "flex-end"
+    backgroundColor: "#EAE1E2"
   },
   loading: {
     fontSize: 30,

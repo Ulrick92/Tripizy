@@ -8,7 +8,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import ListScreen from "../screens/ListScreen/List";
 import MyTripsScreen from "../screens/MyTripsScreen/MyTrips";
 import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
-import TipsScreen from "../screens/TipsScreen/Tips";
+import TipsScreen from "../screens/TipsScreen/TipsListTest";
 
 const ListStack = createStackNavigator({
   List: ListScreen
