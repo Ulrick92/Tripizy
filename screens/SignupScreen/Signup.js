@@ -12,7 +12,8 @@ import {
 import styles from "./styles";
 import axios from "axios";
 import RNPickerSelect from "react-native-picker-select";
-const countries = require("./data/Countries.json");
+
+import countries from "./data/Countries.js";
 
 /* import "./style.css"; */
 
