@@ -4,7 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Text
+  Text,
+  AsyncStorage
 } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
 import axios from "axios";
@@ -23,16 +24,36 @@ export default class ListScreen extends React.Component {
   state = {
     travelbooks: []
   };
-
+  componentDidMount() {
+    AsyncStorage.getItem("token", (err, token) => {
+      console.log("result", token);
+      axios
+        .get("https://back-tripizy.herokuapp.com/travelbook/", {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log("travelbook =>", response.data);
+          this.setState({
+            travelbook: response.data
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  }
   render() {
+    console.log();
     return (
       <Fragment>
         <ScrollView style={styles.container}>
           <View>
             <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("DetailsTravel");
-              }}
+            // onPress={() => {
+            //   this.props.navigation.navigate("DetailsTravel");
+            // }}
             >
               <TravelBookCard />
             </TouchableOpacity>
