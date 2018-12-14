@@ -78,7 +78,7 @@ export default class TipsListTest extends React.Component {
             // title="Go to Create a Travel Book"
             onPress={() => this.props.navigation.navigate("CityFilter")}
           >
-            <FontAwesomeIcon name="globe" size={30} color="#37449E" />
+            <FontAwesomeIcon name="globe" size={40} color="#37449E" />
           </Text>
         </TouchableOpacity>
       </Fragment>
