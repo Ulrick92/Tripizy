@@ -24,21 +24,21 @@ export default class TipsListTest extends React.Component {
   };
 
   state = {
-    travelbooks: [],
+    tips: [],
     countries: []
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
       axios
-        .get("https://back-tripizy.herokuapp.com/travelbook/", {
+        .get("https://back-tripizy.herokuapp.com/tips/", {
           headers: {
             authorization: `Bearer ${token}`
           }
         })
         .then(response => {
           this.setState({
-            travelbooks: response.data
+            tips: response.data.category
           });
         })
         .catch(err => {
