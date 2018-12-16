@@ -27,13 +27,8 @@ export default class LogIn extends Component {
     // vérifier si l'user est authentifié
 
     isAuthenticated: false,
-<<<<<<< HEAD
     email: "frarid@gmail.com",
     password: "azerty"
-=======
-    email: "bob@gmail.com",
-    password: "qwerty"
->>>>>>> userProfile+prog
   };
 
   handleSubmit = () => {

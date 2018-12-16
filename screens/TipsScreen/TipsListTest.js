@@ -11,7 +11,7 @@ import StepCard from "../../components/StepCard";
 import FreeCard from "../../components/FreeCard";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-const countries = require("../SignupScreen/data/Countries.json");
+const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class TipsListTest extends React.Component {
   static navigationOptions = {
