@@ -46,8 +46,8 @@ export default class UserProfile extends React.Component {
           }
         )
         .then(res => {
-          console.log("6ix9ine", res.data); // pour voir si on recupère la data de la base
-          console.log("6ix9ine", res.data.birthday);
+          console.log("Response", res.data); // pour voir si on recupère la data de la base
+          console.log("Birthday", res.data.birthday);
           this.setState(
             {
               first_name: res.data.first_name,
@@ -70,7 +70,6 @@ export default class UserProfile extends React.Component {
                 },
                 () => {
                   console.log(countries);
-                  console.log("kek");
                   const countries = this.state.countries;
                   console.log(this.state.listCountries);
                   for (i = 0; i < this.state.listCountries.length; i++) {
@@ -82,8 +81,7 @@ export default class UserProfile extends React.Component {
                         this.setState({
                           nationality: this.state.listCountries[i].label
                         });
-                        console.log("ateyaba");
-                        console.log(this.state.nationality);
+                        console.log("Nationality", this.state.nationality);
                       }
                       // console.log(this.state.listCountries[i].value);
                     }
@@ -95,7 +93,7 @@ export default class UserProfile extends React.Component {
           );
         })
         .catch(err => {
-          console.log("salah salah salah", err);
+          console.log("Error", err);
         });
       // }
     });
@@ -106,8 +104,8 @@ export default class UserProfile extends React.Component {
     this.state = {
       first_name: "",
       last_name: "",
-      nationality: String,
-      birthday: Number
+      nationality: "",
+      birthday: ""
     };
   }
 
