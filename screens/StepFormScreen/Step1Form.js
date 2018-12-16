@@ -24,31 +24,13 @@ export default class Step1Form extends Component {
   };
 
   state = {
-    travelbook_id: "5c139e9cfbbb0b0016afa713",
-    // title: "Mes vacs",
+    travelbook_id: "5c1676036b714000160b603d",
     start_date: ""
   };
 
   redirectToLoginPage = () => {
     this.props.navigation.navigate("Login");
   };
-
-  //   handleSubmit = text => {
-  //     const { start_date } = this.state;
-
-  //     AsyncStorage.getItem("token", (err, token) => {
-  //       console.log("result", token);
-
-  //       if (!token) {
-  //         this.redirectToLoginPage();
-  //       } else {
-  //         this.props.navigation.navigate("DetailsTravel", {
-  //           start_date: this.state.start_date
-  //         });
-  //         console.log(this.state.start_date);
-  //       }
-  //     });
-  //   };
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
@@ -66,7 +48,6 @@ export default class Step1Form extends Component {
             "https://back-tripizy.herokuapp.com/step/publish",
             {
               travelbook_id: travelbook_id,
-              // title: title,
               start_date: this.state.start_date
             },
             {
@@ -80,7 +61,6 @@ export default class Step1Form extends Component {
             console.log("response :", response.data);
 
             this.props.navigation.navigate("DetailsTravel", {
-              // title: response.data.title,
               start_date: response.data.start_date
             });
           })
@@ -90,29 +70,6 @@ export default class Step1Form extends Component {
       }
     });
   };
-
-  //   onPress = () => {
-  //     const { title } = this.state;
-  //     console.log("fais voir les states :", this.state);
-  //     axios
-  //       .post("https://back-tripizy.herokuapp.com/step/publish", {
-  //         title: title
-  //       })
-  //       .then(response => {
-  //         if (response.data.token) {
-  //           AsyncStorage.multiSet([
-  //             ["token", response.data.token],
-  //             ["id", response.data._id]
-  //           ]).then(() => {
-  //             this.props.navigation.navigate("BikeDetails", {
-  //               bikeId: response.data.id
-  //             });
-  //           });
-  //         }
-  //         this.props.navigation.navigate("BikeDetails");
-  //       });
-  //     console.log("fais voir les states 2", this.state);
-  //   };
 
   render() {
     return (

@@ -17,7 +17,7 @@ import StarRating from "react-native-star-rating";
 
 export default class StepForm extends Component {
   static navigationOptions = {
-    title: "Restaurant",
+    title: "Hotel",
     headerStyle: {
       backgroundColor: "#37449E"
     },
@@ -25,12 +25,12 @@ export default class StepForm extends Component {
   };
 
   state = {
-    step_id: "5c139ed9fbbb0b0016afa716",
-    category: "Restaurant",
-    company_name: "",
-    city: "",
-    start_date: "",
-    end_date: ""
+    step_id: "5c16dd03df02b700161ef22b",
+    category: "Hotel",
+    company_name: "Maeva",
+    city: "Guidel",
+    start_date: "01/01/2018",
+    end_date: "05/01/2018"
   };
 
   redirectToLoginPage = () => {
