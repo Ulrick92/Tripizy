@@ -3,6 +3,7 @@ import { createAppContainer, createStackNavigator } from "react-navigation";
 import DetailsTravelScreen from "../screens/DetailsTravelScreen/DetailsTravelBook";
 import TipsFormScreen from "../screens/StepFormScreen/TipsForm";
 import HotelFormScreen from "../screens/StepFormScreen/HotelForm";
+import RestaurantFormScreen from "../screens/StepFormScreen/RestaurantForm";
 
 const AppNavigator = createStackNavigator({
   DetailsTravel: {
@@ -13,6 +14,9 @@ const AppNavigator = createStackNavigator({
   },
   HotelForm: {
     screen: HotelFormScreen
+  },
+  RestaurantForm: {
+    screen: RestaurantFormScreen
   }
 });
 

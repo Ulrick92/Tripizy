@@ -4,6 +4,7 @@ import styles from "./styles";
 
 export default class SignUp extends Component {
   static navigationOptions = {
+    header: null,
     title: "Welcome",
     headerStyle: {
       backgroundColor: "#002982"

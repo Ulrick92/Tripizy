@@ -63,7 +63,12 @@ export default class HotelForm extends Component {
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
           </View>
           <View style={{ alignItems: "center" }}>
-            <MaterialIconsIcon name="restaurant" size={50} color="black" />
+            <MaterialIconsIcon
+              name="restaurant"
+              size={50}
+              color="black"
+              onPress={() => this.props.navigation.navigate("RestaurantForm")}
+            />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
               Restaurant
             </Text>

@@ -27,10 +27,10 @@ export default class StepCard extends React.Component {
               style={{ marginleft: 5, justifyContent: "center", width: "56%" }}
             >
               <Text style={{ fontSize: 18, marginLeft: 12 }}>
-                Hotel California
+                {this.props.company_name}
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 12 }}>
-                San Jose, Costa Rica
+                {this.props.city}
               </Text>
             </View>
             <View

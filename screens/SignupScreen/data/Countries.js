@@ -1092,7 +1092,7 @@ const countries = [
     value: 181
   },
   {
-    label: null,
+    label: "Republic of Kosovo",
     flag: "https://restcountries.eu/data/kos.svg",
     alpha2Code: "XK",
     value: 182

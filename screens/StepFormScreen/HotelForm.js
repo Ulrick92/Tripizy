@@ -9,28 +9,17 @@ import {
   View
 } from "react-native";
 import axios from "axios";
-import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-// import FontAwesomeFiveIcon from "react-native-vector-icons/FontAwesome5"; ne fonctionne pas
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import StarRating from "react-native-star-rating";
 
 export default class StepForm extends Component {
-  static navigationOptions = {
-    title: "Restaurant",
-    headerStyle: {
-      backgroundColor: "#37449E"
-    },
-    headerTintColor: "#fff"
-  };
-
   state = {
-    step_id: "5c139ed9fbbb0b0016afa716",
-    category: "Restaurant",
-    company_name: "",
-    city: "",
-    start_date: "",
-    end_date: ""
+    step_id: "5c17db6003868c0016544203",
+    category: "Hotel",
+    company_name: "Maeva",
+    city: "Guidel",
+    start_date: "02/03/2018",
+    end_date: "02/03/2018"
   };
 
   redirectToLoginPage = () => {

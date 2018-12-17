@@ -5,14 +5,10 @@ import {
   View,
   Text,
   ImageBackground,
-  Image,
   ScrollView,
   TouchableOpacity
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import StepCard from "../../components/StepCard";
 import DaysCard from "../../components/DaysCard";
@@ -32,136 +28,97 @@ export default class DetailsTravelBook extends React.Component {
     },
     headerTintColor: "#fff"
   });
-  // static navigationOptions = ({ navigation }) => ({
-  //   title: "Mon Airbnb",
-  //   headerLeft: (
-  //     <Icon
-  //       style={[styles.goBack]}
-  //       size={15}
-  //       name={"arrow-left"}
-  //       onPress={() => {
-  //         navigation.goBack();
-  //       }}
-  //     />
-  //   )
-  // });
 
   render() {
     return (
-      console.log(result.latitude),
-      console.log(result.longitude),
-      (
-        <Fragment>
-          <ScrollView style={styles.container}>
-            <View style={styles.travelCard}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("DetailsMap");
-                }}
-              >
-                <ImageBackground
-                  source={require("../../assets/images/sri_lanka.png")}
-                  style={styles.backgroundImage}
-                >
-                  <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
-                  <Text style={styles.dateBackgroundImage}>
-                    December 2018 - 337 days
-                  </Text>
-                </ImageBackground>
-              </TouchableOpacity>
-              {/* Bottom part Card */}
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("DetailsMap");
-                }}
-              >
-                <View>
-                  <MapView
-                    onPress={() => {
-                      this.props.navigation.navigate("DetailsMap");
-                    }}
-                    style={{
-                      width: "100%",
-                      height: 200,
-                      marginBottom: 10,
-                      shadowOpacity: 50
-                      // position: "absolute"
-                    }}
-                    initialRegion={{
-                      latitude: 10.494795,
-                      longitude: -85.685515,
-                      latitudeDelta: 0.515392,
-                      longitudeDelta: 0.4937
-                    }}
-                    showsUserLocation={true}
-                  >
-                    <Marker
-                      coordinate={{
-                        latitude: 10.298974,
-                        longitude: -85.837935
-                      }}
-                      title="Casa Bobo"
-                      description="Temple of love"
-                    />
-                    <Marker
-                      coordinate={{
-                        latitude: 10.594366,
-                        longitude: -85.544151
-                      }}
-                      title="Liberia Airport"
-                    />
-                    <Marker
-                      coordinate={{
-                        latitude: 10.260968,
-                        longitude: -85.584363
-                      }}
-                      title="Liberia Airport"
-                    />
-                  </MapView>
-                </View>
-              </TouchableOpacity>
+      <Fragment>
+        <ScrollView style={styles.container}>
+          <View style={styles.travelCard}>
+            <ImageBackground
+              source={require("../../assets/images/sri_lanka.png")}
+              style={styles.backgroundImage}
+            >
+              <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
+              <Text style={styles.dateBackgroundImage}>
+                December 2018 - 337 days
+              </Text>
+            </ImageBackground>
+
+            <TouchableOpacity>
               <View>
-                <Text style={{ marginBottom: 10 }}>
-                  Description : Post haec Gallus Hierapolim profecturus ut
-                  expeditioni specie tenus adesset, Antiochensi plebi
-                  suppliciter obsecranti ut inediae dispelleret metum, quae per
-                  multas difficilisque causas adfore iam sperabatur, non ut mos
-                  est principibus.
-                </Text>
+                <MapView
+                  onPress={() => {
+                    this.props.navigation.navigate("DetailsMap");
+                  }}
+                  style={styles.mapView}
+                  initialRegion={{
+                    latitude: 10.494795,
+                    longitude: -85.685515,
+                    latitudeDelta: 0.515392,
+                    longitudeDelta: 0.4937
+                  }}
+                  showsUserLocation={true}
+                >
+                  <Marker
+                    coordinate={{
+                      latitude: 10.298974,
+                      longitude: -85.837935
+                    }}
+                    title="Casa Bobo"
+                    description="Temple of love"
+                  />
+                  <Marker
+                    coordinate={{
+                      latitude: 10.594366,
+                      longitude: -85.544151
+                    }}
+                    title="Liberia Airport"
+                  />
+                  <Marker
+                    coordinate={{
+                      latitude: 10.260968,
+                      longitude: -85.584363
+                    }}
+                    title="Liberia Airport"
+                  />
+                </MapView>
               </View>
-              <DaysCard />
-              <View
-                style={{
-                  justifyContent: "center",
-                  width: "100%"
-                }}
-              >
-                <StepCard />
-                <FreeCard />
-                <StepCard />
-              </View>
-              <DaysCard />
-              <FreeCard />
+            </TouchableOpacity>
+            <View>
+              <Text style={{ marginBottom: 10 }}>
+                Description : Post haec Gallus Hierapolim profecturus ut
+                expeditioni specie tenus adesset, Antiochensi plebi suppliciter
+                obsecranti ut inediae dispelleret metum, quae per multas
+                difficilisque causas adfore iam sperabatur, non ut mos est
+                principibus.
+              </Text>
             </View>
-          </ScrollView>
-          <TouchableOpacity style={styles.button}>
-            <Text
-              title="Go to Create a Step"
-              onPress={() => this.props.navigation.navigate("StepForm")}
+            <DaysCard />
+            <View
+              style={{
+                justifyContent: "center",
+                width: "100%"
+              }}
             >
-              <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonTips}>
-            <Text
-              title="Go to Create a Step"
-              onPress={() => this.props.navigation.navigate("TipsForm")}
-            >
-              <MaterialIconsIcon name="hotel" size={40} color="#37449E" />
-            </Text>
-          </TouchableOpacity>
-        </Fragment>
-      )
+              <StepCard />
+              <FreeCard />
+              <StepCard />
+            </View>
+            <DaysCard />
+            <FreeCard />
+          </View>
+        </ScrollView>
+        <TouchableOpacity style={styles.button}>
+          <Text onPress={() => this.props.navigation.navigate("StepForm")}>
+            <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonTips}>
+          <Text onPress={() => this.props.navigation.navigate("TipsForm")}>
+            <MaterialIconsIcon name="hotel" size={40} color="#37449E" />
+          </Text>
+        </TouchableOpacity>
+      </Fragment>
     );
   }
 }
@@ -242,5 +199,11 @@ const styles = StyleSheet.create({
     borderRadius: 50 / 2,
     backgroundColor: "#EAE1E2",
     borderRadius: 100 / 2
+  },
+  mapView: {
+    width: "100%",
+    height: 200,
+    marginBottom: 10,
+    shadowOpacity: 50
   }
 });

@@ -60,8 +60,7 @@ export default class UserProfile extends React.Component {
               const today = new Date();
               const userBirthday = this.state.birthday;
               console.log("this.state.birthday", this.state.birthday);
-              // console.log("bhd", bhd);
-              const age = moment(today).diff(userBirthday, "years"); // 27
+              const age = moment(today).diff(userBirthday, "years");
               console.log("âge de clement est : " + age + " ans");
               this.setState(
                 {

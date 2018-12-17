@@ -27,7 +27,7 @@ export default class LogIn extends Component {
     // vérifier si l'user est authentifié
 
     isAuthenticated: false,
-    email: "frarid@gmail.com",
+    email: "laurent.bonnec@gmail.com",
     password: "azerty"
   };
 
