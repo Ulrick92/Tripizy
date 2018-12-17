@@ -12,7 +12,7 @@ import SignupFormStackNavigator from "./SignupFormStackNavigator";
 export default createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-  // AuthLoading: AuthLoading,
+  AuthLoading: AuthLoading,
   Auth: AuthStackNavigator, // Tomoko
   TravelBook: TravelBookNavigator, // Laurent
   Main: MainTabNavigator, // Laurent

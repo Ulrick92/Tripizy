@@ -21,9 +21,6 @@ const TravelBookNavigator = createStackNavigator({
   StepForm: {
     screen: StepFormScreen
   },
-  TipsForm: {
-    screen: TipsFormScreen
-  },
   TipsFilter: {
     screen: TipsFilterScreen
   },
@@ -33,9 +30,7 @@ const TravelBookNavigator = createStackNavigator({
   DetailsMap: {
     screen: DetailsMapScreen
   },
-  Main: MainTabNavigator, // Laurent
-  Form: FormStackNavigator, // Tomoko
-  Step: StepFormStackNavigator // Laurent
+  Main: MainTabNavigator // Laurent
 });
 
 export default createAppContainer(TravelBookNavigator);
