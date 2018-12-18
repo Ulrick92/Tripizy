@@ -11,9 +11,9 @@ export default class TravelBookCard extends React.Component {
     this.setState({ countries });
   }
   renderProfilePic(user_id) {
-    if (user_id.profile_pic) {
-      if (user_id.profile_pic === null) {
-        return { uri: user_id.profile_pic };
+    if (user_id) {
+      if (user_id.profile_pic.length) {
+        return { uri: user_id.profile_pic[0] };
       } else {
         return require("../assets/images/no_user.png");
       }
@@ -44,7 +44,6 @@ export default class TravelBookCard extends React.Component {
     const { countries } = this.state;
     console.log(user_id);
     if (this.state.countries.length) {
-      console.log("YEAH", user_id.profile_pic);
       return (
         <View style={styles.travelCard}>
           <ImageBackground
