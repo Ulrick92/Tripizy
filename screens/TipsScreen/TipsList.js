@@ -8,12 +8,14 @@ import {
   AsyncStorage,
   FlatList
 } from "react-native";
-import StepCard from "../../components/StepCard";
+import TipsCard from "../../components/TipsCard";
 import FreeCard from "../../components/FreeCard";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 import config from "../../config";
+import StepCard from "../../components/StepCard";
+
 export default class TipsListTest extends React.Component {
   static navigationOptions = {
     header: null,
@@ -64,7 +66,8 @@ export default class TipsListTest extends React.Component {
               <Text>{item.city}</Text>
               <Text>{item.start_date}</Text>
               <Text>{item.end_date}</Text>
-              <StepCard
+              <StepCard />
+              <TipsCard
                 company_name={item.company_name}
                 city={item.city}
                 photos={item.photos[0]}

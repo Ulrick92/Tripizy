@@ -12,8 +12,8 @@ import {
 import axios from "axios";
 import MapView, { Marker } from "react-native-maps";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+import TipsCard from "../../components/TipsCard";
 import StepCard from "../../components/StepCard";
-import DaysCard from "../../components/DaysCard";
 import FreeCard from "../../components/FreeCard";
 import geolib from "geolib";
 
@@ -121,18 +121,18 @@ export default class DetailsTravelBook extends React.Component {
                   Description : {travelbook.description}
                 </Text>
               </View>
-              <DaysCard />
+              <StepCard />
               <View
                 style={{
                   justifyContent: "center",
                   width: "100%"
                 }}
               >
-                <StepCard />
+                <TipsCard />
                 <FreeCard />
-                <StepCard />
+                <TipsCard />
               </View>
-              <DaysCard />
+              <StepCard />
               <FreeCard />
             </View>
           </ScrollView>
