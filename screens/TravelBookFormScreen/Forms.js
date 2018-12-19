@@ -10,6 +10,7 @@ import {
 } from "react-native";
 // import styles from "./styles";
 import axios from "axios";
+import config from "../../config";
 
 export default class Form extends Component {
   static navigationOptions = {
@@ -58,7 +59,7 @@ export default class Form extends Component {
       } else {
         axios
           .post(
-            "https://back-tripizy.herokuapp.com/travelbook/publish",
+            `${config.DOMAIN}travelbook/publish`,
             {
               title,
               description,

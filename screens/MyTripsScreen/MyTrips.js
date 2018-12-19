@@ -11,6 +11,7 @@ import {
   AsyncStorage
 } from "react-native";
 import axios from "axios";
+import config from "../../config";
 import TravelBookCard from "../../components/TravelBookCard";
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 
@@ -29,9 +30,11 @@ export default class MyTripsScreen extends Component {
     countries: []
   };
   componentDidMount() {
+    console.log("didmount");
+    console.log(`${config.DOMAIN}travelbook/mytrips`);
     AsyncStorage.getItem("token", (err, token) => {
       axios
-        .get("https://back-tripizy.herokuapp.com/travelbook/mytrips", {
+        .get(`${config.DOMAIN}travelbook/mytrips`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -44,10 +47,10 @@ export default class MyTripsScreen extends Component {
           // });
         });
     });
-    this.setState({ countries });
   }
   render() {
     // on vérifie que le this.state existe
+    console.log("render  : ", this.state.travelbooks.length);
     if (this.state.countries.length) {
       return (
         <Fragment>

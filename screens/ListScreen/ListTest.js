@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import axios from "axios";
-
+import config from "../../config";
 export default class ListTestScreen extends React.Component {
   //   state = {
   //     rooms: []
@@ -28,15 +28,13 @@ export default class ListTestScreen extends React.Component {
   };
 
   componentDidMount() {
-    axios
-      .get("https://back-tripizy.herokuapp.com/travelbook/")
-      .then(response => {
-        console.log("response", response.data);
-        if (response.data) {
-          this.setState({ rooms: response.data.travelbook });
-          console.log(response.data.travelbook);
-        }
-      });
+    axios.get(`${config.DOMAIN}travelbook/`).then(response => {
+      console.log("response", response.data);
+      if (response.data) {
+        this.setState({ rooms: response.data.travelbook });
+        console.log(response.data.travelbook);
+      }
+    });
   }
 
   render() {

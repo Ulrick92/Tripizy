@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from "react-native";
 import axios from "axios";
-
+import config from "../../config";
 export default class Step1Form extends Component {
   static navigationOptions = {
     title: "Add a new day",
@@ -45,7 +45,7 @@ export default class Step1Form extends Component {
       } else {
         axios
           .post(
-            "https://back-tripizy.herokuapp.com/step/publish",
+            `${config.DOMAIN}step/publish`,
             {
               travelbook_id: travelbook_id,
               start_date: this.state.start_date

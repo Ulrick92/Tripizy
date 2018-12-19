@@ -12,7 +12,7 @@ import FreeCard from "../../components/FreeCard";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
-
+import config from "../../config";
 export default class TipsListTest extends React.Component {
   static navigationOptions = {
     header: null,
@@ -31,7 +31,7 @@ export default class TipsListTest extends React.Component {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
       axios
-        .get("https://back-tripizy.herokuapp.com/tips/", {
+        .get(`${config.DOMAIN}tips/`, {
           headers: {
             authorization: `Bearer ${token}`
           }
