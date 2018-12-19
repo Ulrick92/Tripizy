@@ -10,7 +10,7 @@ import t from "tcomb-form-native";
 import styles from "./styles";
 import axios from "axios";
 import moment from "moment";
-
+import config from "../../config";
 import countries from "../SignupScreen/data/Countries";
 const Form = t.form.Form;
 
@@ -37,14 +37,11 @@ export default class UserProfile extends React.Component {
       // } else {
       console.log("par ici");
       axios
-        .get(
-          "https://back-tripizy.herokuapp.com/user/5c126661a70a320016dffec4",
-          {
-            headers: {
-              authorization: `Bearer ${token}`
-            }
+        .get(`${config.DOMAIN}user/5c126661a70a320016dffec4`, {
+          headers: {
+            authorization: `Bearer ${token}`
           }
-        )
+        })
         .then(res => {
           console.log("Response", res.data); // pour voir si on recupère la data de la base
           console.log("Birthday", res.data.birthday);
