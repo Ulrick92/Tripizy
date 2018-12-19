@@ -27,6 +27,7 @@ export default class MyTripsScreen extends Component {
 
   state = {
     travelbooks: [],
+    mounted: false,
     countries: []
   };
   componentDidMount() {
@@ -41,30 +42,34 @@ export default class MyTripsScreen extends Component {
         })
         .then(response => {
           console.log("response", response.data);
-          // on envoie les infos dans le state.travelbooks
-          // this.setState({
-          //   travelbooks: response.data.travelbooks
-          // });
+          this.setState({
+            travelbooks: response.data,
+            mounted: true
+          });
         });
     });
+    this.setState({ countries });
   }
   render() {
     // on vérifie que le this.state existe
-    console.log("render  : ", this.state.travelbooks.length);
-    if (this.state.countries.length) {
+    const { mounted, travelbooks } = this.state;
+    if (this.state.countries.length && mounted) {
+      console.log("render  : ", this.state.travelbooks.length);
       return (
         <Fragment>
           <ScrollView style={styles.container}>
             <View>
               <FlatList
-                data={this.state.travelbooks}
+                data={travelbooks}
                 keyExtractor={item => item._id}
                 renderItem={({ item }) => {
                   return (
                     <TouchableOpacity
                       style={styles.itemContainer}
                       onPress={() =>
-                        this.props.navigation.navigate("DetailsTravel", item)
+                        this.props.navigation.navigate("DetailsTravel", {
+                          id: item._id
+                        })
                       }
                     >
                       <TravelBookCard {...item} />
