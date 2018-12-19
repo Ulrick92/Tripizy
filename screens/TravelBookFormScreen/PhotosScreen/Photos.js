@@ -11,18 +11,26 @@ import { ImagePicker, Permissions } from "expo";
 import styles from "./styles";
 
 export default class Photos extends Component {
-  static navigationOptions = {
-    title: "Create a Travel Book",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Create a Travel Book",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
     photos: null // image en base64
@@ -34,6 +42,14 @@ export default class Photos extends Component {
 
   handleSubmit = event => {
     const { photos } = this.state;
+    const {
+      title,
+      description,
+      country,
+      countries,
+      start_date,
+      end_date
+    } = this.props.navigation.state.params;
 
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -42,15 +58,15 @@ export default class Photos extends Component {
         this.redirectToLoginPage();
       } else {
         this.props.navigation.navigate("Category", {
-          title: this.props.navigation.state.params.title,
-          description: this.props.navigation.state.params.description,
-          countries: this.props.navigation.state.params.countries,
-          country: this.props.navigation.state.params.country,
-          start_date: this.props.navigation.state.params.start_date,
-          end_date: this.props.navigation.state.params.end_date,
-          photos: this.state.photos
+          title: title,
+          description: description,
+          countries: countries,
+          country: country,
+          start_date: start_date,
+          end_date: end_date,
+          photos: photos
         });
-        //        console.log(this.state.photos);
+        // console.log("photos", photos);
       }
     });
   };

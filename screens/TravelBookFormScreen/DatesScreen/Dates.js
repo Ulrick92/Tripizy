@@ -9,18 +9,26 @@ import {
 import styles from "./styles";
 
 export default class Dates extends Component {
-  static navigationOptions = {
-    title: "Create a Travel Book",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Create a Travel Book",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
     start_date: "",
@@ -32,7 +40,13 @@ export default class Dates extends Component {
   };
 
   handleSubmit = event => {
-    // const { start_date, end_date } = this.state;
+    const { start_date, end_date } = this.state;
+    const {
+      title,
+      description,
+      country,
+      countries
+    } = this.props.navigation.state.params;
 
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -41,22 +55,19 @@ export default class Dates extends Component {
         this.redirectToLoginPage();
       } else {
         this.props.navigation.navigate("Photos", {
-          title: this.props.navigation.state.params.title,
-          description: this.props.navigation.state.params.description,
-          countries: this.props.navigation.state.params.countries,
-          country: this.props.navigation.state.params.country,
-          start_date: this.state.start_date,
-          end_date: this.state.end_date
+          title: title,
+          description: description,
+          countries: countries,
+          country: country,
+          start_date: start_date,
+          end_date: end_date
         });
-        console.log("title", this.props.navigation.state.params.title);
-        console.log(
-          "description",
-          this.props.navigation.state.params.description
-        );
-        // console.log("countries", this.props.navigation.state.params.countries);
-        console.log("country", this.props.navigation.state.params.country);
-        console.log(this.state.start_date);
-        console.log(this.state.end_date);
+        console.log("title", title);
+        console.log("description", description);
+        // console.log("countries", countries);
+        console.log("country", country);
+        console.log(start_date);
+        console.log(end_date);
       }
     });
   };

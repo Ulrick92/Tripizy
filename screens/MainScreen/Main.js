@@ -2,25 +2,25 @@ import React, { Component } from "react";
 import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import styles from "./styles";
 
-export default class SignUp extends Component {
-  static navigationOptions = {
-    header: null,
+export default class Main extends Component {
+  static navigationOptions = ({ navigation }) => ({
     title: "Welcome",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 24,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
 
-  // state = {
-  //   // vérifier si l'user est authentifié
-  //   isAuthenticated: false,
-  //   email: "", // email à remplacer
-  //   password: "" // password à remplacer
+  // static navigationOptions = {
+  //   title: "Welcome",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 24,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
   // };
 
   render() {
@@ -28,7 +28,7 @@ export default class SignUp extends Component {
       <View style={styles.container}>
         <ImageBackground
           style={styles.backgroundImage}
-          source={require("../../assets/images/stockholm.jpg")}
+          source={require("../../assets/images/mexico.jpg")}
         >
           <Text style={styles.title}>tripizy</Text>
           <TouchableOpacity style={styles.button}>
@@ -63,43 +63,3 @@ export default class SignUp extends Component {
     );
   }
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1
-//   },
-//   backgroundImage: {
-//     flex: 1,
-//     width: "100%",
-//     alignItems: "center"
-//   },
-//   title: {
-//     color: "white",
-//     fontSize: 50,
-//     fontWeight: "200",
-//     textAlign: "center",
-//     marginTop: 70,
-//     marginBottom: 100
-//   },
-//   button: {
-//     marginTop: 20,
-//     backgroundColor: "rgba(255, 255, 255, 0.3)",
-//     height: 50,
-//     width: 250,
-//     justifyContent: "center",
-//     borderColor: "white",
-//     borderRadius: 5
-//   },
-//   buttonText: {
-//     color: "white",
-//     textAlign: "center"
-//   },
-//   clickableText: {
-//     fontSize: 20,
-//     color: "white",
-//     marginTop: 30,
-//     height: 50,
-//     width: 200,
-//     textAlign: "center"
-//   }
-// });
