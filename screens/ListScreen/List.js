@@ -63,7 +63,9 @@ export default class ListScreen extends React.Component {
                   <TouchableOpacity
                     style={styles.itemContainer}
                     onPress={() =>
-                      this.props.navigation.navigate("DetailsTravel", item)
+                      this.props.navigation.navigate("DetailsTravel", {
+                        id: item._id
+                      })
                     }
                   >
                     <TravelBookCard {...item} />
