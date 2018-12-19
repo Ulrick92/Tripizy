@@ -11,7 +11,7 @@ import { CheckBox } from "react-native-elements";
 import "@expo/vector-icons";
 import styles from "./styles";
 import axios from "axios";
-
+import config from "../../../config";
 export default class Category extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Travel Books",
@@ -85,7 +85,7 @@ export default class Category extends Component {
       } else {
         axios
           .post(
-            "https://back-tripizy.herokuapp.com/travelbook/publish",
+            `${config.DOMAIN}travelbook/publish`,
             {
               title: title,
               description: description,

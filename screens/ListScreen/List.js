@@ -9,6 +9,7 @@ import {
   AsyncStorage
 } from "react-native";
 import TravelBookCard from "../../components/TravelBookCard";
+import config from "../../config";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
@@ -31,7 +32,7 @@ export default class ListScreen extends React.Component {
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
       axios
-        .get("https://back-tripizy.herokuapp.com/travelbook/", {
+        .get(`${config.DOMAIN}travelbook/`, {
           headers: {
             authorization: `Bearer ${token}`
           }

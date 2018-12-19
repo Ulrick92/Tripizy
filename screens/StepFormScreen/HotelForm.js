@@ -8,6 +8,7 @@ import {
   StyleSheet,
   View
 } from "react-native";
+import config from "../../config";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import StarRating from "react-native-star-rating";
@@ -45,7 +46,7 @@ export default class StepForm extends Component {
       } else {
         axios
           .post(
-            "https://back-tripizy.herokuapp.com/tips/publish",
+            `${config.DOMAIN}tips/publish`,
             {
               step_id: step_id,
               category: category,

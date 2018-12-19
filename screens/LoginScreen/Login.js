@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 import axios from "axios";
-
+import config from "../../config";
 export default class LogIn extends Component {
   static navigationOptions = {
     title: "Login",
@@ -35,7 +35,7 @@ export default class LogIn extends Component {
 
     axios
 
-      .post("https://back-tripizy.herokuapp.com/user/log_in", {
+      .post(`${config.DOMAIN}user/log_in`, {
         email,
         password
       })

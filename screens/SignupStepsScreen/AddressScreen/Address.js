@@ -11,7 +11,7 @@ import RNPickerSelect from "react-native-picker-select";
 import axios from "axios";
 const countries = require("./data/Countries.json");
 import styles from "./styles";
-
+import config from "../../../config";
 export default class Address extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Travel Books",
@@ -55,26 +55,18 @@ export default class Address extends Component {
 
     if (nationality) {
       axios
-        .post(
-          "https://back-tripizy.herokuapp.com/user/sign_up",
-          {
-            first_name: first_name,
-            last_name: last_name,
-            birthday: Date.parse(birthday),
-            email: email,
-            password: password,
-            confirmPassword: confirmPassword,
-            address: address,
-            city: city,
-            files: [profile_pic],
-            nationality: nationality
-          },
-          {
-            headers: {
-              authorization: `Bearer ${token}`
-            }
-          }
-        )
+        .post(`${config.DOMAIN}user/sign_up`, {
+          first_name: first_name,
+          last_name: last_name,
+          birthday: Date.parse(birthday),
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+          address: address,
+          city: city,
+          files: [profile_pic],
+          nationality: nationality
+        })
         .then(response => {
           console.log("response", response.data);
 

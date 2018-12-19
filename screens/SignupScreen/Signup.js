@@ -12,7 +12,7 @@ import {
 import styles from "./styles";
 import axios from "axios";
 import RNPickerSelect from "react-native-picker-select";
-
+import config from "../../config";
 import countries from "./data/Countries.js";
 
 /* import "./style.css"; */
@@ -75,7 +75,7 @@ class SignUp extends Component {
       nationality
     ) {
       axios
-        .post("https://back-tripizy.herokuapp.com/user/sign_up", {
+        .post(`${config.DOMAIN}user/sign_up`, {
           first_name,
           last_name,
           birthday: parsedDate,

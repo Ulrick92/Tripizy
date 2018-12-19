@@ -20,7 +20,7 @@ import {
   FormValidationMessage,
   Rating
 } from "react-native-elements";
-
+import config from "../../config";
 export default class StepForm extends Component {
   static navigationOptions = {
     title: "Restaurant",
@@ -62,7 +62,7 @@ export default class StepForm extends Component {
       } else {
         axios
           .post(
-            "https://back-tripizy.herokuapp.com/tips/publish",
+            `${config.DOMAIN}tips/publish`,
             {
               step_id: step_id,
               category: category,
