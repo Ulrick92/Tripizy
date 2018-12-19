@@ -6,8 +6,10 @@ import {
   Text,
   ImageBackground,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
+import axios from "axios";
 import MapView, { Marker } from "react-native-maps";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import StepCard from "../../components/StepCard";
@@ -28,98 +30,131 @@ export default class DetailsTravelBook extends React.Component {
     },
     headerTintColor: "#fff"
   });
-
+  state = {
+    travelbook: {},
+    mounted: false
+  };
+  componentDidMount() {
+    AsyncStorage.getItem("token", (err, token) => {
+      const { params } = this.props.navigation.state;
+      // console.log("Params =>", params);
+      axios
+        .get(`https://back-tripizy.herokuapp.com/travelbook/${params.id}`, {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log("Response =>", response.data);
+          this.setState({
+            travelbook: response.data,
+            mounted: true
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  }
   render() {
-    return (
-      <Fragment>
-        <ScrollView style={styles.container}>
-          <View style={styles.travelCard}>
-            <ImageBackground
-              source={require("../../assets/images/sri_lanka.png")}
-              style={styles.backgroundImage}
-            >
-              <Text style={styles.textBackgroundImage}>Sri Lanka</Text>
-              <Text style={styles.dateBackgroundImage}>
-                December 2018 - 337 days
-              </Text>
-            </ImageBackground>
+    const { travelbook, mounted } = this.state;
+    console.log("travelbook => ", travelbook);
+    if (mounted) {
+      return (
+        <Fragment>
+          <ScrollView style={styles.container}>
+            <View style={styles.travelCard}>
+              <ImageBackground
+                source={{ uri: travelbook.photos[0] }}
+                style={styles.backgroundImage}
+              >
+                <Text style={styles.textBackgroundImage}>
+                  {travelbook.title}
+                </Text>
+                <Text style={styles.dateBackgroundImage}>
+                  {travelbook.start_date}
+                </Text>
+              </ImageBackground>
 
-            <TouchableOpacity>
+              <TouchableOpacity>
+                <View>
+                  <MapView
+                    onPress={() => {
+                      this.props.navigation.navigate("DetailsMap");
+                    }}
+                    style={styles.mapView}
+                    initialRegion={{
+                      latitude: 10.494795,
+                      longitude: -85.685515,
+                      latitudeDelta: 0.515392,
+                      longitudeDelta: 0.4937
+                    }}
+                    showsUserLocation={true}
+                  >
+                    <Marker
+                      coordinate={{
+                        latitude: 10.298974,
+                        longitude: -85.837935
+                      }}
+                      title="Casa Bobo"
+                      description="Temple of love"
+                    />
+                    <Marker
+                      coordinate={{
+                        latitude: 10.594366,
+                        longitude: -85.544151
+                      }}
+                      title="Liberia Airport"
+                    />
+                    <Marker
+                      coordinate={{
+                        latitude: 10.260968,
+                        longitude: -85.584363
+                      }}
+                      title="Liberia Airport"
+                    />
+                  </MapView>
+                </View>
+              </TouchableOpacity>
               <View>
-                <MapView
-                  onPress={() => {
-                    this.props.navigation.navigate("DetailsMap");
-                  }}
-                  style={styles.mapView}
-                  initialRegion={{
-                    latitude: 10.494795,
-                    longitude: -85.685515,
-                    latitudeDelta: 0.515392,
-                    longitudeDelta: 0.4937
-                  }}
-                  showsUserLocation={true}
-                >
-                  <Marker
-                    coordinate={{
-                      latitude: 10.298974,
-                      longitude: -85.837935
-                    }}
-                    title="Casa Bobo"
-                    description="Temple of love"
-                  />
-                  <Marker
-                    coordinate={{
-                      latitude: 10.594366,
-                      longitude: -85.544151
-                    }}
-                    title="Liberia Airport"
-                  />
-                  <Marker
-                    coordinate={{
-                      latitude: 10.260968,
-                      longitude: -85.584363
-                    }}
-                    title="Liberia Airport"
-                  />
-                </MapView>
+                <Text style={{ marginBottom: 10 }}>
+                  Description : {travelbook.description}
+                </Text>
               </View>
-            </TouchableOpacity>
-            <View>
-              <Text style={{ marginBottom: 10 }}>
-                Description : Post haec Gallus Hierapolim profecturus ut
-                expeditioni specie tenus adesset, Antiochensi plebi suppliciter
-                obsecranti ut inediae dispelleret metum, quae per multas
-                difficilisque causas adfore iam sperabatur, non ut mos est
-                principibus.
-              </Text>
-            </View>
-            <DaysCard />
-            <View
-              style={{
-                justifyContent: "center",
-                width: "100%"
-              }}
-            >
-              <StepCard />
+              <DaysCard />
+              <View
+                style={{
+                  justifyContent: "center",
+                  width: "100%"
+                }}
+              >
+                <StepCard />
+                <FreeCard />
+                <StepCard />
+              </View>
+              <DaysCard />
               <FreeCard />
-              <StepCard />
             </View>
-            <DaysCard />
-            <FreeCard />
-          </View>
-        </ScrollView>
-        <TouchableOpacity style={styles.button}>
-          <Text onPress={() => this.props.navigation.navigate("StepForm")}>
-            <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonTips}>
-          <Text onPress={() => this.props.navigation.navigate("TipsForm")}>
-            <MaterialIconsIcon name="hotel" size={40} color="#37449E" />
-          </Text>
-        </TouchableOpacity>
-      </Fragment>
-    );
+          </ScrollView>
+          <TouchableOpacity style={styles.button}>
+            <Text onPress={() => this.props.navigation.navigate("StepForm")}>
+              <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonTips}>
+            <Text onPress={() => this.props.navigation.navigate("TipsForm")}>
+              <MaterialIconsIcon name="hotel" size={40} color="#37449E" />
+            </Text>
+          </TouchableOpacity>
+        </Fragment>
+      );
+    } else {
+      return (
+        <View>
+          <Text>Loading</Text>
+        </View>
+      );
+    }
   }
 }
 
