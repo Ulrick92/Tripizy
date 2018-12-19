@@ -10,30 +10,34 @@ import axios from "axios";
 import styles from "./styles";
 
 export default class NamesAndBirthday extends Component {
-  static navigationOptions = {
-    title: "Sign Up",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Sign Up",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
-    first_name: "Sofiane",
-    last_name: "Baddag",
-    birthday: "05/25/1995"
+    first_name: "",
+    last_name: "",
+    birthday: ""
   };
 
   handleSubmit = text => {
-    console.log(this.state.first_name);
-    console.log(this.state.last_name);
-    console.log(this.state.birthday);
-
     const { first_name, last_name, birthday } = this.state;
 
     if (first_name !== "" && first_name && last_name !== "" && last_name) {

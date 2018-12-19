@@ -12,18 +12,26 @@ import styles from "./styles";
 const countries = require("../../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class Country extends Component {
-  static navigationOptions = {
-    title: "Create a Travel Book",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Create a Travel Book",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
     countries: [],
@@ -35,7 +43,8 @@ export default class Country extends Component {
   };
 
   handleSubmit = event => {
-    // const { country } = this.state;
+    const { country, countries } = this.state;
+    const { title, description } = this.props.navigation.state.params;
 
     AsyncStorage.getItem("token", (err, token) => {
       console.log("result", token);
@@ -44,18 +53,15 @@ export default class Country extends Component {
         this.redirectToLoginPage();
       } else {
         this.props.navigation.navigate("Dates", {
-          title: this.props.navigation.state.params.title,
-          description: this.props.navigation.state.params.description,
-          countries: this.state.countries,
-          country: this.state.country
+          title: title,
+          description: description,
+          countries: countries,
+          country: country
         });
-        console.log("title", this.props.navigation.state.params.title);
-        console.log(
-          "description",
-          this.props.navigation.state.params.description
-        );
-        // console.log(this.state.countries);
-        console.log(this.state.country);
+        console.log("title", title);
+        console.log("description", description);
+        // console.log(countries);
+        console.log(country);
       }
     });
   };

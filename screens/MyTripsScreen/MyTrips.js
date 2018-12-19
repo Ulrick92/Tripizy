@@ -6,10 +6,13 @@ import {
   Text,
   Platform,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList,
+  AsyncStorage
 } from "react-native";
 import axios from "axios";
 import TravelBookCard from "../../components/TravelBookCard";
+const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class MyTripsScreen extends Component {
   static navigationOptions = {
@@ -22,25 +25,59 @@ export default class MyTripsScreen extends Component {
   };
 
   state = {
-    travelbooks: []
+    travelbooks: [],
+    countries: []
   };
-
+  componentDidMount() {
+    AsyncStorage.getItem("token", (err, token) => {
+      axios
+        .get("https://back-tripizy.herokuapp.com/travelbook/mytrips", {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log("response", response.data);
+          // on envoie les infos dans le state.travelbooks
+          // this.setState({
+          //   travelbooks: response.data.travelbooks
+          // });
+        });
+    });
+    this.setState({ countries });
+  }
   render() {
     // on vérifie que le this.state existe
-    if (this.state.travelbooks !== undefined) {
+    if (this.state.countries.length) {
       return (
         <Fragment>
           <ScrollView style={styles.container}>
             <View>
-              <TouchableOpacity
+              <FlatList
+                data={this.state.travelbooks}
+                keyExtractor={item => item._id}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.itemContainer}
+                      onPress={() =>
+                        this.props.navigation.navigate("DetailsTravel", item)
+                      }
+                    >
+                      <TravelBookCard {...item} />
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+              {/* <TouchableOpacity
                 onPress={() => {
                   this.props.navigation.navigate("DetailsTravel");
                 }}
               >
                 <TravelBookCard />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
-            <TravelBookCard />
+            {/* <TravelBookCard /> */}
           </ScrollView>
           <TouchableOpacity style={styles.button}>
             <Text
@@ -65,16 +102,6 @@ export default class MyTripsScreen extends Component {
       );
     }
   }
-
-  // componentDidMount() {
-  //   axios.get("https://back-tripizy.herokuapp.com/user").then(response => {
-  //     console.log("response.data", response.data);
-  //     // on envoie les infos dans le state.travelbooks
-  //     this.setState({
-  //       travelbooks: response.data.travelbooks
-  //     });
-  //   });
-  // }
 }
 
 const styles = StyleSheet.create({

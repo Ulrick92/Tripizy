@@ -9,18 +9,26 @@ import {
 import styles from "./styles";
 
 export default class TitleAndDescription extends Component {
-  static navigationOptions = {
-    title: "Create a Travel Book",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Create a Travel Book",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
     title: "",
@@ -32,7 +40,7 @@ export default class TitleAndDescription extends Component {
   };
 
   handleSubmit = text => {
-    // const { title, description } = this.state;
+    const { title, description } = this.state;
     const { travelbooks } = this.props.navigation.state.params;
 
     console.log(travelbooks);
@@ -42,28 +50,17 @@ export default class TitleAndDescription extends Component {
 
       if (!token) {
         this.redirectToLoginPage();
-      } else if (travelbooks.indexOf(this.state.title) !== 0) {
+      } else if (token && title && title !== "") {
         this.props.navigation.navigate("Country", {
-          title: this.state.title,
-          description: this.state.description
+          title: title,
+          description: description
         });
-        console.log(this.state.title);
-        console.log(this.state.description);
+        console.log(title);
+        console.log(description);
       } else {
         err;
         console.log("error", error);
       }
-
-      // if (!token) {
-      //   this.redirectToLoginPage();
-      // } else {
-      //   this.props.navigation.navigate("Country", {
-      //     title: this.state.title,
-      //     description: this.state.description
-      //   });
-      //   console.log(this.state.title);
-      //   console.log(this.state.description);
-      // }
     });
   };
 
