@@ -10,18 +10,26 @@ import { ImagePicker, Permissions } from "expo";
 import styles from "./styles";
 
 export default class Photos extends Component {
-  static navigationOptions = {
-    title: "Sign Up",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Sign Up",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
     profile_pic: null // image en base64
@@ -29,18 +37,26 @@ export default class Photos extends Component {
 
   handleSubmit = event => {
     const { profile_pic } = this.state;
+    const {
+      first_name,
+      last_name,
+      birthday,
+      email,
+      password,
+      confirmPassword
+    } = this.props.navigation.state.params;
 
     if (profile_pic) {
       this.props.navigation.navigate("Address", {
-        first_name: this.props.navigation.state.params.first_name,
-        last_name: this.props.navigation.state.params.last_name,
-        birthday: this.props.navigation.state.params.birthday,
-        email: this.props.navigation.state.params.email,
-        password: this.props.navigation.state.params.password,
-        confirmPassword: this.props.navigation.state.params.confirmPassword,
-        profile_pic: this.state.profile_pic
+        first_name: first_name,
+        last_name: last_name,
+        birthday: birthday,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        profile_pic: profile_pic
       });
-      console.log(this.state.profile_pic);
+      console.log("profile_pic", profile_pic);
     }
   };
 

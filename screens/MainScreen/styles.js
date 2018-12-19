@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: "rgba(59, 89, 152, 0.3)",
     height: 50,
     width: 250,
     justifyContent: "center",

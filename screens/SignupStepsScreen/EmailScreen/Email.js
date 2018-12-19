@@ -10,27 +10,40 @@ import {
 import styles from "./styles";
 
 export default class Email extends Component {
-  static navigationOptions = {
-    title: "Sign Up",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Sign Up",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
-    email: "sofiane@lereacteur.io",
-    password: "azerty",
-    confirmPassword: "azerty"
+    email: "",
+    password: "",
+    confirmPassword: ""
   };
 
   handleSubmit = text => {
     const { email, password, confirmPassword } = this.state;
+    const {
+      first_name,
+      last_name,
+      birthday
+    } = this.props.navigation.state.params;
 
     if (
       email !== "" &&
@@ -39,21 +52,18 @@ export default class Email extends Component {
       password &&
       password === confirmPassword &&
       confirmPassword !== ""
-      //   this.state.email !== undefined &&
-      //   this.state.password !== undefined &&
-      //   this.state.confirmPassword !== undefined
     ) {
       this.props.navigation.navigate("UserPhoto", {
-        first_name: this.props.navigation.state.params.first_name,
-        last_name: this.props.navigation.state.params.last_name,
-        birthday: this.props.navigation.state.params.birthday,
+        first_name: first_name,
+        last_name: last_name,
+        birthday: birthday,
         email: email,
         password: password,
         confirmPassword: confirmPassword
       });
-      console.log(this.state.email);
-      console.log(this.state.password);
-      console.log(this.state.confirmPassword);
+      console.log("email", email);
+      console.log("password", password);
+      console.log("confirmPassword", confirmPassword);
     } else {
       err;
       console.log("error", error);

@@ -13,43 +13,68 @@ const countries = require("./data/Countries.json");
 import styles from "./styles";
 
 export default class Address extends Component {
-  static navigationOptions = {
-    title: "Sign Up",
-    headerTintColor: "white",
+  static navigationOptions = ({ navigation }) => ({
+    title: "Travel Books",
     headerStyle: {
-      backgroundColor: "#002982"
+      backgroundColor: "#37449E"
     },
-    headerTitleStyle: {
-      fontSize: 20,
-      color: "white",
-      fontWeight: "200"
-    }
-  };
+    headerTintColor: "#fff"
+  });
+
+  // static navigationOptions = {
+  //   title: "Sign Up",
+  //   headerTintColor: "white",
+  //   headerStyle: {
+  //     backgroundColor: "#002982"
+  //   },
+  //   headerTitleStyle: {
+  //     fontSize: 20,
+  //     color: "white",
+  //     fontWeight: "200"
+  //   }
+  // };
 
   state = {
-    adress: "88 rue du Faubourg du Temple 75011",
-    city: "Paris",
+    address: "",
+    city: "",
     countries: [],
     nationality: 77
   };
 
   handleSubmit = text => {
     const { address, city, nationality } = this.state;
+    const {
+      first_name,
+      last_name,
+      birthday,
+      email,
+      password,
+      confirmPassword,
+      profile_pic
+    } = this.props.navigation.state.params;
 
     if (nationality) {
       axios
-        .post("https://back-tripizy.herokuapp.com/user/sign_up", {
-          first_name: this.props.navigation.state.params.first_name,
-          last_name: this.props.navigation.state.params.last_name,
-          birthday: Date.parse(this.props.navigation.state.params.birthday),
-          email: this.props.navigation.state.params.email,
-          password: this.props.navigation.state.params.password,
-          confirmPassword: this.props.navigation.state.params.confirmPassword,
-          address: address,
-          city: city,
-          files: [this.props.navigation.state.params.profile_pic],
-          nationality: nationality
-        })
+        .post(
+          "https://back-tripizy.herokuapp.com/user/sign_up",
+          {
+            first_name: first_name,
+            last_name: last_name,
+            birthday: Date.parse(birthday),
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+            address: address,
+            city: city,
+            files: [profile_pic],
+            nationality: nationality
+          },
+          {
+            headers: {
+              authorization: `Bearer ${token}`
+            }
+          }
+        )
         .then(response => {
           console.log("response", response.data);
 
@@ -62,7 +87,7 @@ export default class Address extends Component {
             confirmPassword: response.data.confirmPassword,
             photos: response.data.photos,
             category: response.data.category,
-            address: response.data.adress,
+            address: response.data.address,
             city: response.data.city,
             profile_pic: response.data.profile_pic,
             nationality: response.data.nationality
