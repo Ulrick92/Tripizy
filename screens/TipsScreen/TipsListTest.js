@@ -7,6 +7,7 @@ import {
   Text,
   AsyncStorage
 } from "react-native";
+import TipsCard from "../../components/TipsCard";
 import StepCard from "../../components/StepCard";
 import FreeCard from "../../components/FreeCard";
 import axios from "axios";
@@ -56,12 +57,12 @@ export default class TipsListTest extends React.Component {
             //   this.props.navigation.navigate("DetailsTravel");
             // }}
             >
-              <StepCard />
+              <TipsCard />
             </TouchableOpacity>
           </View>
 
           <FreeCard />
-          <StepCard />
+          <TipsCard />
         </ScrollView>
         <TouchableOpacity style={styles.button}>
           <Text

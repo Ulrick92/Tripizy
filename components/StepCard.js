@@ -1,97 +1,48 @@
-import React from "react";
-import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
-import EntypoIcon from "react-native-vector-icons/Entypo";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-// import FontAwesomeFiveIcon from "react-native-vector-icons/FontAwesome5"; ne fonctionne pas
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
-import StarRating from "react-native-star-rating";
+import React, { Component, Fragment } from "react";
+import { createAppContainer, createStackNavigator } from "react-navigation";
+import { StyleSheet, View, Text } from "react-native";
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 export default class StepCard extends React.Component {
   render() {
     return (
-      <View style={styles.stepCard}>
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "#EAE1E2",
-              marginBottom: 5,
-              borderRadius: 10
-            }}
-          >
-            <View style={{ alignItems: "center", marginLeft: 5 }}>
-              <FontAwesomeIcon name="hotel" size={40} color="black" />
-              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
-            </View>
-            <View
-              style={{ marginleft: 5, justifyContent: "center", width: "56%" }}
-            >
-              <Text style={{ fontSize: 18, marginLeft: 12 }}>
-                {this.props.company_name}
-              </Text>
-              <Text style={{ fontSize: 14, marginLeft: 12 }}>
-                {this.props.city}
-              </Text>
-            </View>
-            <View
-              style={{
-                justifyContent: "center"
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <StarRating
-                  style={{
-                    justifyContent: "center"
-                  }}
-                  fullStarColor={"#ffc200"}
-                  emptyStarColor={"#c9c3c3"}
-                  starSize={20}
-                  disabled={false}
-                  maxStars={5}
-                  rating={this.props.rating}
-                />
-              </View>
-              <Text />
-            </View>
-          </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginBottom: 5,
+          //   borderRadius: 10,
+          width: "100%",
+          backgroundColor: "#D9ECF2"
+        }}
+      >
+        <Text
+          style={{
+            backgroundColor: "#37449E",
+            fontWeight: "bold",
+            fontSize: 17,
+            color: "white",
+            padding: 3
+          }}
+        >
+          Day 1
+        </Text>
 
-          <Text style={{ marginBottom: 10 }} numberOfLines={5}>
-            Post haec Gallus Hierapolim profecturus ut expeditioni specie tenus
-            adesset, Antiochensi plebi suppliciter obsecranti ut inediae
-            dispelleret metum, quae per multas difficilisque causas adfore iam
-            sperabatur, non ut mos est principibus, quorum diffusa potestas
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <Image
-              source={require("../assets/images/bosnia.png")}
-              style={styles.pictures}
-            />
-            <Image
-              source={require("../assets/images/oman.png")}
-              style={styles.pictures}
-            />
-          </View>
+        <Text
+          style={{
+            marginLeft: 5,
+            color: "#37449E",
+            padding: 3,
+            fontSize: 15
+          }}
+        >
+          Saturday 1st December
+        </Text>
+
+        <View style={{ justifyContent: "center", marginEnd: 10 }}>
+          <FeatherIcon name="sun" size={25} color="#F6A019" />
         </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  stepCard: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 5,
-    flex: 1,
-    flexDirection: "row",
-    marginBottom: 10
-  },
-  pictures: {
-    width: 100,
-    height: 100,
-    justifyContent: "flex-end",
-    shadowOpacity: 50,
-    borderRadius: 10,
-    marginRight: 5
-  }
-});
