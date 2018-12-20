@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import {
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -9,13 +8,13 @@ import {
   FlatList
 } from "react-native";
 import TipsCard from "../../components/TipsCard";
-import FreeCard from "../../components/FreeCard";
+
 import axios from "axios";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
+import SelectCategory from "./TipsFilter";
+
 import config from "../../config";
 import StepCard from "../../components/StepCard";
-
+import { SearchBar } from "react-native-elements";
 export default class TipsListTest extends React.Component {
   static navigationOptions = {
     header: null,
@@ -27,10 +26,117 @@ export default class TipsListTest extends React.Component {
   };
 
   state = {
-    tips: []
+    tips: [],
+    city: "",
+    companyName: "",
+    category: ""
   };
-
+  onChangeSearchCity = city => {
+    this.setState({ city: city });
+    axios
+      .get(`${config.DOMAIN}tips/`, {
+        params: {
+          city: city,
+          company_name: this.state.companyName,
+          category: this.state.category
+        }
+      })
+      .then(response => {
+        this.setState({
+          tips: response.data
+        });
+      })
+      .catch(err => {
+        console.log("Error", err.message);
+      });
+  };
+  onChangeSearchCompanyName = companyName => {
+    this.setState({ companyName: companyName });
+    axios
+      .get(`${config.DOMAIN}tips/`, {
+        params: {
+          company_name: companyName,
+          city: this.state.city,
+          category: this.state.category
+        }
+      })
+      .then(response => {
+        this.setState({
+          tips: response.data
+        });
+      })
+      .catch(err => {
+        console.log("Error", err.message);
+      });
+  };
   _keyExtractor = (item, index) => item._id; //permet d'enlever les messages d'erreurs
+
+  handleCategory = category => {
+    this.setState({ category: category });
+    axios
+      .get(`${config.DOMAIN}tips/`, {
+        params: {
+          company_name: this.state.companyName,
+          city: this.state.city,
+          category: category
+        }
+      })
+      .then(response => {
+        this.setState({
+          tips: response.data
+        });
+      })
+      .catch(err => {
+        console.log("Error", err.message);
+      });
+  };
+  render() {
+    return (
+      <View>
+        <SearchBar
+          onChangeText={this.onChangeSearchCompanyName}
+          placeholder="Nom"
+          placeholderTextColor="#AAAAAA"
+          clearIcon={{ color: "#AAAAAA" }}
+          inputStyle={{ backgroundColor: "white" }}
+        />
+        <SearchBar
+          onChangeText={this.onChangeSearchCity}
+          placeholder="Ville"
+          placeholderTextColor="#AAAAAA"
+          clearIcon={{ color: "#AAAAAA" }}
+          inputStyle={{ backgroundColor: "white" }}
+        />
+        <View>
+          <SelectCategory handleCategory={this.handleCategory} />
+        </View>
+
+        <FlatList
+          keyExtractor={this._keyExtractor}
+          data={this.state.tips}
+          renderItem={({ item }) => {
+            return (
+              <View>
+                <Text>{item.category}</Text>
+                <Text>{item.company_name}</Text>
+                <Text>{item.city}</Text>
+                <Text>{item.start_date}</Text>
+                <Text>{item.end_date}</Text>
+                <StepCard />
+                <TipsCard
+                  company_name={item.company_name}
+                  city={item.city}
+                  photos={item.photos[0]}
+                  rate={item.rate[0]}
+                  pricePerDay={item.pricePerDay}
+                />
+              </View>
+            );
+          }}
+        />
+      </View>
+    );
+  }
 
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -52,69 +158,4 @@ export default class TipsListTest extends React.Component {
         });
     });
   }
-  render() {
-    return (
-      <FlatList
-        keyExtractor={this._keyExtractor}
-        data={this.state.tips}
-        renderItem={({ item }) => {
-          console.log("TipsList :", item);
-          return (
-            <View>
-              <Text>{item.category}</Text>
-              <Text>{item.company_name}</Text>
-              <Text>{item.city}</Text>
-              <Text>{item.start_date}</Text>
-              <Text>{item.end_date}</Text>
-              <StepCard />
-              <TipsCard
-                company_name={item.company_name}
-                city={item.city}
-                photos={item.photos[0]}
-                rate={item.rate[0]}
-                pricePerDay={item.pricePerDay}
-              />
-            </View>
-          );
-        }}
-      />
-    );
-  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    margin: 10
-  },
-  button: {
-    position: "absolute",
-    bottom: 10,
-    alignSelf: "flex-end",
-    shadowOpacity: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 50,
-    height: 50,
-    backgroundColor: "#EAE1E2",
-    borderRadius: 100 / 2,
-    right: 10
-  },
-  buttonPlace: {
-    position: "absolute",
-    bottom: 10,
-    alignSelf: "flex-end",
-    shadowOpacity: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 50,
-    height: 50,
-    backgroundColor: "#EAE1E2",
-    borderRadius: 100 / 2,
-    left: 10
-  },
-  buttonText: {
-    fontSize: 30
-  }
-});
