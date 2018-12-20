@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
-import EntypoIcon from "react-native-vector-icons/Entypo";
+
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+
 import StarRating from "react-native-star-rating";
 
 export default class TipsCard extends React.Component {
