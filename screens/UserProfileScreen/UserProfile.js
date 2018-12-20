@@ -49,9 +49,6 @@ export default class UserProfile extends React.Component {
     }
   };
 
-  _onPressButton = () => {
-    alert("coucou");
-  };
   render() {
     return (
       <View style={styles.coverContainer}>

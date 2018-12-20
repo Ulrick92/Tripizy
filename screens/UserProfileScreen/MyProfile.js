@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, Image, AsyncStorage, BackgroundImage } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  AsyncStorage,
+  TouchableOpacity
+} from "react-native";
 import styles from "./styles";
 import axios from "axios";
 import moment from "moment";
@@ -49,9 +55,6 @@ export default class MyProfile extends React.Component {
     }
   };
 
-  _onPressButton = () => {
-    alert("coucou");
-  };
   render() {
     return (
       <View style={styles.coverContainer}>
@@ -59,6 +62,29 @@ export default class MyProfile extends React.Component {
           style={styles.coverPicture}
           source={require("../../assets/images/beachCover.png")}
         />
+        <View>
+          <TouchableOpacity
+            style={{ justifyContent: "center" }}
+            onPress={() => {
+              AsyncStorage.removeItem("token").then(() => {
+                this.props.navigation.navigate("LogIn");
+              });
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Arial",
+                  fontSize: 12,
+                  backgroundColor: "white",
+                  textAlign: "right"
+                }}
+              >
+                Se déconnecter
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <View>{this.renderPictureProfile()}</View>
         <View>
           <View style={styles.donneeName}>
@@ -77,12 +103,7 @@ export default class MyProfile extends React.Component {
 
         <View style={styles.category}>
           <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon
-              name="map"
-              size={50}
-              color="#37449E"
-              onPress={() => this.props.navigation.navigate("HotelForm")}
-            />
+            <FontAwesomeIcon name="map" size={50} color="#37449E" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Map</Text>
           </View>
 
@@ -106,12 +127,7 @@ export default class MyProfile extends React.Component {
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Chat</Text>
           </View>
           <View style={{ alignItems: "center" }}>
-            <EntypoIcon
-              name="users"
-              size={50}
-              color="#37449E"
-              onPress={() => this.props.navigation.navigate("RestaurantForm")}
-            />
+            <EntypoIcon name="users" size={50} color="#37449E" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Friends</Text>
           </View>
         </View>
@@ -126,7 +142,6 @@ export default class MyProfile extends React.Component {
               name="line-graph"
               size={50}
               color="#37449E" //indigo FB
-              onPress={() => this.props.navigation.navigate("RestaurantForm")}
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Stats</Text>
           </View>
@@ -135,8 +150,6 @@ export default class MyProfile extends React.Component {
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Print</Text>
           </View>
         </View>
-
-        <View />
       </View>
     );
   }
