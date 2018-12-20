@@ -1,26 +1,19 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Button,
-  Image,
-  AsyncStorage
-} from "react-native";
+import { View, Text, Image, AsyncStorage, BackgroundImage } from "react-native";
 import styles from "./styles";
 import axios from "axios";
 import moment from "moment";
 import config from "../../config";
 import countries from "../SignupScreen/data/Countries";
+import EntypoIcon from "react-native-vector-icons/Entypo";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 
 export default class UserProfile extends React.Component {
   static navigationOptions = {
+    header: null,
     title: "Profile",
-    headerStyle: {
-      backgroundColor: "#37449E",
-      position: "relative",
-      bottom: 200
-    },
     headerTintColor: "#fff"
   };
 
@@ -40,12 +33,7 @@ export default class UserProfile extends React.Component {
     if (this.state.picture.length > 0) {
       return (
         <Image
-          style={{
-            width: 90,
-            height: 90,
-            borderRadius: 45,
-            borderWidth: 4
-          }}
+          style={styles.imageProfile}
           source={{ uri: this.state.picture[0] }}
         />
       );
@@ -53,12 +41,7 @@ export default class UserProfile extends React.Component {
       return (
         <View>
           <Image
-            style={{
-              width: 90,
-              height: 90,
-              borderRadius: 45,
-              borderWidth: 4
-            }}
+            style={styles.imageProfile}
             source={require("../../assets/images/no_user.png")}
           />
         </View>
@@ -71,17 +54,93 @@ export default class UserProfile extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.coverContainer}>
+        <Image
+          style={styles.coverPicture}
+          source={require("../../assets/images/beachCover.png")}
+        />
         <View>{this.renderPictureProfile()}</View>
-        <View style={styles.donneeUser}>
-          <Text>{this.state.first_name}</Text>
-          <Text>{" " + this.state.last_name}</Text>
-          <Text>{", " + this.state.userAge + " ans"}</Text>
-          <Text>{", " + this.state.nationality}</Text>
+        <View>
+          <View style={styles.donneeName}>
+            <Text style={styles.textName}>{this.state.first_name}</Text>
+            <Text style={styles.textName}>{" " + this.state.last_name}</Text>
+          </View>
+          <View style={styles.donneeAgeCountry}>
+            <Text style={styles.textAgeCountry}>
+              {this.state.userAge + " ans"}
+            </Text>
+            <Text style={styles.textAgeCountry}>
+              {", " + this.state.nationality}
+            </Text>
+          </View>
         </View>
+
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon
+              name="map"
+              size={50}
+              color="#37449E"
+              onPress={() => this.props.navigation.navigate("HotelForm")}
+            />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Map</Text>
+          </View>
+
+          <View style={{ alignItems: "center" }}>
+            <EntypoIcon name="book" size={45} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Trips</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="star-o" size={50} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Tips</Text>
+          </View>
+        </View>
+
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <SimpleLineIcon name="badge" size={50} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Badge</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialIconsIcon name="message" size={50} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Chat</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <EntypoIcon
+              name="users"
+              size={50}
+              color="#37449E"
+              onPress={() => this.props.navigation.navigate("RestaurantForm")}
+            />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Friends</Text>
+          </View>
+        </View>
+
+        <View style={styles.category}>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="photo" size={50} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Pics</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <EntypoIcon
+              name="line-graph"
+              size={50}
+              color="#37449E" //indigo FB
+              onPress={() => this.props.navigation.navigate("RestaurantForm")}
+            />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Stats</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FontAwesomeIcon name="print" size={50} color="#37449E" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Print</Text>
+          </View>
+        </View>
+
+        <View />
       </View>
     );
   }
+
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       axios
@@ -91,8 +150,6 @@ export default class UserProfile extends React.Component {
           }
         })
         .then(response => {
-          //  console.log("Responseponse", response.data); // pour voir si on recupère la data de la base
-          //console.log("Birthday", response.data.birthday);
           console.log(response.data);
 
           this.setState(
@@ -106,7 +163,6 @@ export default class UserProfile extends React.Component {
               listCountries: countries
             },
             () => {
-              // const birthDate = new Date(1991, 0, 31); // 31 Janvier 1991
               const today = new Date();
               const userBirthday = new Date(response.data.birthday);
 
@@ -133,6 +189,5 @@ export default class UserProfile extends React.Component {
     }).catch(err => {
       console.log("Error", err);
     });
-    // }
   }
 }

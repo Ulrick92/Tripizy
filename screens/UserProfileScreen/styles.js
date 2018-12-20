@@ -1,64 +1,57 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "lightgrey"
-  //   // paddingBottom: 400
-  // },
   coverContainer: {
-    flex: 0.8,
-    height: 200,
-    backgroundColor: "red"
+    height: 170,
+    backgroundColor: "#37449E",
+    alignItems: "center",
+    position: "relative"
   },
-  // profileContainer: {
-  //   backgroundColor: "blue"
-  // },
-  donneeUser: {
-    // backgroundColor: "#37449E",
+  donneeName: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    top: 105,
+    fontSize: 14,
+    alignItems: "center"
+  },
+  donneeAgeCountry: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    top: 110
+  },
+  coverPicture: {
+    width: "100%",
+    height: "100%",
+    position: "absolute"
+  },
+  imageProfile: {
+    width: 130,
+    height: 130,
+    borderRadius: 130 / 2,
+    borderWidth: 1,
+    borderColor: "white",
+    top: 100
+  },
+  textName: {
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  textAgeCountry: {
+    color: "grey"
+  },
+  category: {
+    marginTop: 15,
+    width: 250,
+    flexDirection: "row",
+    justifyContent: "space-between",
     top: 150
   },
-  // button: {
-  //   borderRadius: 20,
-  //   alignItems: "center",
-  //   // backgroundColor: "blue",
-  //   color: "white",
-  //   marginRight: 100,
-  //   marginLeft: 100,
-  //   paddingTop: 0
-  // },
-  // buttonText: {
-  //   color: "white"
-  // },
-  buttonLeisure: {
-    backgroundColor: "#37449E",
-    top: 220,
+  categorylabel: {
+    marginTop: 15,
+    width: 250,
     flexDirection: "row",
     justifyContent: "space-between"
-  },
-  photos: {
-    position: "relative",
-    top: 220
-  },
-  bioContainer: {
-    position: "relative",
-    top: 350
-  },
-  button: {
-    backgroundColor: "#37449E",
-
-    alignItems: "center",
-    position: "relative",
-    top: 350,
-    left: 90,
-    padding: 7,
-    width: 200,
-    borderRadius: 10
-  },
-  buttonBIO: {
-    color: "white"
   }
 });

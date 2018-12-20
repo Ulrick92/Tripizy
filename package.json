@@ -21,6 +21,7 @@
     "link": "^0.1.5",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
+    "nodemon": "^1.18.9",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
