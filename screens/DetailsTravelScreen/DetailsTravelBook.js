@@ -7,9 +7,11 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  FlatList
 } from "react-native";
 import axios from "axios";
+import config from "../../config";
 import MapView, { Marker } from "react-native-maps";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import TipsCard from "../../components/TipsCard";
@@ -32,6 +34,7 @@ export default class DetailsTravelBook extends React.Component {
   });
   state = {
     travelbook: {},
+    steps: [],
     mounted: false
   };
   componentDidMount() {
@@ -39,7 +42,7 @@ export default class DetailsTravelBook extends React.Component {
       const { params } = this.props.navigation.state;
       // console.log("Params =>", params);
       axios
-        .get(`https://back-tripizy.herokuapp.com/travelbook/${params.id}`, {
+        .get(`${config.DOMAIN}travelbook/${params.id}`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -48,6 +51,7 @@ export default class DetailsTravelBook extends React.Component {
           console.log("Response =>", response.data);
           this.setState({
             travelbook: response.data,
+            steps: response.data.steps,
             mounted: true
           });
         })
@@ -57,8 +61,8 @@ export default class DetailsTravelBook extends React.Component {
     });
   }
   render() {
-    const { travelbook, mounted } = this.state;
-    console.log("travelbook => ", travelbook);
+    const { travelbook, steps, mounted } = this.state;
+    const date = new Date(travelbook.start_date);
     if (mounted) {
       return (
         <Fragment>
@@ -72,7 +76,7 @@ export default class DetailsTravelBook extends React.Component {
                   {travelbook.title}
                 </Text>
                 <Text style={styles.dateBackgroundImage}>
-                  {travelbook.start_date}
+                  {date.toDateString()}
                 </Text>
               </ImageBackground>
 
@@ -121,7 +125,26 @@ export default class DetailsTravelBook extends React.Component {
                   Description : {travelbook.description}
                 </Text>
               </View>
-              <StepCard />
+              <FlatList
+                data={steps}
+                keyExtractor={item => item._id}
+                renderItem={item => {
+                  console.log("Objet =>", item);
+                  return (
+                    // <TouchableOpacity
+                    //   style={styles.itemContainer}
+                    //   onPress={() =>
+                    //     this.props.navigation.navigate("DetailsTravel", {
+                    //       id: item._id
+                    //     })
+                    //   }
+                    // >
+                    // </TouchableOpacity>
+                    <StepCard id={item["item"]._id} index={item["index"]} />
+                  );
+                }}
+              />
+              {/* <StepCard /> */}
               <View
                 style={{
                   justifyContent: "center",
@@ -132,7 +155,7 @@ export default class DetailsTravelBook extends React.Component {
                 <FreeCard />
                 <TipsCard />
               </View>
-              <StepCard />
+              {/* <StepCard /> */}
               <FreeCard />
             </View>
           </ScrollView>
