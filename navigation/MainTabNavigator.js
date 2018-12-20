@@ -7,7 +7,7 @@ import {
 import TabBarIcon from "../components/TabBarIcon";
 import ListScreen from "../screens/ListScreen/List";
 import MyTripsScreen from "../screens/MyTripsScreen/MyTrips";
-import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
+import MyProfileScreen from "../screens/UserProfileScreen/MyProfile";
 import TipsScreen from "../screens/TipsScreen/TipsList";
 
 const ListStack = createStackNavigator({
@@ -52,11 +52,11 @@ TipsStack.navigationOptions = {
   )
 };
 
-const UserProfileStack = createStackNavigator({
-  UserProfile: UserProfileScreen
+const MyProfileStack = createStackNavigator({
+  MyProfile: MyProfileScreen
 });
 
-UserProfileStack.navigationOptions = {
+MyProfileStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -69,5 +69,5 @@ export default createBottomTabNavigator({
   ListStack,
   MyTripsStack,
   TipsStack,
-  UserProfileStack
+  MyProfileStack
 });
