@@ -1,4 +1,4 @@
-const dev = false;
+const dev = true;
 
 if (dev) url = "http://localhost:3000/";
 else url = "https://back-tripizy.herokuapp.com/";
