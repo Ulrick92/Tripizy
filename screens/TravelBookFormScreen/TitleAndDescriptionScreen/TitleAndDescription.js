@@ -35,7 +35,7 @@ export default class TitleAndDescription extends Component {
   // };
 
   state = {
-    title: "Scuba diving in Seychelles",
+    title: "",
     description: "",
     error: ""
   };

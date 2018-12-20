@@ -36,6 +36,10 @@ export default StyleSheet.create({
     paddingLeft: 10,
     alignItems: "center"
   },
+  datePicker: {
+    width: 200,
+    marginBottom: 20
+  },
   button: {
     marginTop: 20,
     backgroundColor: "rgba(255, 255, 255, 0.3)",
