@@ -15,6 +15,10 @@ export default StyleSheet.create({
   form: {
     alignItems: "center"
   },
+  datePicker: {
+    width: 200,
+    marginBottom: 20
+  },
   input: {
     width: 250,
     height: 60,

@@ -6,7 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView
 } from "react-native";
-import axios from "axios";
+import DatePicker from "react-native-datepicker";
 import styles from "./styles";
 
 export default class NamesAndBirthday extends Component {
@@ -17,19 +17,6 @@ export default class NamesAndBirthday extends Component {
     },
     headerTintColor: "#fff"
   });
-
-  // static navigationOptions = {
-  //   title: "Sign Up",
-  //   headerTintColor: "white",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 20,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
 
   state = {
     first_name: "",
@@ -81,7 +68,33 @@ export default class NamesAndBirthday extends Component {
             }}
           />
           <Text style={styles.title}>Birthday</Text>
-          <TextInput
+          <DatePicker
+            style={styles.datePicker}
+            date={this.state.birthday}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="1928-01-01"
+            maxDate="2018-01-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={date => {
+              this.setState({ birthday: date });
+            }}
+          />
+          {/* <TextInput
             style={styles.input}
             value={this.state.birthday}
             placeholder={"MM/DD/YYYY"}
@@ -90,7 +103,7 @@ export default class NamesAndBirthday extends Component {
                 birthday: value
               });
             }}
-          />
+          /> */}
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
             <Text style={styles.buttonText}>NEXT</Text>
           </TouchableOpacity>

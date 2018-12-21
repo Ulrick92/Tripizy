@@ -24,6 +24,7 @@
     "nodemon": "^1.18.9",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^0.19.1",
     "react-native-image-picker": "^0.27.2",
     "react-native-maps": "^0.22.1",
