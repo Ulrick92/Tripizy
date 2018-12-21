@@ -24,7 +24,6 @@ export default class Step1Form extends Component {
   };
 
   state = {
-    travelbook_id: "5c1b7bed4e17310016d429c6",
     start_date: ""
   };
 
@@ -37,9 +36,9 @@ export default class Step1Form extends Component {
       // récupère le token
       console.log("token :", token);
 
-      const { travelbook_id, start_date } = this.state;
-      console.log("result :", this.state);
-
+      const { start_date } = this.state;
+      // console.log("result :", this.state);
+      const { travelbook_id } = this.props.navigation.state.params;
       if (!token) {
         this.redirectToLoginPage();
       } else {
@@ -47,8 +46,8 @@ export default class Step1Form extends Component {
           .post(
             `${config.DOMAIN}step/publish`,
             {
-              travelbook_id: travelbook_id,
-              start_date: this.state.start_date
+              travelbook_id,
+              start_date
             },
             {
               headers: {
@@ -56,7 +55,6 @@ export default class Step1Form extends Component {
               }
             }
           )
-
           .then(response => {
             console.log("response :", response.data);
 
