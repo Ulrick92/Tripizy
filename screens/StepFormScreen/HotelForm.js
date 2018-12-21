@@ -15,12 +15,12 @@ import StarRating from "react-native-star-rating";
 
 export default class StepForm extends Component {
   state = {
-    step_id: "5c17db6003868c0016544203",
+    step_id: "5c1c1259184b4f0016fb78dd",
     category: "Hotel",
-    company_name: "Maeva",
-    city: "Guidel",
-    start_date: "02/03/2018",
-    end_date: "02/03/2018"
+    company_name: "Casa del Papel",
+    city: "Vinales",
+    start_date: "03/03/2015",
+    end_date: "03/03/2015"
   };
 
   redirectToLoginPage = () => {
