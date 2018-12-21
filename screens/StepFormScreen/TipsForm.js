@@ -11,7 +11,6 @@ import {
 import axios from "axios";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-// import FontAwesomeFiveIcon from "react-native-vector-icons/FontAwesome5"; ne fonctionne pas
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
 export default class HotelForm extends Component {

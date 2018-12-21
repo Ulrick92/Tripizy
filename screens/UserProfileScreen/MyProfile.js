@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   AsyncStorage,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
 import styles from "./styles";
 import axios from "axios";
@@ -57,100 +58,123 @@ export default class MyProfile extends React.Component {
 
   render() {
     return (
-      <View style={styles.coverContainer}>
-        <Image
-          style={styles.coverPicture}
-          source={require("../../assets/images/beachCover.png")}
-        />
-        <View>
-          <TouchableOpacity
-            style={{ justifyContent: "center" }}
-            onPress={() => {
-              AsyncStorage.removeItem("token").then(() => {
-                this.props.navigation.navigate("LogIn");
-              });
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  fontFamily: "Arial",
-                  fontSize: 12,
-                  backgroundColor: "white",
-                  textAlign: "right"
-                }}
-              >
-                Se déconnecter
+      <ScrollView>
+        <View style={styles.coverContainer}>
+          <Image
+            style={styles.coverPicture}
+            source={require("../../assets/images/beachCover.png")}
+          />
+          <View>
+            <TouchableOpacity
+              style={{ justifyContent: "center" }}
+              onPress={() => {
+                AsyncStorage.removeItem("token").then(() => {
+                  this.props.navigation.navigate("LogIn");
+                });
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontFamily: "Arial",
+                    fontSize: 12,
+                    backgroundColor: "white",
+                    textAlign: "right",
+                    position: "relative"
+                  }}
+                >
+                  Disconnect
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>{this.renderPictureProfile()}</View>
+          <View>
+            <View style={styles.donneeName}>
+              <Text style={styles.textName}>{this.state.first_name}</Text>
+              <Text style={styles.textName}>{" " + this.state.last_name}</Text>
+            </View>
+            <View style={styles.donneeAgeCountry}>
+              <Text style={styles.textAgeCountry}>
+                {this.state.userAge + " ans"}
+              </Text>
+              <Text style={styles.textAgeCountry}>
+                {", " + this.state.nationality}
               </Text>
             </View>
-          </TouchableOpacity>
-        </View>
-        <View>{this.renderPictureProfile()}</View>
-        <View>
-          <View style={styles.donneeName}>
-            <Text style={styles.textName}>{this.state.first_name}</Text>
-            <Text style={styles.textName}>{" " + this.state.last_name}</Text>
-          </View>
-          <View style={styles.donneeAgeCountry}>
-            <Text style={styles.textAgeCountry}>
-              {this.state.userAge + " ans"}
-            </Text>
-            <Text style={styles.textAgeCountry}>
-              {", " + this.state.nationality}
-            </Text>
-          </View>
-        </View>
 
-        <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="map" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Map</Text>
-          </View>
+            <View style={styles.category}>
+              <View style={{ alignItems: "center" }}>
+                <FontAwesomeIcon name="map" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+                  My Map
+                </Text>
+              </View>
 
-          <View style={{ alignItems: "center" }}>
-            <EntypoIcon name="book" size={45} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Trips</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="star-o" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Tips</Text>
+              <View style={{ alignItems: "center" }}>
+                <EntypoIcon name="book" size={45} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+                  My Trips
+                </Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <FontAwesomeIcon name="star-o" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+                  My Tips
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.category}>
+              <View style={{ alignItems: "center" }}>
+                <SimpleLineIcon name="badge" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Badge</Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <MaterialIconsIcon name="message" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Chat</Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <EntypoIcon
+                  name="users"
+                  size={50}
+                  color="#37449E"
+                  onPress={() =>
+                    this.props.navigation.navigate("RestaurantForm")
+                  }
+                />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+                  Friends
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.category}>
+              <View style={{ alignItems: "center" }}>
+                <FontAwesomeIcon name="photo" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Pics</Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <EntypoIcon
+                  name="line-graph"
+                  size={50}
+                  color="#37449E" //indigo FB
+                  onPress={() =>
+                    this.props.navigation.navigate("RestaurantForm")
+                  }
+                />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Stats</Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <FontAwesomeIcon name="print" size={50} color="#37449E" />
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Print</Text>
+              </View>
+            </View>
+
+            <View />
           </View>
         </View>
-
-        <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
-            <SimpleLineIcon name="badge" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Badge</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <MaterialIconsIcon name="message" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Chat</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <EntypoIcon name="users" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Friends</Text>
-          </View>
-        </View>
-
-        <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="photo" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Pics</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <EntypoIcon
-              name="line-graph"
-              size={50}
-              color="#37449E" //indigo FB
-            />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Stats</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="print" size={50} color="#37449E" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Print</Text>
-          </View>
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 

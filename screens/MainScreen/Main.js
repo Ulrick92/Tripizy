@@ -4,6 +4,7 @@ import styles from "./styles";
 
 export default class Main extends Component {
   static navigationOptions = ({ navigation }) => ({
+    header: null,
     title: "Welcome",
     headerStyle: {
       backgroundColor: "#37449E"
