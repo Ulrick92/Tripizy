@@ -80,6 +80,7 @@ export default class TitleAndDescription extends Component {
           autoCapitalize="none"
           value={this.state.title}
           placeholder={"ex : Honeymoon in Sri Lanka"}
+          placeholderTextColor="white"
           onChangeText={text => this.setState({ title: text })}
         />
         <TextInput
@@ -87,6 +88,7 @@ export default class TitleAndDescription extends Component {
           autoCapitalize="none"
           value={this.state.description}
           placeholder={"Description"}
+          placeholderTextColor="white"
           onChangeText={text => this.setState({ description: text })}
         />
 

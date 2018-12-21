@@ -49,6 +49,7 @@ export default class NamesAndBirthday extends Component {
             // autoCapitalize="none"
             value={this.state.first_name}
             placeholder={"First Name"}
+            placeholderTextColor="white"
             onChangeText={value => {
               this.setState({
                 first_name: value
@@ -61,6 +62,7 @@ export default class NamesAndBirthday extends Component {
             // autoCapitalize="none"
             value={this.state.last_name}
             placeholder={"Last Name"}
+            placeholderTextColor="white"
             onChangeText={value => {
               this.setState({
                 last_name: value
@@ -87,23 +89,16 @@ export default class NamesAndBirthday extends Component {
               },
               dateInput: {
                 marginLeft: 36
+              },
+              dateText: {
+                color: "white"
               }
-              // ... You can check the source to find the other keys.
             }}
             onDateChange={date => {
               this.setState({ birthday: date });
             }}
           />
-          {/* <TextInput
-            style={styles.input}
-            value={this.state.birthday}
-            placeholder={"MM/DD/YYYY"}
-            onChangeText={value => {
-              this.setState({
-                birthday: value
-              });
-            }}
-          /> */}
+
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
             <Text style={styles.buttonText}>NEXT</Text>
           </TouchableOpacity>

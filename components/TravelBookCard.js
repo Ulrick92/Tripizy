@@ -40,10 +40,19 @@ export default class TravelBookCard extends React.Component {
     }
   }
   render() {
-    const { country, photos, start_date, title, user_id } = this.props;
+    const {
+      country,
+      photos,
+      start_date,
+      end_date,
+      title,
+      user_id
+    } = this.props;
     const { countries } = this.state;
-    const date = new Date(start_date);
+    const dateFrom = new Date(start_date);
+    const dateTo = new Date(end_date);
     console.log(user_id);
+
     if (this.state.countries.length) {
       return (
         <View style={styles.travelCard}>
@@ -64,9 +73,10 @@ export default class TravelBookCard extends React.Component {
             >
               {this.renderFlag(countries, user_id)}
             </ImageBackground>
+
             <Text style={styles.textBackgroundImage}>{title}</Text>
             <Text style={styles.dateBackgroundImage}>
-              {date.toDateString()}
+              {dateFrom.toDateString()} {" to "} {dateTo.toDateString()}
             </Text>
           </ImageBackground>
 

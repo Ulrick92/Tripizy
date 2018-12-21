@@ -70,6 +70,7 @@ export default class LogIn extends Component {
           autoCapitalize="none"
           value={this.state.email}
           placeholder={"Email"}
+          placeholderTextColor="white"
           onChangeText={value => {
             this.setState({
               email: value
@@ -81,6 +82,7 @@ export default class LogIn extends Component {
           autoCapitalize="none"
           value={this.state.password}
           placeholder={"Password"}
+          placeholderTextColor="white"
           secureTextEntry={true}
           onChangeText={value => {
             this.setState({
