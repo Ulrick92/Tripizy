@@ -7,6 +7,7 @@ import MainTabNavigator from "./MainTabNavigator";
 import AuthLoading from "../screens/AuthLoadingScreen/AuthLoading";
 import FormStackNavigator from "./FormStackNavigator";
 import StepFormStackNavigator from "./StepFormStackNavigator";
+import UserProfileNavigator from "./UserProfileNavigator";
 import SignupFormStackNavigator from "./SignupFormStackNavigator";
 
 export default createSwitchNavigator({
@@ -17,6 +18,7 @@ export default createSwitchNavigator({
   TravelBook: TravelBookNavigator, // Laurent
   Main: MainTabNavigator, // Laurent
   Form: FormStackNavigator, // Tomoko
-  Step: StepFormStackNavigator // Laurent
+  Step: StepFormStackNavigator, // Laurent
+  UserProfile: UserProfileNavigator
   // Signup: SignupFormStackNavigator
 });
