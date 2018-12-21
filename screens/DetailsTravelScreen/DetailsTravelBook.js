@@ -160,7 +160,13 @@ export default class DetailsTravelBook extends React.Component {
             </View>
           </ScrollView>
           <TouchableOpacity style={styles.button}>
-            <Text onPress={() => this.props.navigation.navigate("StepForm")}>
+            <Text
+              onPress={() =>
+                this.props.navigation.navigate("StepForm", {
+                  travelbook_id: travelbook._id
+                })
+              }
+            >
               <MaterialIconsIcon name="add-circle" size={50} color="#37449E" />
             </Text>
           </TouchableOpacity>
