@@ -16,8 +16,6 @@ import styles from "./styles";
 import ActionButton from "react-native-action-button";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
-const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
-
 export default class ListScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -25,7 +23,8 @@ export default class ListScreen extends React.Component {
 
   state = {
     travelbooks: [],
-    countries: []
+    currentUserToken: [],
+    mounted: false
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -37,23 +36,26 @@ export default class ListScreen extends React.Component {
         })
         .then(response => {
           this.setState({
-            travelbooks: response.data
+            travelbooks: response.data,
+            currentUserToken: token,
+            mounted: true
           });
         })
         .catch(err => {
           console.log(err);
         });
     });
-    this.setState({ countries });
   }
   render() {
-    console.log("travel ", this.state.travelbooks);
+    const { currentUserToken, travelbooks } = this.state;
+    console.log("TOKEN => ", this.state.currentUserToken);
+    const { navigate } = this.props.navigation;
     return (
       <Fragment>
         <ScrollView style={styles.container}>
           <View>
             <FlatList
-              data={this.state.travelbooks}
+              data={travelbooks}
               keyExtractor={item => item._id}
               renderItem={({ item }) => {
                 return (
@@ -65,7 +67,7 @@ export default class ListScreen extends React.Component {
                       })
                     }
                   >
-                    <TravelBookCard {...item} />
+                    <TravelBookCard {...item} navigation={navigate} />
                   </TouchableOpacity>
                 );
               }}
