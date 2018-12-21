@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  View,
   Text,
   TouchableOpacity,
   TextInput,
@@ -8,6 +9,7 @@ import {
 } from "react-native";
 import DatePicker from "react-native-datepicker";
 import styles from "./styles";
+import { Button } from "react-native-elements";
 
 export default class Dates extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -18,10 +20,19 @@ export default class Dates extends Component {
     headerTintColor: "#fff"
   });
 
-  state = {
-    start_date: "",
-    end_date: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      start_date: "2018-12-21",
+      end_date: "2018-12-31",
+      showPickerCheck: false
+    };
+  }
+
+  // state = {
+  //   start_date: "",
+  //   end_date: ""
+  // };
 
   redirectToLoginPage = () => {
     this.props.history.push("/log_in");
@@ -89,7 +100,7 @@ export default class Dates extends Component {
             // ... You can check the source to find the other keys.
           }}
           onDateChange={date => {
-            this.setState({ start_date: this.state.start_date });
+            this.setState({ start_date: date });
           }}
         />
         <DatePicker
@@ -115,7 +126,7 @@ export default class Dates extends Component {
             // ... You can check the source to find the other keys.
           }}
           onDateChange={date => {
-            this.setState({ end_date: this.state.end_date });
+            this.setState({ end_date: date });
           }}
         />
         {/* <TextInput
