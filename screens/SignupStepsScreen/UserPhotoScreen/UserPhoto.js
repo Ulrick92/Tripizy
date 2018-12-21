@@ -18,19 +18,6 @@ export default class Photos extends Component {
     headerTintColor: "#fff"
   });
 
-  // static navigationOptions = {
-  //   title: "Sign Up",
-  //   headerTintColor: "white",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 20,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
-
   state = {
     profile_pic: null // image en base64
   };

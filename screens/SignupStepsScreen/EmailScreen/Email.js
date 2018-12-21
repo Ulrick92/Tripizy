@@ -18,19 +18,6 @@ export default class Email extends Component {
     headerTintColor: "#fff"
   });
 
-  // static navigationOptions = {
-  //   title: "Sign Up",
-  //   headerTintColor: "white",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 20,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
-
   state = {
     email: "",
     password: "",
@@ -80,6 +67,7 @@ export default class Email extends Component {
             autoCapitalize="none"
             value={this.state.email}
             placeholder={"Email"}
+            placeholderTextColor="white"
             onChangeText={value => {
               this.setState({
                 email: value
@@ -91,6 +79,7 @@ export default class Email extends Component {
             autoCapitalize="none"
             value={this.state.password}
             placeholder={"Password"}
+            placeholderTextColor="white"
             secureTextEntry={true}
             onChangeText={value => {
               this.setState({
@@ -103,6 +92,7 @@ export default class Email extends Component {
             autoCapitalize="none"
             value={this.state.confirmPassword}
             placeholder={"Confirm password"}
+            placeholderTextColor="white"
             secureTextEntry={true}
             onChangeText={value => {
               this.setState({

@@ -21,19 +21,6 @@ export default class Address extends Component {
     headerTintColor: "#fff"
   });
 
-  // static navigationOptions = {
-  //   title: "Sign Up",
-  //   headerTintColor: "white",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 20,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
-
   state = {
     address: "",
     city: "",
@@ -108,6 +95,7 @@ export default class Address extends Component {
               autoCapitalize="none"
               value={this.state.adress}
               placeholder={"Address"}
+              placeholderTextColor="white"
               onChangeText={value => {
                 this.setState({
                   address: value
@@ -119,6 +107,7 @@ export default class Address extends Component {
               autoCapitalize="none"
               value={this.state.city}
               placeholder={"City"}
+              placeholderTextColor="white"
               onChangeText={value => {
                 this.setState({
                   city: value
