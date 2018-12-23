@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import config from "../../config";
+
 export default class StepForm extends Component {
   static navigationOptions = {
     title: "Add a new day",
@@ -24,10 +25,7 @@ export default class StepForm extends Component {
   };
 
   state = {
-<<<<<<< HEAD:screens/StepFormScreen/Step1Form.js
-=======
-    travelbook_id: "5c1c1ac8184b4f0016fb78e2",
->>>>>>> ajout action button:screens/StepFormScreen/StepForm.js
+    travelbook_id: "",
     start_date: ""
   };
 
