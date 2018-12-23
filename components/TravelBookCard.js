@@ -58,7 +58,6 @@ export default class TravelBookCard extends React.Component {
     const { countries } = this.state;
     const dateFrom = new Date(start_date);
     const dateTo = new Date(end_date);
-    console.log(user_id);
     if (this.state.countries.length) {
       return (
         <View style={styles.travelCard}>
