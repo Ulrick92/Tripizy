@@ -12,18 +12,6 @@ export default class Main extends Component {
     headerTintColor: "#fff"
   });
 
-  // static navigationOptions = {
-  //   title: "Welcome",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 24,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
-
   render() {
     return (
       <View style={styles.container}>

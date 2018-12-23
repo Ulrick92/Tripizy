@@ -1,11 +1,8 @@
 import React, { Component, Fragment } from "react";
 import {
   ScrollView,
-  StyleSheet,
   View,
   Text,
-  Platform,
-  ImageBackground,
   TouchableOpacity,
   FlatList,
   AsyncStorage
@@ -13,6 +10,10 @@ import {
 import axios from "axios";
 import config from "../../config";
 import TravelBookCard from "../../components/TravelBookCard";
+import ActionButton from "react-native-action-button";
+import styles from "./styles";
+import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class MyTripsScreen extends Component {
@@ -51,7 +52,6 @@ export default class MyTripsScreen extends Component {
     this.setState({ countries });
   }
   render() {
-    // on vérifie que le this.state existe
     const { mounted, travelbooks } = this.state;
     if (this.state.countries.length && mounted) {
       console.log("render  : ", this.state.travelbooks.length);
@@ -77,29 +77,25 @@ export default class MyTripsScreen extends Component {
                   );
                 }}
               />
-              {/* <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate("DetailsTravel");
-                }}
-              >
-                <TravelBookCard />
-              </TouchableOpacity> */}
             </View>
-            {/* <TravelBookCard /> */}
           </ScrollView>
-          <TouchableOpacity style={styles.button}>
-            <Text
-              style={styles.buttonText}
-              title="Go to Create a Travel Book"
+
+          <ActionButton buttonColor="#37449E">
+            <ActionButton.Item
+              buttonColor="#1abc9c" //vert
+              title="Create a new Travel Book"
               onPress={() =>
                 this.props.navigation.navigate("TitleAndDescription", {
                   travelbooks: this.state.travelbooks
                 })
               }
             >
-              +
-            </Text>
-          </TouchableOpacity>
+              <MaterialIconsIcon
+                name="add-circle"
+                style={styles.actionButtonIcon}
+              />
+            </ActionButton.Item>
+          </ActionButton>
         </Fragment>
       );
     } else {
@@ -111,31 +107,3 @@ export default class MyTripsScreen extends Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#EAE1E2"
-  },
-  loading: {
-    fontSize: 30,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  button: {
-    borderColor: "rgba(0,0,0,0.2)",
-    width: 50,
-    height: 50,
-    backgroundColor: "#0040cc",
-    borderRadius: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 10,
-    right: 10
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 30
-  }
-});
