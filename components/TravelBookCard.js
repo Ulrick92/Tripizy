@@ -46,6 +46,18 @@ export default class TravelBookCard extends React.Component {
       }
     }
   }
+  renderProfilePage(user_id) {
+    if (user_id) {
+      if (user_id.token !== this.props.currentUserToken) {
+        console.log(this.props.userId);
+        return this.props.navigate("UserProfile", {
+          user: "toto"
+        });
+      } else {
+        return this.props.navigate("MyProfile");
+      }
+    }
+  }
   render() {
     const {
       country,
@@ -66,11 +78,9 @@ export default class TravelBookCard extends React.Component {
             style={styles.backgroundImage}
           >
             <TouchableOpacity
-              onPress={() =>
-                this.props.navigation("UserProfile", {
-                  user: user_id._id
-                })
-              }
+              onPress={() => {
+                this.renderProfilePage(user_id);
+              }}
             >
               <ImageBackground
                 style={{

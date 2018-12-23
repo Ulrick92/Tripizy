@@ -11,11 +11,13 @@ import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 
 export default class UserProfile extends React.Component {
-  static navigationOptions = {
-    header: null,
-    title: "Profile",
+  static navigationOptions = ({ navigation }) => ({
+    title: "User Profile",
+    headerStyle: {
+      backgroundColor: "#37449E"
+    },
     headerTintColor: "#fff"
-  };
+  });
 
   constructor(props) {
     super(props);
@@ -50,6 +52,8 @@ export default class UserProfile extends React.Component {
   };
 
   render() {
+    // const { params } = this.props.navigation.state;
+    // console.log("User =>", params.user);
     return (
       <ScrollView>
         <View style={styles.coverContainer}>
@@ -143,6 +147,7 @@ export default class UserProfile extends React.Component {
   }
 
   componentDidMount() {
+    console.log("User ID =>", this.props.navigation);
     AsyncStorage.getItem("token", (err, token) => {
       axios
         .get(`${config.DOMAIN}user/`, {

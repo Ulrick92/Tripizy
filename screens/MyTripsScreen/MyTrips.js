@@ -29,6 +29,7 @@ export default class MyTripsScreen extends Component {
   state = {
     travelbooks: [],
     mounted: false,
+    currentUserToken: [],
     countries: []
   };
   componentDidMount() {
@@ -45,6 +46,7 @@ export default class MyTripsScreen extends Component {
           console.log("response", response.data);
           this.setState({
             travelbooks: response.data,
+            currentUserToken: token,
             mounted: true
           });
         });
@@ -52,9 +54,9 @@ export default class MyTripsScreen extends Component {
     this.setState({ countries });
   }
   render() {
-    const { mounted, travelbooks } = this.state;
+    const { navigate } = this.props.navigation;
+    const { mounted, travelbooks, currentUserToken } = this.state;
     if (this.state.countries.length && mounted) {
-      console.log("render  : ", this.state.travelbooks.length);
       return (
         <Fragment>
           <ScrollView style={styles.container}>
@@ -72,7 +74,11 @@ export default class MyTripsScreen extends Component {
                         })
                       }
                     >
-                      <TravelBookCard {...item} />
+                      <TravelBookCard
+                        {...item}
+                        navigation={navigate}
+                        currentUserToken={currentUserToken}
+                      />
                     </TouchableOpacity>
                   );
                 }}

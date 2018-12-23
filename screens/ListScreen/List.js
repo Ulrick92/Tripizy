@@ -48,7 +48,7 @@ export default class ListScreen extends React.Component {
   }
   render() {
     const { currentUserToken, travelbooks } = this.state;
-    console.log("TOKEN => ", this.state.currentUserToken);
+    // console.log("TOKEN => ", this.state.currentUserToken);
     const { navigate } = this.props.navigation;
     return (
       <Fragment>
@@ -67,7 +67,12 @@ export default class ListScreen extends React.Component {
                       })
                     }
                   >
-                    <TravelBookCard {...item} navigation={navigate} />
+                    <TravelBookCard
+                      {...item}
+                      navigate={navigate}
+                      currentUserToken={currentUserToken}
+                      userId={item.user_id._id}
+                    />
                   </TouchableOpacity>
                 );
               }}
