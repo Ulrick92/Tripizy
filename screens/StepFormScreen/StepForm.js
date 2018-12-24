@@ -35,12 +35,10 @@ export default class StepForm extends Component {
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
-      // récupère le token
-      console.log("token :", token);
-
       const { start_date } = this.state;
-      // console.log("result :", this.state);
       const { travelbook_id } = this.props.navigation.state.params;
+      // const travelbook_id = navigation.getParam('travelbook_id', 'NO-ID');
+
       if (!token) {
         this.redirectToLoginPage();
       } else {
