@@ -12,16 +12,15 @@ import TravelBookCard from "../../components/TravelBookCard";
 import config from "../../config";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import styles from "./styles";
+import ActionButton from "react-native-action-button";
+import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+
 const countries = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
-    header: null,
-    title: "Travel Books",
-    headerStyle: {
-      backgroundColor: "#37449E"
-    },
-    headerTintColor: "#fff"
+    header: null
   };
 
   state = {
@@ -30,7 +29,6 @@ export default class ListScreen extends React.Component {
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("result", token);
       axios
         .get(`${config.DOMAIN}travelbook/`, {
           headers: {
@@ -50,7 +48,6 @@ export default class ListScreen extends React.Component {
   }
   render() {
     console.log("travel ", this.state.travelbooks);
-    // console.log("country ", this.state.countries);
     return (
       <Fragment>
         <ScrollView style={styles.container}>
@@ -73,56 +70,33 @@ export default class ListScreen extends React.Component {
                 );
               }}
             />
-            {/* <TouchableOpacity
-            // onPress={() => {
-            //   this.props.navigation.navigate("DetailsTravel");
-            // }}
-            >
-              <TravelBookCard />
-            </TouchableOpacity> */}
           </View>
-          {/* <TravelBookCard />
-          <TravelBookCard />
-          <TravelBookCard />
-          <TravelBookCard /> */}
         </ScrollView>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            // title="Go to Create a Travel Book"
+
+        <ActionButton buttonColor="#37449E">
+          <ActionButton.Item
+            buttonColor="#1abc9c" //vert
+            title="Create a new Travel Book"
             onPress={() =>
-              this.props.navigation.navigate("MyTrips", {
-                travelbooks: this.props.navigation.state.params.travelbooks
+              this.props.navigation.navigate("TitleAndDescription", {
+                travelbooks: this.state.travelbooks
               })
             }
           >
-            <FontAwesomeIcon name="search" size={30} color="#37449E" />
-          </Text>
-        </TouchableOpacity>
+            <MaterialIconsIcon
+              name="add-circle"
+              style={styles.actionButtonIcon}
+            />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor="#9b59b6" //violet
+            title="Search"
+            onPress={() => this.props.navigation.navigate("", {})}
+          >
+            <MaterialIconsIcon name="search" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
       </Fragment>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#EAE1E2"
-  },
-  button: {
-    position: "absolute",
-    bottom: 10,
-    alignSelf: "flex-end",
-    shadowOpacity: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 50,
-    height: 50,
-    backgroundColor: "#EAE1E2",
-    borderRadius: 100 / 2,
-    right: 10
-  },
-  buttonText: {
-    fontSize: 30
-  }
-});

@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import axios from "axios";
 import config from "../../config";
-export default class Step1Form extends Component {
+
+export default class StepForm extends Component {
   static navigationOptions = {
     title: "Add a new day",
     headerTintColor: "white",
@@ -24,6 +25,7 @@ export default class Step1Form extends Component {
   };
 
   state = {
+    travelbook_id: "",
     start_date: ""
   };
 
@@ -33,12 +35,10 @@ export default class Step1Form extends Component {
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
-      // récupère le token
-      console.log("token :", token);
-
       const { start_date } = this.state;
-      // console.log("result :", this.state);
       const { travelbook_id } = this.props.navigation.state.params;
+      // const travelbook_id = navigation.getParam('travelbook_id', 'NO-ID');
+
       if (!token) {
         this.redirectToLoginPage();
       } else {

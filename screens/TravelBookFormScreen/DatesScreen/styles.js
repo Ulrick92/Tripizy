@@ -27,14 +27,21 @@ export default StyleSheet.create({
     textAlign: "left",
     color: "white"
   },
-  input: {
-    width: 250,
-    height: 60,
-    color: "white",
-    borderColor: "white",
-    borderBottomWidth: 1,
-    paddingLeft: 10,
-    alignItems: "center"
+  placeholderTextColor: {
+    color: "white"
+  },
+  // input: {
+  //   width: 250,
+  //   height: 60,
+  //   color: "white",
+  //   borderColor: "white",
+  //   borderBottomWidth: 1,
+  //   paddingLeft: 10,
+  //   alignItems: "center"
+  // },
+  datePicker: {
+    width: 200,
+    marginBottom: 20
   },
   button: {
     marginTop: 20,

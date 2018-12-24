@@ -1,28 +1,23 @@
 import React, { Component, Fragment } from "react";
 import {
-  StyleSheet,
   TouchableOpacity,
   View,
-  Text,
   AsyncStorage,
-  FlatList
+  FlatList,
+  ScrollView
 } from "react-native";
 import TipsCard from "../../components/TipsCard";
-
 import axios from "axios";
 import SelectCategory from "./TipsFilter";
-
 import config from "../../config";
-import StepCard from "../../components/StepCard";
 import { SearchBar } from "react-native-elements";
+import ActionButton from "react-native-action-button";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import styles from "./styles";
+
 export default class TipsListTest extends React.Component {
   static navigationOptions = {
-    header: null,
-    title: "Tips",
-    headerStyle: {
-      backgroundColor: "#37449E"
-    },
-    headerTintColor: "#fff"
+    header: null
   };
 
   state = {
@@ -92,49 +87,66 @@ export default class TipsListTest extends React.Component {
   };
   render() {
     return (
-      <View>
-        <SearchBar
+      <Fragment>
+        {/* <SearchBar
           onChangeText={this.onChangeSearchCompanyName}
           placeholder="Nom"
           placeholderTextColor="#AAAAAA"
           clearIcon={{ color: "#AAAAAA" }}
           inputStyle={{ backgroundColor: "white" }}
-        />
+        /> */}
         <SearchBar
           onChangeText={this.onChangeSearchCity}
-          placeholder="Ville"
+          placeholder="City"
           placeholderTextColor="#AAAAAA"
           clearIcon={{ color: "#AAAAAA" }}
           inputStyle={{ backgroundColor: "white" }}
         />
+
         <View>
           <SelectCategory handleCategory={this.handleCategory} />
         </View>
 
-        <FlatList
-          keyExtractor={this._keyExtractor}
-          data={this.state.tips}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <Text>{item.category}</Text>
-                <Text>{item.company_name}</Text>
-                <Text>{item.city}</Text>
-                <Text>{item.start_date}</Text>
-                <Text>{item.end_date}</Text>
-                <StepCard />
-                <TipsCard
-                  company_name={item.company_name}
-                  city={item.city}
-                  photos={item.photos[0]}
-                  rate={item.rate[0]}
-                  pricePerDay={item.pricePerDay}
-                />
-              </View>
-            );
-          }}
-        />
-      </View>
+        <ScrollView>
+          <FlatList
+            style={{ margin: 5 }}
+            keyExtractor={this._keyExtractor}
+            data={this.state.tips}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <TouchableOpacity>
+                    <TipsCard
+                      company_name={item.company_name}
+                      city={item.city}
+                      photos={item.photos[0]}
+                      rate={item.rate[0]}
+                      pricePerDay={item.pricePerDay}
+                    />
+                  </TouchableOpacity>
+                  <TipsCard
+                    company_name={item.company_name}
+                    city={item.city}
+                    photos={item.photos[0]}
+                    rate={item.rate[0]}
+                    pricePerDay={item.pricePerDay}
+                  />
+                </View>
+              );
+            }}
+          />
+        </ScrollView>
+
+        <ActionButton buttonColor="#37449E">
+          <ActionButton.Item
+            buttonColor="#1abc9c" //vert
+            title="Filter by category"
+            onPress={() => this.props.navigation.navigate("TipsFilter")}
+          >
+            <FontAwesomeIcon name="filter" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+      </Fragment>
     );
   }
 

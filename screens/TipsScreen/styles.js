@@ -10,8 +10,6 @@ export default StyleSheet.create({
   },
   button: {
     flexDirection: "row",
-    // backgroundColor: "#37449E",
-    // marginBottom: 20,
     justifyContent: "space-between",
     paddingTop: 10
   },
@@ -24,11 +22,9 @@ export default StyleSheet.create({
   tips: {
     flex: 2,
     borderColor: "red"
-    // backgroundColor: "blue"
   },
   tipscontainer: {
     textAlign: "center",
-    // backgroundColor: "blue",
     borderWidth: 1,
     borderRadius: 5,
     borderColor: "black"
@@ -43,5 +39,10 @@ export default StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "white",
     color: "black"
+  },
+  actionButtonIcon: {
+    fontSize: 25,
+    height: 24,
+    color: "white"
   }
 });

@@ -20,19 +20,6 @@ export default class Country extends Component {
     headerTintColor: "#fff"
   });
 
-  // static navigationOptions = {
-  //   title: "Create a Travel Book",
-  //   headerTintColor: "white",
-  //   headerStyle: {
-  //     backgroundColor: "#002982"
-  //   },
-  //   headerTitleStyle: {
-  //     fontSize: 20,
-  //     color: "white",
-  //     fontWeight: "200"
-  //   }
-  // };
-
   state = {
     countries: [],
     country: 77
