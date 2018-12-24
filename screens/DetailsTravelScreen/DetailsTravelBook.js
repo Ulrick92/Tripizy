@@ -43,7 +43,7 @@ export default class DetailsTravelBook extends React.Component {
     AsyncStorage.getItem("token", (err, token) => {
       const { params } = this.props.navigation.state;
       console.log("Params =>", params);
-      console.log(this.props.navigation);
+
       axios
         .get(`${config.DOMAIN}travelbook/${params.id}`, {
           headers: {
@@ -66,6 +66,8 @@ export default class DetailsTravelBook extends React.Component {
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
+    const travelbook_id = travelbook._id;
+
     if (mounted) {
       return (
         <Fragment>
@@ -166,7 +168,11 @@ export default class DetailsTravelBook extends React.Component {
             <ActionButton.Item
               buttonColor="#1abc9c" //vert
               title="Add a Step"
-              onPress={() => this.props.navigation.navigate("StepForm")}
+              onPress={() =>
+                this.props.navigation.navigate("StepForm", {
+                  travelbook_id: travelbook_id
+                })
+              }
             >
               <MaterialIconsIcon
                 name="add-circle"
