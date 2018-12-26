@@ -61,6 +61,8 @@ export default class Dates extends Component {
 
       if (!token) {
         this.redirectToLoginPage();
+      } else if (this.state.start_date === "" || this.state.end_date === "") {
+        alert("Please select dates");
       } else {
         this.props.navigation.navigate("Photos", {
           title: title,

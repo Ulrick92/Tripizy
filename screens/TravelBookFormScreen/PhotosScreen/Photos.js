@@ -56,6 +56,8 @@ export default class Photos extends Component {
 
       if (!token) {
         this.redirectToLoginPage();
+      } else if (this.state.photos === null) {
+        alert("A picture for your travelbook is required");
       } else {
         this.props.navigation.navigate("Category", {
           title: title,

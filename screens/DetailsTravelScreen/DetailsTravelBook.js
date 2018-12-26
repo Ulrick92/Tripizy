@@ -140,7 +140,7 @@ export default class DetailsTravelBook extends React.Component {
                   );
                 }}
               />
-              <View
+              {/* <View
                 style={{
                   justifyContent: "center",
                   width: "100%"
@@ -150,7 +150,7 @@ export default class DetailsTravelBook extends React.Component {
                 <FreeCard />
                 <TipsCard />
               </View>
-              <FreeCard />
+              <FreeCard /> */}
             </View>
           </ScrollView>
 
