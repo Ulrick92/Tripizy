@@ -115,7 +115,11 @@ export default class TipsListTest extends React.Component {
             renderItem={({ item }) => {
               return (
                 <View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate("TipsPage", {})
+                    }
+                  >
                     <TipsCard
                       company_name={item.company_name}
                       city={item.city}

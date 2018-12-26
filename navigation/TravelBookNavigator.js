@@ -7,6 +7,7 @@ import DetailsMapScreen from "../screens/DetailsTravelScreen/DetailsMap";
 import StepFormScreen from "../screens/StepFormScreen/StepForm";
 import TipsFormScreen from "../screens/StepFormScreen/TipsForm";
 import TipsFilterScreen from "../screens/TipsScreen/TipsFilter";
+import TipsPageScreen from "../screens/TipsScreen/TipsPage";
 import CityFilterScreen from "../screens/TipsScreen/CityFilter";
 
 import MainTabNavigator from "./MainTabNavigator";
@@ -23,6 +24,9 @@ const TravelBookNavigator = createStackNavigator({
   },
   TipsFilter: {
     screen: TipsFilterScreen
+  },
+  TipsPage: {
+    screen: TipsPageScreen
   },
   CityFilter: {
     screen: CityFilterScreen
