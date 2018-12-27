@@ -53,7 +53,8 @@ export default class UserProfile extends React.Component {
 
   render() {
     // const { params } = this.props.navigation.state;
-    // console.log("User =>", params.user);
+    // console.log("Params =>", params.user);
+
     return (
       <ScrollView>
         <View style={styles.coverContainer}>
@@ -147,16 +148,18 @@ export default class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("User ID =>", this.props.navigation);
+    const { params } = this.props.navigation.state;
+    console.log("Params =>", params.user);
+    // console.log("User ID =>", param);
     AsyncStorage.getItem("token", (err, token) => {
       axios
-        .get(`${config.DOMAIN}user/`, {
+        .get(`${config.DOMAIN}user/${params.user}`, {
           headers: {
             authorization: `Bearer ${token}`
           }
         })
         .then(response => {
-          console.log(response.data);
+          console.log("response axios :", response.data);
 
           this.setState(
             {

@@ -9,6 +9,7 @@ import TipsFormScreen from "../screens/StepFormScreen/TipsForm";
 import TipsFilterScreen from "../screens/TipsScreen/TipsFilter";
 import TipsPageScreen from "../screens/TipsScreen/TipsPage";
 import CityFilterScreen from "../screens/TipsScreen/CityFilter";
+import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
 
 import MainTabNavigator from "./MainTabNavigator";
 import FormStackNavigator from "./FormStackNavigator";
@@ -34,6 +35,10 @@ const TravelBookNavigator = createStackNavigator({
   DetailsMap: {
     screen: DetailsMapScreen
   },
+  UserProfile: {
+    screen: UserProfileScreen
+  },
+
   Main: MainTabNavigator // Laurent
 });
 
