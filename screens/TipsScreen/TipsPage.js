@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import StarRating from "react-native-star-rating";
 import MapView, { Marker } from "react-native-maps";
@@ -28,6 +21,16 @@ export default class TipsPage extends React.Component {
               source={require("../../assets/images/no_user.png")}
             />
           </View>
+
+          <View style={styles.donneeName}>
+            <Text style={styles.textName}>Laurent </Text>
+            <Text style={styles.textName}>Bonnec</Text>
+          </View>
+          <View style={styles.donneeAgeCountry}>
+            <Text style={styles.textAgeCountry}>34 ans, </Text>
+            <Text style={styles.textAgeCountry}>French</Text>
+          </View>
+
           <View>
             <View
               style={{
@@ -48,15 +51,27 @@ export default class TipsPage extends React.Component {
                   width: "56%"
                 }}
               >
-                <Text style={{ fontSize: 18, marginLeft: 12 }}>Le Ritz</Text>
-                <Text style={{ fontSize: 14, marginLeft: 12 }}>San Jose</Text>
+                <Text
+                  style={{ fontSize: 18, marginLeft: 12, fontWeight: "bold" }}
+                >
+                  Le Ritz
+                </Text>
+                <Text style={{ fontSize: 14, marginLeft: 12 }}>
+                  San Jose, Costa Rica
+                </Text>
               </View>
               <View
                 style={{
                   justifyContent: "center"
                 }}
               >
-                <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 5,
+                    marginTop: 5
+                  }}
+                >
                   <StarRating
                     style={{
                       justifyContent: "center"
@@ -69,9 +84,70 @@ export default class TipsPage extends React.Component {
                     rating={this.props.rating}
                   />
                 </View>
+                <View
+                  style={{
+                    flexDirection: "row"
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 16
+                    }}
+                  >
+                    50$
+                  </Text>
+                  <Text> / night</Text>
+                </View>
                 <Text />
               </View>
             </View>
+
+            <View
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                padding: 5,
+                borderColor: "grey",
+                marginBottom: 5
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row"
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontWeight: "bold" }}>From: </Text>
+                  <Text>01/01/2018</Text>
+                </View>
+                <View style={{ flexDirection: "row", marginLeft: 20 }}>
+                  <Text style={{ fontWeight: "bold" }}>To: </Text>
+                  <Text>12/02/2018</Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontWeight: "bold" }}>Night(s): </Text>
+                <Text>9</Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontWeight: "bold" }}>Travelling mode : </Text>
+                <Text>Family</Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontWeight: "bold" }}>Adress : </Text>
+                <Text>8th boulevard John Smith</Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontWeight: "bold" }}>Contact : </Text>
+                <Text>Armando Tello</Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontWeight: "bold" }}>Link : </Text>
+                <Text>www.casabobo.com</Text>
+              </View>
+            </View>
+
             <View>
               <MapView
                 style={styles.mapView}
@@ -142,5 +218,25 @@ const styles = StyleSheet.create({
     borderRadius: 60 / 2,
     borderWidth: 1,
     borderColor: "white"
+  },
+  donneeName: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 10,
+    alignItems: "center"
+  },
+  donneeAgeCountry: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5
+  },
+  textName: {
+    fontSize: 14,
+    fontWeight: "bold"
+  },
+  textAgeCountry: {
+    color: "grey"
   }
 });
