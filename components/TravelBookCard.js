@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 const countries = require("../screens/SignupStepsScreen/AddressScreen/data/Countries.json");
 
@@ -39,6 +46,18 @@ export default class TravelBookCard extends React.Component {
       }
     }
   }
+  renderProfilePage(user_id) {
+    if (user_id) {
+      if (user_id.token !== this.props.currentUserToken) {
+        console.log(this.props.userId);
+        this.props.navigation.navigate("UserProfile", {
+          user: this.props.userId
+        });
+      } else {
+        this.props.navigation.navigate("MyProfile");
+      }
+    }
+  }
   render() {
     const {
       country,
@@ -51,8 +70,6 @@ export default class TravelBookCard extends React.Component {
     const { countries } = this.state;
     const dateFrom = new Date(start_date);
     const dateTo = new Date(end_date);
-    console.log(user_id);
-
     if (this.state.countries.length) {
       return (
         <View style={styles.travelCard}>
@@ -60,20 +77,21 @@ export default class TravelBookCard extends React.Component {
             source={{ uri: photos[0] }}
             style={styles.backgroundImage}
           >
-            <ImageBackground
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 40 / 2,
-                position: "absolute",
-                bottom: 155,
-                left: 10
-              }}
-              source={this.renderProfilePic(user_id)}
-            >
-              {this.renderFlag(countries, user_id)}
-            </ImageBackground>
-
+            <TouchableOpacity onPress={() => this.renderProfilePage(user_id)}>
+              <ImageBackground
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 40 / 2,
+                  position: "absolute",
+                  bottom: 155,
+                  left: 10
+                }}
+                source={this.renderProfilePic(user_id)}
+              >
+                {this.renderFlag(countries, user_id)}
+              </ImageBackground>
+            </TouchableOpacity>
             <Text style={styles.textBackgroundImage}>{title}</Text>
             <Text style={styles.dateBackgroundImage}>
               {dateFrom.toDateString()} {" to "} {dateTo.toDateString()}
