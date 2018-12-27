@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { createAppContainer, createStackNavigator } from "react-navigation";
+import { withNavigation } from "react-navigation";
 import axios from "axios";
-import { StyleSheet, View, Text, AsyncStorage } from "react-native";
-import FeatherIcon from "react-native-vector-icons/Feather";
+import { TouchableOpacity, View, Text, AsyncStorage } from "react-native";
+import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import config from "../config";
 
-export default class StepCard extends React.Component {
+class StepCard extends React.Component {
   state = {
     step: {},
     tips: [],
@@ -23,7 +23,8 @@ export default class StepCard extends React.Component {
           console.log("StepState => ", response.data);
           this.setState({
             step: response.data,
-            mounted: true
+            mounted: true,
+            tips: response.data.tips
           });
         })
         .catch(err => {
@@ -69,10 +70,18 @@ export default class StepCard extends React.Component {
           >
             {date.toDateString()}
           </Text>
-
-          <View style={{ justifyContent: "center", marginEnd: 10 }}>
-            <FeatherIcon name="sun" size={25} color="#F6A019" />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("TipsForm", {
+                stepId: this.state.step._id
+              });
+            }}
+          >
+            <View style={{ justifyContent: "center", marginEnd: 10 }}>
+              <MaterialIconsIcon name="add-circle" />
+              <Text>Add tip</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       );
     } else {
@@ -84,3 +93,5 @@ export default class StepCard extends React.Component {
     }
   }
 }
+
+export default withNavigation(StepCard);

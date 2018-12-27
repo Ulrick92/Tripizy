@@ -1,35 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text, AsyncStorage, Image } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
 
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { withNavigation } from "react-navigation";
+
 import StarRating from "react-native-star-rating";
-import axios from "axios";
-import config from "../config";
-class TipsCard extends React.Component {
-  state = {
-    tip: {},
-    mounted: false
-  };
-  renderTipsPictures = () => {
-    if (this.state.mounted && this.state.tip.photos.length > 0) {
-      return (
-        <Image
-          style={styles.pictures}
-          source={{ uri: this.state.tip.photos[0] }}
-        />
-      );
-    } else {
-      return (
-        <View>
-          <Image
-            style={styles.pictures}
-            source={require("../assets/images/Travel_book.png")}
-          />
-        </View>
-      );
-    }
-  };
+
+export default class TipsCard extends React.Component {
   render() {
     return (
       <View style={styles.tipsCard}>
@@ -44,18 +20,16 @@ class TipsCard extends React.Component {
           >
             <View style={{ alignItems: "center", marginLeft: 5 }}>
               <FontAwesomeIcon name="hotel" size={40} color="black" />
-              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
-                {this.state.tip.category}
-              </Text>
+              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
             </View>
             <View
               style={{ marginleft: 5, justifyContent: "center", width: "56%" }}
             >
               <Text style={{ fontSize: 18, marginLeft: 12 }}>
-                {this.state.tip.company_name}
+                {this.props.company_name}
               </Text>
               <Text style={{ fontSize: 14, marginLeft: 12 }}>
-                {this.state.tip.city}
+                {this.props.city}
               </Text>
             </View>
             <View
@@ -73,7 +47,7 @@ class TipsCard extends React.Component {
                   starSize={20}
                   disabled={false}
                   maxStars={5}
-                  rating={this.state.tip.rating}
+                  rating={this.props.rating}
                 />
               </View>
               <Text />
@@ -81,36 +55,24 @@ class TipsCard extends React.Component {
           </View>
 
           <Text style={{ marginBottom: 10 }} numberOfLines={5}>
-            {this.state.tip.description}
+            Post haec Gallus Hierapolim profecturus ut expeditioni specie tenus
+            adesset, Antiochensi plebi suppliciter obsecranti ut inediae
+            dispelleret metum, quae per multas difficilisque causas adfore iam
+            sperabatur, non ut mos est principibus, quorum diffusa potestas
           </Text>
           <View style={{ flexDirection: "row" }}>
-            {this.renderTipsPictures()}
+            <Image
+              source={require("../assets/images/bosnia.png")}
+              style={styles.pictures}
+            />
+            <Image
+              source={require("../assets/images/oman.png")}
+              style={styles.pictures}
+            />
           </View>
         </View>
       </View>
     );
-  }
-  componentDidMount() {
-    AsyncStorage.getItem("token", (err, token) => {
-      console.log(this.props);
-      console.log("thips.props, ", `${config.DOMAIN}tips/${this.props.id}`);
-      axios
-        .get(`${config.DOMAIN}tips/${this.props.id}`, {
-          headers: {
-            authorization: `Bearer ${token}`
-          }
-        })
-        .then(response => {
-          console.log("TIP =>", response.data);
-          this.setState({
-            tip: response.data,
-            mounted: true
-          });
-        })
-        .catch(err => {
-          console.log("error tipscard didmount:", err.message);
-        });
-    });
   }
 }
 
@@ -132,5 +94,3 @@ const styles = StyleSheet.create({
     marginRight: 5
   }
 });
-
-export default withNavigation(TipsCard);
