@@ -54,7 +54,6 @@ export default class MyTripsScreen extends Component {
     this.setState({ countries });
   }
   render() {
-    const { navigate } = this.props.navigation;
     const { mounted, travelbooks, currentUserToken } = this.state;
     if (this.state.countries.length && mounted) {
       return (
@@ -76,7 +75,7 @@ export default class MyTripsScreen extends Component {
                     >
                       <TravelBookCard
                         {...item}
-                        navigation={navigate}
+                        navigation={this.props.navigation}
                         currentUserToken={currentUserToken}
                       />
                     </TouchableOpacity>

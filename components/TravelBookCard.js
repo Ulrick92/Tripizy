@@ -50,11 +50,11 @@ export default class TravelBookCard extends React.Component {
     if (user_id) {
       if (user_id.token !== this.props.currentUserToken) {
         console.log(this.props.userId);
-        return this.props.navigate("UserProfile", {
-          user: "toto"
+        this.props.navigation.navigate("UserProfile", {
+          user: this.props.userId
         });
       } else {
-        return this.props.navigate("MyProfile");
+        this.props.navigation("MyProfile");
       }
     }
   }
@@ -77,11 +77,7 @@ export default class TravelBookCard extends React.Component {
             source={{ uri: photos[0] }}
             style={styles.backgroundImage}
           >
-            <TouchableOpacity
-              onPress={() => {
-                this.renderProfilePage(user_id);
-              }}
-            >
+            <TouchableOpacity onPress={() => this.renderProfilePage(user_id)}>
               <ImageBackground
                 style={{
                   width: 40,
