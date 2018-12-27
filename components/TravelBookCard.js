@@ -54,7 +54,7 @@ export default class TravelBookCard extends React.Component {
           user: this.props.userId
         });
       } else {
-        this.props.navigation("MyProfile");
+        this.props.navigation.navigate("MyProfile");
       }
     }
   }
