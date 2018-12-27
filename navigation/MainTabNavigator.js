@@ -5,6 +5,7 @@ import {
   createBottomTabNavigator
 } from "react-navigation";
 import TabBarIcon from "../components/TabBarIcon";
+
 import ListScreen from "../screens/ListScreen/List";
 import MyTripsScreen from "../screens/MyTripsScreen/MyTrips";
 import MyProfileScreen from "../screens/UserProfileScreen/MyProfile";
@@ -13,7 +14,6 @@ import TipsScreen from "../screens/TipsScreen/TipsList";
 const ListStack = createStackNavigator({
   List: ListScreen
 });
-
 ListStack.navigationOptions = {
   tabBarLabel: "Travel Books",
   tabBarIcon: ({ focused }) => (
@@ -27,7 +27,6 @@ ListStack.navigationOptions = {
 const MyTripsStack = createStackNavigator({
   MyTrips: MyTripsScreen
 });
-
 MyTripsStack.navigationOptions = {
   tabBarLabel: "My Trips",
   tabBarIcon: ({ focused }) => (
@@ -41,7 +40,6 @@ MyTripsStack.navigationOptions = {
 const TipsStack = createStackNavigator({
   Tips: TipsScreen
 });
-
 TipsStack.navigationOptions = {
   tabBarLabel: "Tips",
   tabBarIcon: ({ focused }) => (
@@ -55,7 +53,6 @@ TipsStack.navigationOptions = {
 const MyProfileStack = createStackNavigator({
   MyProfile: MyProfileScreen
 });
-
 MyProfileStack.navigationOptions = {
   tabBarLabel: "Profile",
   tabBarIcon: ({ focused }) => (

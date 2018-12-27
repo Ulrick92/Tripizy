@@ -149,8 +149,6 @@ export default class UserProfile extends React.Component {
 
   componentDidMount() {
     const { params } = this.props.navigation.state;
-    console.log("Params =>", params.user);
-    // console.log("User ID =>", param);
     AsyncStorage.getItem("token", (err, token) => {
       axios
         .get(`${config.DOMAIN}user/${params.user}`, {
