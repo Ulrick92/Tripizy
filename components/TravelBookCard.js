@@ -49,7 +49,7 @@ export default class TravelBookCard extends React.Component {
   renderProfilePage(user_id) {
     if (user_id) {
       if (user_id.token !== this.props.currentUserToken) {
-        console.log(this.props.userId);
+        console.log("userID transmis :", this.props.userId);
         this.props.navigation.navigate("UserProfile", {
           user: this.props.userId
         });
