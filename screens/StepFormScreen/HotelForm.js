@@ -5,28 +5,30 @@ import {
   TextInput,
   KeyboardAvoidingView,
   AsyncStorage,
-  StyleSheet,
   View,
   Button,
   Image,
   ScrollView
 } from "react-native";
 import config from "../../config";
+import { withNavigation } from "react-navigation";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import StarRating from "react-native-star-rating";
 import { ImagePicker, Permissions } from "expo";
 import styles from "./styles";
 
-export default class StepForm extends Component {
+class HotelForm extends Component {
   state = {
-    step_id: "5c1d16a625194d001618f274",
+    stepId: "5c1d16a625194d001618f274",
     category: "Hotel",
     company_name: "Casa del Papel",
     city: "Vinales",
     start_date: "03/03/2015",
     end_date: "03/03/2015",
-    photos: null
+    photos: null,
+    price: undefined,
+    currency: "USD"
   };
 
   redirectToLoginPage = () => {
@@ -38,7 +40,7 @@ export default class StepForm extends Component {
       console.log("result", token);
 
       const {
-        step_id,
+        stepId,
         category,
         company_name,
         city,
@@ -52,7 +54,7 @@ export default class StepForm extends Component {
         this.redirectToLoginPage();
       } else {
         console.log("COUCOUCOUCOUCOUCU", {
-          step_id: step_id,
+          step_id: stepId,
           category: category,
           company_name: this.state.company_name,
           city: this.state.city,
@@ -64,7 +66,7 @@ export default class StepForm extends Component {
           .post(
             `${config.DOMAIN}tips/publish`,
             {
-              step_id: step_id,
+              step_id: stepId,
               category: category,
               company_name: this.state.company_name,
               city: this.state.city,
@@ -160,9 +162,9 @@ export default class StepForm extends Component {
               <TextInput
                 style={styles.input}
                 autoCapitalize="none"
-                value={this.state.adress}
-                placeholder={"ex : 55 blvd Paul Smith"}
-                onChangeText={text => this.setState({ adress: text })}
+                value={this.state.website}
+                placeholder={"ex : www.tripizy.app"}
+                onChangeText={text => this.setState({ website: text })}
               />
             </View>
             <View style={styles.inputLine}>
@@ -190,16 +192,16 @@ export default class StepForm extends Component {
               <TextInput
                 style={styles.input}
                 autoCapitalize="none"
-                value={this.state.adress}
+                value={this.state.price}
                 placeholder={"ex: 50"}
-                onChangeText={text => this.setState({ adress: text })}
+                onChangeText={text => this.setState({ price: text })}
               />
               <TextInput
                 style={styles.input}
                 autoCapitalize="none"
-                value={this.state.adress}
+                value={this.state.currency}
                 placeholder={"USD"}
-                onChangeText={text => this.setState({ adress: text })}
+                onChangeText={text => this.setState({ currency: text })}
               />
             </View>
             <View style={styles.inputLine}>
@@ -236,4 +238,11 @@ export default class StepForm extends Component {
       </ScrollView>
     );
   }
+  componentDidMount() {
+    this.setState({
+      stepId: this.props.navigation.state.params.stepId
+    });
+  }
 }
+
+export default withNavigation(HotelForm);

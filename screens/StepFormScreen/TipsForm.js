@@ -12,7 +12,7 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
-export default class HotelForm extends Component {
+export default class TipsForm extends Component {
   static navigationOptions = {
     title: "Add a cart",
     headerStyle: {
@@ -39,7 +39,8 @@ export default class HotelForm extends Component {
         this.redirectToLoginPage();
       } else {
         this.props.navigation.navigate("HotelForm", {
-          category: this.state.category
+          category: this.state.category,
+          stepId: this.props.navigation.state.params.stepId
         });
         console.log(this.state.category);
       }
@@ -56,7 +57,11 @@ export default class HotelForm extends Component {
               name="hotel"
               size={50}
               color="black"
-              onPress={() => this.props.navigation.navigate("HotelForm")}
+              onPress={() =>
+                this.props.navigation.navigate("HotelForm", {
+                  stepId: this.props.navigation.state.params.stepId
+                })
+              }
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
           </View>

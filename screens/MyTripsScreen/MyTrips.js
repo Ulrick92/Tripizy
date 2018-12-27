@@ -43,7 +43,8 @@ export default class MyTripsScreen extends Component {
           }
         })
         .then(response => {
-          console.log("response", response.data);
+          // array of travelbooks of the current user
+          console.log("response mytrips", response.data);
           this.setState({
             travelbooks: response.data,
             currentUserToken: token,
@@ -85,6 +86,7 @@ export default class MyTripsScreen extends Component {
             </View>
           </ScrollView>
 
+          {/*  Button to create travelbook */}
           <ActionButton buttonColor="#37449E">
             <ActionButton.Item
               buttonColor="#1abc9c" //vert

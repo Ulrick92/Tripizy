@@ -41,7 +41,13 @@ export default class DetailsTravelBook extends React.Component {
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
+      if (!this.props.navigation.state.params) {
+        console.log("hello");
+        return;
+      }
       const { params } = this.props.navigation.state;
+
+      console.log("detailstravelbookparams", this.props);
       console.log("Params =>", params);
 
       axios
@@ -51,7 +57,7 @@ export default class DetailsTravelBook extends React.Component {
           }
         })
         .then(response => {
-          console.log("Response =>", response.data);
+          console.log("Response detailtravelbook =>", response.data);
           this.setState({
             travelbook: response.data,
             steps: response.data.steps,
@@ -63,6 +69,19 @@ export default class DetailsTravelBook extends React.Component {
         });
     });
   }
+
+  renderTips = tips => {
+    console.log("this tips", tips);
+    if (this.state.mounted && tips && tips.length > 0) {
+      return tips.map(tip => (
+        <View key={tip}>
+          <TipsCard id={tip} />
+        </View>
+      ));
+    }
+    return null;
+  };
+
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
@@ -102,21 +121,6 @@ export default class DetailsTravelBook extends React.Component {
                   >
                     <Marker
                       coordinate={{
-                        latitude: 10.298974,
-                        longitude: -85.837935
-                      }}
-                      title="Casa Bobo"
-                      description="Temple of love"
-                    />
-                    <Marker
-                      coordinate={{
-                        latitude: 10.594366,
-                        longitude: -85.544151
-                      }}
-                      title="Liberia Airport"
-                    />
-                    <Marker
-                      coordinate={{
                         latitude: 10.260968,
                         longitude: -85.584363
                       }}
@@ -136,50 +140,17 @@ export default class DetailsTravelBook extends React.Component {
                 renderItem={item => {
                   console.log("Objet =>", item);
                   return (
-                    <StepCard id={item["item"]._id} index={item["index"]} />
+                    <View>
+                      <View>
+                        <StepCard id={item["item"]._id} index={item["index"]} />
+                      </View>
+                      <View>{this.renderTips(item["item"].tips)}</View>
+                    </View>
                   );
                 }}
               />
-              {/* <View
-                style={{
-                  justifyContent: "center",
-                  width: "100%"
-                }}
-              >
-                <TipsCard />
-                <FreeCard />
-                <TipsCard />
-              </View>
-              <FreeCard /> */}
             </View>
           </ScrollView>
-
-          <ActionButton buttonColor="#37449E">
-            <ActionButton.Item
-              buttonColor="#9b59b6" //violet
-              title="Add a Tips"
-              onPress={() => this.props.navigation.navigate("TipsForm")}
-            >
-              <MaterialIconsIcon
-                name="star-border"
-                style={styles.actionButtonIcon}
-              />
-            </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor="#1abc9c" //vert
-              title="Add a Step"
-              onPress={() =>
-                this.props.navigation.navigate("StepForm", {
-                  travelbook_id: travelbook_id
-                })
-              }
-            >
-              <MaterialIconsIcon
-                name="add-circle"
-                style={styles.actionButtonIcon}
-              />
-            </ActionButton.Item>
-          </ActionButton>
         </Fragment>
       );
     } else {
