@@ -68,8 +68,65 @@ export default class TravelBookCard extends React.Component {
       user_id
     } = this.props;
     const { countries } = this.state;
+    console.log("start_date", start_date);
+    console.log("end_date", end_date);
+
+    console.log(user_id);
+
+    const millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+    function dateDifferenceInDays(dateFrom, dateTo) {
+      const utcDateFrom = Date.UTC(
+        dateFrom.getFullYear(),
+        dateFrom.getMonth(),
+        dateFrom.getDate()
+      );
+      const utcDateTo = Date.UTC(
+        dateTo.getFullYear(),
+        dateTo.getMonth(),
+        dateTo.getDate()
+      );
+
+      return Math.floor((utcDateTo - utcDateFrom) / millisecondsPerDay);
+    }
+
     const dateFrom = new Date(start_date);
     const dateTo = new Date(end_date);
+    console.log("dateFrom", dateFrom);
+    console.log("dateTo", dateTo);
+    const duration = dateDifferenceInDays(dateFrom, dateTo);
+    console.log("duration", duration);
+
+    // function convertUTCDateToLocalDate(date) {
+    //   const newDate = new Date(
+    //     date.getTime() - date.getTimezoneOffset() * 60 * 1000
+    //   );
+    //   return newDate;
+    // }
+
+    // const localDateFrom = convertUTCDateToLocalDate(dateFrom);
+    // console.log("localDateFrom", localDateFrom);
+
+    const monthFrom = dateFrom.getUTCMonth();
+    const yearFrom = dateFrom.getUTCFullYear();
+    console.log("monthFrom", monthFrom);
+    console.log("yearFrom", yearFrom);
+
+    const monthsInLetters = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
     if (this.state.countries.length) {
       return (
         <View style={styles.travelCard}>
@@ -94,7 +151,8 @@ export default class TravelBookCard extends React.Component {
             </TouchableOpacity>
             <Text style={styles.textBackgroundImage}>{title}</Text>
             <Text style={styles.dateBackgroundImage}>
-              {dateFrom.toDateString()} {" to "} {dateTo.toDateString()}
+              {monthsInLetters[monthFrom]} {yearFrom} {" - "} {duration}{" "}
+              {duration === 1 ? " day" : " days"}
             </Text>
           </ImageBackground>
 
