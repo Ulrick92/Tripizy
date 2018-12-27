@@ -37,8 +37,6 @@ class HotelForm extends Component {
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("result", token);
-
       const {
         stepId,
         category,
@@ -48,20 +46,10 @@ class HotelForm extends Component {
         end_date,
         photos
       } = this.state;
-      console.log("result :", this.state);
 
       if (!token) {
         this.redirectToLoginPage();
       } else {
-        console.log("COUCOUCOUCOUCOUCU", {
-          step_id: stepId,
-          category: category,
-          company_name: this.state.company_name,
-          city: this.state.city,
-          start_date: this.state.start_date,
-          end_date: this.state.end_date,
-          photos: photos
-        });
         axios
           .post(
             `${config.DOMAIN}tips/publish`,
@@ -82,8 +70,6 @@ class HotelForm extends Component {
           )
 
           .then(response => {
-            console.log("response :", response.data);
-
             this.props.navigation.navigate("DetailsTravel", {
               category: response.data.category,
               company_name: response.data.company_name,

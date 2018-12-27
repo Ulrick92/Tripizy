@@ -39,6 +39,8 @@ export default class StepForm extends Component {
       const { travelbook_id } = this.props.navigation.state.params;
       // const travelbook_id = navigation.getParam('travelbook_id', 'NO-ID');
 
+      console.log("start date", start_date);
+
       if (!token) {
         this.redirectToLoginPage();
       } else {
@@ -86,6 +88,12 @@ export default class StepForm extends Component {
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
+  }
+
+  componentDidMount() {
+    this.setState({
+      travelbook_id: this.props.navigation.state.params.travelbook_id
+    });
   }
 }
 

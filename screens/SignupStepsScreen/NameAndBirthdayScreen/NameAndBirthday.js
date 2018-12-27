@@ -11,7 +11,6 @@ import styles from "./styles";
 
 export default class NamesAndBirthday extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Travel Books",
     headerStyle: {
       backgroundColor: "#37449E"
     },
