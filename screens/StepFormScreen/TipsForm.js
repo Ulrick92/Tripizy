@@ -84,7 +84,12 @@ export default class TipsForm extends Component {
 
         <View style={styles.category}>
           <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="road" size={50} color="black" />
+            <FontAwesomeIcon
+              name="road"
+              size={50}
+              color="black"
+              onPress={() => this.props.navigation.navigate("RoadForm")}
+            />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Road</Text>
           </View>
           <View style={{ alignItems: "center" }}>
@@ -124,9 +129,6 @@ export default class TipsForm extends Component {
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Pics</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }

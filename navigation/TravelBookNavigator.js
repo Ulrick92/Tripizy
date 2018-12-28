@@ -12,6 +12,7 @@ import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
 import MainTabNavigator from "./MainTabNavigator";
 import HotelFormScreen from "../screens/StepFormScreen/HotelForm";
 import RestaurantFormScreen from "../screens/StepFormScreen/RestaurantForm";
+import RoadFormScreen from "../screens/StepFormScreen/RoadForm";
 import TitleAndDescriptionContainer from "../screens/TravelBookFormScreen/TitleAndDescriptionScreen/TitleAndDescription";
 import CountryContainer from "../screens/TravelBookFormScreen/CountryScreen/Country";
 import DatesContainer from "../screens/TravelBookFormScreen/DatesScreen/Dates";
@@ -67,6 +68,9 @@ const TravelBookNavigator = createStackNavigator({
   },
   RestaurantForm: {
     screen: RestaurantFormScreen
+  },
+  RoadForm: {
+    screen: RoadFormScreen
   },
   NameAndBirthday: {
     screen: NameAndBirthdayContainer
