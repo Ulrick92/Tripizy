@@ -10,7 +10,9 @@ class StepCard extends React.Component {
   state = {
     step: {},
     tips: [],
-    mounted: false
+    mounted: false,
+    travelBookUserId: undefined,
+    userId: undefined
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -52,6 +54,7 @@ class StepCard extends React.Component {
   }
   renderAddTipsButton = () => {
     // hide "+ tip" button if user is not the owner of travelbook
+
     if (this.state.mounted && this.state.travelBookUserId === this.state.userId)
       return (
         <TouchableOpacity

@@ -68,10 +68,10 @@ export default class TravelBookCard extends React.Component {
       user_id
     } = this.props;
     const { countries } = this.state;
-    console.log("start_date", start_date);
-    console.log("end_date", end_date);
+    // console.log("start_date", start_date);
+    // console.log("end_date", end_date);
 
-    console.log(user_id);
+    // console.log(user_id);
 
     const millisecondsPerDay = 1000 * 60 * 60 * 24;
 
@@ -92,10 +92,10 @@ export default class TravelBookCard extends React.Component {
 
     const dateFrom = new Date(start_date);
     const dateTo = new Date(end_date);
-    console.log("dateFrom", dateFrom);
-    console.log("dateTo", dateTo);
+    // console.log("dateFrom", dateFrom);
+    // console.log("dateTo", dateTo);
     const duration = dateDifferenceInDays(dateFrom, dateTo);
-    console.log("duration", duration);
+    // console.log("duration", duration);
 
     // function convertUTCDateToLocalDate(date) {
     //   const newDate = new Date(
@@ -109,8 +109,8 @@ export default class TravelBookCard extends React.Component {
 
     const monthFrom = dateFrom.getUTCMonth();
     const yearFrom = dateFrom.getUTCFullYear();
-    console.log("monthFrom", monthFrom);
-    console.log("yearFrom", yearFrom);
+    // console.log("monthFrom", monthFrom);
+    // console.log("yearFrom", yearFrom);
 
     const monthsInLetters = [
       "January",

@@ -16,6 +16,9 @@ import styles from "./styles";
 import { SearchBar } from "react-native-elements";
 import ActionButton from "react-native-action-button";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+const COUNTRIES = require("../SignupStepsScreen/AddressScreen/data/Countries.json");
+
+const COUNTRIESLABELS = COUNTRIES.map(country => country.label);
 
 export default class ListScreen extends React.Component {
   static navigationOptions = {
@@ -27,28 +30,33 @@ export default class ListScreen extends React.Component {
     currentUserToken: [],
     mounted: false,
     token: undefined,
-    country: ""
+    country: "",
+    alltravelbooks: []
   };
   onChangeSearchCountry = country => {
-    this.setState({ country: country });
-    console.log("country", country);
-    axios
-      .get(`${config.DOMAIN}travelbook/`, {
-        params: {
-          country: country
-        },
-        headers: {
-          authorization: `Bearer ${this.state.token}`
-        }
-      })
-      .then(response => {
-        this.setState({
-          travelbooks: response.data
+    if (COUNTRIESLABELS.indexOf(country) !== -1) {
+      this.setState({ country: country });
+      console.log(COUNTRIESLABELS.indexOf(country));
+      axios
+        .get(`${config.DOMAIN}travelbook/`, {
+          params: {
+            country: COUNTRIESLABELS.indexOf(country)
+          },
+          headers: {
+            authorization: `Bearer ${this.state.token}`
+          }
+        })
+        .then(response => {
+          this.setState({
+            travelbooks: response.data
+          });
+        })
+        .catch(err => {
+          console.log("Error", err.message);
         });
-      })
-      .catch(err => {
-        console.log("Error", err.message);
-      });
+    } else {
+      this.setState({ travelbooks: this.state.alltravelbooks });
+    }
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -63,7 +71,8 @@ export default class ListScreen extends React.Component {
             travelbooks: response.data,
             currentUserToken: token,
             mounted: true,
-            token: token
+            token: token,
+            alltravelbooks: response.data
           });
         })
         .catch(err => {
@@ -73,7 +82,7 @@ export default class ListScreen extends React.Component {
   }
   render() {
     const { currentUserToken, travelbooks } = this.state;
-    // console.log("TOKEN => ", this.state.currentUserToken);
+
     return (
       <Fragment>
         <SearchBar

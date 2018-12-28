@@ -45,7 +45,8 @@ export default class DetailsTravelBook extends React.Component {
     mounted: false,
     dateTipToAdd: undefined,
     dateArray: [],
-    userId: undefined
+    userId: undefined,
+    travelBookUserId: undefined
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -73,7 +74,7 @@ export default class DetailsTravelBook extends React.Component {
           this.setState({
             travelbook: response.data,
             steps: response.data.steps,
-
+            travelBookUserId: response.data.user_id,
             dateArray: dateArr
           });
           axios
@@ -149,8 +150,8 @@ export default class DetailsTravelBook extends React.Component {
           mode="date"
           placeholder="click here to add tip"
           format="YYYY-MM-DD"
-          minDate={new Date(travelbook.start_date)}
-          maxDate={new Date(travelbook.end_date)}
+          minDate={new Date(this.state.travelbook.start_date)}
+          maxDate={new Date(this.state.travelbook.end_date)}
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={datePickerCustomStyle}
@@ -175,7 +176,6 @@ export default class DetailsTravelBook extends React.Component {
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
-    const travelbook_id = travelbook._id;
 
     if (mounted) {
       return (
