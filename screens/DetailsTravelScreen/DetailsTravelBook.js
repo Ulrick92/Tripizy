@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { createAppContainer, createStackNavigator } from "react-navigation";
 import {
   StyleSheet,
   View,
@@ -10,22 +9,28 @@ import {
   AsyncStorage,
   FlatList
 } from "react-native";
+import DatePicker from "react-native-datepicker";
 import axios from "axios";
 import styles from "./styles";
 import config from "../../config";
 import MapView, { Marker } from "react-native-maps";
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
+
 import TipsCard from "../../components/TipsCard";
 import StepCard from "../../components/StepCard";
-import FreeCard from "../../components/FreeCard";
+
 import geolib from "geolib";
 import ActionButton from "react-native-action-button";
 
-var result = geolib.getCenter([
-  { latitude: 10.298974, longitude: -85.837935 },
-  { latitude: 10.594366, longitude: -85.544151 },
-  { latitude: 10.260968, longitude: -85.584363 }
-]);
+var getDateArray = function(start, end) {
+  //Return  an array from start (date) to end (date)
+  var arr = new Array();
+  var dt = new Date(start);
+  while (dt <= end) {
+    arr.push(new Date(dt));
+    dt.setDate(dt.getDate() + 1);
+  }
+  return arr;
+};
 export default class DetailsTravelBook extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Travel Books",
@@ -37,7 +42,9 @@ export default class DetailsTravelBook extends React.Component {
   state = {
     travelbook: {},
     steps: [],
-    mounted: false
+    mounted: false,
+    dateTipToAdd: undefined,
+    dateArray: []
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -58,10 +65,15 @@ export default class DetailsTravelBook extends React.Component {
         })
         .then(response => {
           console.log("Response detailtravelbook =>", response.data);
+          var startDate = new Date(response.data.start_date); //YYYY-MM-DD
+          var endDate = new Date(response.data.end_date); //YYYY-MM-DD
+
+          var dateArr = getDateArray(startDate, endDate);
           this.setState({
             travelbook: response.data,
             steps: response.data.steps,
-            mounted: true
+            mounted: true,
+            dateArray: dateArr
           });
         })
         .catch(err => {
@@ -78,6 +90,33 @@ export default class DetailsTravelBook extends React.Component {
           <TipsCard id={tip} />
         </View>
       ));
+    }
+    return null;
+  };
+
+  renderSteps = item => {
+    console.log("ITEM", item);
+    console.log(item["show"]);
+    console.log(
+      (this.state.mounted &&
+        item["item"].tips &&
+        item["item"].tips.length > 0) ||
+        item["item"].show
+    );
+    if (
+      (this.state.mounted &&
+        item["item"].tips &&
+        item["item"].tips.length > 0) ||
+      item["item"].show
+    ) {
+      return (
+        <View>
+          <View>
+            <StepCard id={item["item"]._id} index={item["index"]} />
+          </View>
+          <View>{this.renderTips(item["item"].tips)}</View>
+        </View>
+      );
     }
     return null;
   };
@@ -134,19 +173,36 @@ export default class DetailsTravelBook extends React.Component {
                   Description : {travelbook.description}
                 </Text>
               </View>
+              <DatePicker
+                style={{
+                  width: 200,
+                  marginBottom: 20
+                }}
+                date={this.state.start_date}
+                mode="date"
+                placeholder="select a date"
+                format="YYYY-MM-DD"
+                minDate={new Date(travelbook.start_date)}
+                maxDate={new Date(travelbook.end_date)}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={datePickerCustomStyle}
+                onDateChange={date => {
+                  let idxToAdd = this.state.dateArray
+                    .map(Number)
+                    .indexOf(Number(new Date(date)));
+
+                  let newSteps = [...steps];
+
+                  newSteps[idxToAdd].show = true;
+                  this.setState({ steps: newSteps }, console.log(newSteps));
+                }}
+              />
               <FlatList
                 data={steps}
                 keyExtractor={item => item._id}
                 renderItem={item => {
-                  console.log("Objet =>", item);
-                  return (
-                    <View>
-                      <View>
-                        <StepCard id={item["item"]._id} index={item["index"]} />
-                      </View>
-                      <View>{this.renderTips(item["item"].tips)}</View>
-                    </View>
-                  );
+                  return <View>{this.renderSteps(item)}</View>;
                 }}
               />
             </View>
@@ -162,3 +218,20 @@ export default class DetailsTravelBook extends React.Component {
     }
   }
 }
+const datePickerCustomStyle = {
+  dateIcon: {
+    position: "absolute",
+    left: 0,
+    top: 4,
+    marginLeft: 0
+  },
+  dateInput: {
+    marginLeft: 36
+  },
+  placeholderText: {
+    color: "grey"
+  },
+  dateText: {
+    color: "black"
+  }
+};
