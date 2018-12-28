@@ -13,7 +13,6 @@ const AppNavigator = createStackNavigator({
   LogIn: {
     screen: LogInContainer
   },
-
   NameAndBirthday: {
     screen: NameAndBirthdayContainer
   },
