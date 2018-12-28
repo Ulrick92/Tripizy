@@ -46,7 +46,10 @@ export default class DetailsTravelBook extends React.Component {
     dateTipToAdd: undefined,
     dateArray: [],
     userId: undefined,
-    travelBookUserId: undefined
+    travelBookUserId: undefined,
+    latitude: 0,
+    longitude: 0,
+    markers: []
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -71,11 +74,26 @@ export default class DetailsTravelBook extends React.Component {
           var endDate = new Date(response.data.end_date); //YYYY-MM-DD
 
           var dateArr = getDateArray(startDate, endDate);
+          const markersList = [];
+          for (let i = 0; i < response.data.steps.length; i++) {
+            for (let j = 0; j < response.data.steps[i].tips.length; j++) {
+              tip = response.data.steps[i].tips[j];
+              markersList.push({
+                title: tip.company_name ? tip.company_name : "no name",
+                latitude: tip.loc ? tip.loc[1] : 10.494795,
+                longitude: tip.loc ? tip.loc[0] : -85.494795,
+                id: tip._id
+              });
+            }
+          }
           this.setState({
             travelbook: response.data,
             steps: response.data.steps,
             travelBookUserId: response.data.user_id,
-            dateArray: dateArr
+            dateArray: dateArr,
+            latitude: response.data.loc ? response.data.loc[1] : 10.494795,
+            longitude: response.data.loc ? response.data.loc[0] : -85.685515,
+            markers: markersList
           });
           axios
             .get(`${config.DOMAIN}user`, {
@@ -101,26 +119,17 @@ export default class DetailsTravelBook extends React.Component {
   }
 
   renderTips = tips => {
-    console.log("this tips", tips);
     if (this.state.mounted && tips && tips.length > 0) {
       return tips.map(tip => (
         <View key={tip}>
-          <TipsCard id={tip} />
+          <TipsCard id={tip._id} />
         </View>
       ));
     }
-    return <Text>No tips in this travelbook</Text>;
+    return <Text>No tips in this step</Text>;
   };
 
   renderSteps = item => {
-    console.log("ITEM", item);
-    console.log(item["show"]);
-    console.log(
-      (this.state.mounted &&
-        item["item"].tips &&
-        item["item"].tips.length > 0) ||
-        item["item"].show
-    );
     if (
       (this.state.mounted &&
         item["item"].tips &&
@@ -136,7 +145,30 @@ export default class DetailsTravelBook extends React.Component {
         </View>
       );
     }
-    return null;
+    return <Text>No tips in this travelbook</Text>;
+  };
+  displayMarkers = () => {
+    if (this.state.markers.length === 0)
+      return (
+        <Marker
+          coordinate={{
+            latitude: 10.260968,
+            longitude: -85.584363
+          }}
+          title="Liberia Airport"
+        />
+      );
+    else
+      return this.state.markers.map((marker, i) => (
+        <Marker
+          key={i}
+          coordinate={{
+            latitude: marker.latitude,
+            longitude: marker.longitude
+          }}
+          title={marker.title}
+        />
+      ));
   };
   renderAddTipDate = () => {
     if (this.state.mounted && this.state.travelBookUserId === this.state.userId)
@@ -176,7 +208,8 @@ export default class DetailsTravelBook extends React.Component {
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
-
+    console.log("POSITION GEOMETRY", this.state.latitude, this.state.longitude);
+    console.log("Marker List ", this.state.markers);
     if (mounted) {
       return (
         <Fragment>
@@ -202,20 +235,14 @@ export default class DetailsTravelBook extends React.Component {
                     }}
                     style={styles.mapView}
                     initialRegion={{
-                      latitude: 10.494795,
-                      longitude: -85.685515,
+                      latitude: this.state.latitude,
+                      longitude: this.state.longitude,
                       latitudeDelta: 0.515392,
                       longitudeDelta: 0.4937
                     }}
                     showsUserLocation={true}
                   >
-                    <Marker
-                      coordinate={{
-                        latitude: 10.260968,
-                        longitude: -85.584363
-                      }}
-                      title="Liberia Airport"
-                    />
+                    {this.displayMarkers()}
                   </MapView>
                 </View>
               </TouchableOpacity>
