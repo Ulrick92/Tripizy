@@ -160,7 +160,7 @@ export default class DetailsTravelBook extends React.Component {
               .map(Number)
               .indexOf(Number(new Date(date)));
 
-            let newSteps = [...steps];
+            let newSteps = [...this.state.steps];
 
             newSteps[idxToAdd].show = true;
             this.setState({ steps: newSteps }, console.log(newSteps));
