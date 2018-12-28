@@ -97,16 +97,6 @@ export default class TravelBookCard extends React.Component {
     const duration = dateDifferenceInDays(dateFrom, dateTo);
     // console.log("duration", duration);
 
-    // function convertUTCDateToLocalDate(date) {
-    //   const newDate = new Date(
-    //     date.getTime() - date.getTimezoneOffset() * 60 * 1000
-    //   );
-    //   return newDate;
-    // }
-
-    // const localDateFrom = convertUTCDateToLocalDate(dateFrom);
-    // console.log("localDateFrom", localDateFrom);
-
     const monthFrom = dateFrom.getUTCMonth();
     const yearFrom = dateFrom.getUTCFullYear();
     // console.log("monthFrom", monthFrom);
@@ -133,16 +123,22 @@ export default class TravelBookCard extends React.Component {
           <ImageBackground
             source={{ uri: photos[0] }}
             style={styles.backgroundImage}
+            imageStyle={{ borderRadius: 5 }}
           >
             <TouchableOpacity onPress={() => this.renderProfilePage(user_id)}>
               <ImageBackground
                 style={{
                   width: 40,
                   height: 40,
-                  borderRadius: 40 / 2,
                   position: "absolute",
                   bottom: 155,
                   left: 10
+                }}
+                imageStyle={{
+                  borderRadius: 40 / 2,
+                  borderWidth: 1,
+                  borderColor: "white",
+                  shadowOpacity: 20
                 }}
                 source={this.renderProfilePic(user_id)}
               >
@@ -291,7 +287,7 @@ export default class TravelBookCard extends React.Component {
 const styles = StyleSheet.create({
   travelCard: {
     flex: 1,
-    margin: 10
+    margin: 8
   },
   backgroundImage: {
     width: "100%",
