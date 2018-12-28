@@ -20,13 +20,13 @@ export default class Main extends Component {
           source={require("../../assets/images/mexico.jpg")}
         >
           <Text style={styles.title}>tripizy</Text>
-          <TouchableOpacity style={styles.button}>
+          {/* <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>CONTINUE WITH GOOGLE</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>CONTINUE WITH FACEBOOK</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={styles.button}
@@ -36,9 +36,9 @@ export default class Main extends Component {
             <Text style={styles.buttonText}>SIGN UP WITH EMAIL</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Text style={styles.clickableText}>Enter as guest</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={styles.button}

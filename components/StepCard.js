@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { withNavigation } from "react-navigation";
 import axios from "axios";
 import { TouchableOpacity, View, Text, AsyncStorage } from "react-native";
+
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import config from "../config";
 
