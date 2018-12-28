@@ -19,7 +19,7 @@ export default class TravelBookCard extends React.Component {
   }
   renderProfilePic(user_id) {
     if (user_id) {
-      if (user_id.profile_pic.length) {
+      if (user_id.profile_pic && user_id.profile_pic.length) {
         return { uri: user_id.profile_pic[0] };
       } else {
         return require("../assets/images/no_user.png");

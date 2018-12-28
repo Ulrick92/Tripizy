@@ -13,6 +13,7 @@ import config from "../../config";
 import axios from "axios";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import styles from "./styles";
+import { SearchBar } from "react-native-elements";
 import ActionButton from "react-native-action-button";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
@@ -24,7 +25,30 @@ export default class ListScreen extends React.Component {
   state = {
     travelbooks: [],
     currentUserToken: [],
-    mounted: false
+    mounted: false,
+    token: undefined,
+    country: ""
+  };
+  onChangeSearchCountry = country => {
+    this.setState({ country: country });
+    console.log("country", country);
+    axios
+      .get(`${config.DOMAIN}travelbook/`, {
+        params: {
+          country: country
+        },
+        headers: {
+          authorization: `Bearer ${this.state.token}`
+        }
+      })
+      .then(response => {
+        this.setState({
+          travelbooks: response.data
+        });
+      })
+      .catch(err => {
+        console.log("Error", err.message);
+      });
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -38,7 +62,8 @@ export default class ListScreen extends React.Component {
           this.setState({
             travelbooks: response.data,
             currentUserToken: token,
-            mounted: true
+            mounted: true,
+            token: token
           });
         })
         .catch(err => {
@@ -51,6 +76,13 @@ export default class ListScreen extends React.Component {
     // console.log("TOKEN => ", this.state.currentUserToken);
     return (
       <Fragment>
+        <SearchBar
+          onChangeText={this.onChangeSearchCountry}
+          placeholder="Country"
+          placeholderTextColor="#AAAAAA"
+          clearIcon={{ color: "#AAAAAA" }}
+          inputStyle={{ backgroundColor: "white" }}
+        />
         <ScrollView style={styles.container}>
           <View>
             <FlatList

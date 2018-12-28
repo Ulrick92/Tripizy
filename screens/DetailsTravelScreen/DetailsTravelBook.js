@@ -44,7 +44,8 @@ export default class DetailsTravelBook extends React.Component {
     steps: [],
     mounted: false,
     dateTipToAdd: undefined,
-    dateArray: []
+    dateArray: [],
+    userId: undefined
   };
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
@@ -72,9 +73,25 @@ export default class DetailsTravelBook extends React.Component {
           this.setState({
             travelbook: response.data,
             steps: response.data.steps,
-            mounted: true,
+
             dateArray: dateArr
           });
+          axios
+            .get(`${config.DOMAIN}user`, {
+              headers: {
+                authorization: `Bearer ${token}`
+              }
+            })
+            .then(response => {
+              console.log("User => ", response.data);
+              this.setState({
+                userId: response.data._id,
+                mounted: true
+              });
+            })
+            .catch(err => {
+              console.log("get user id", err.message);
+            });
         })
         .catch(err => {
           console.log(err);
@@ -91,7 +108,7 @@ export default class DetailsTravelBook extends React.Component {
         </View>
       ));
     }
-    return null;
+    return <Text>No tips in this travelbook</Text>;
   };
 
   renderSteps = item => {
@@ -120,7 +137,41 @@ export default class DetailsTravelBook extends React.Component {
     }
     return null;
   };
+  renderAddTipDate = () => {
+    if (this.state.mounted && this.state.travelBookUserId === this.state.userId)
+      return (
+        <DatePicker
+          style={{
+            width: 200,
+            marginBottom: 20
+          }}
+          showIcon={false}
+          mode="date"
+          placeholder="click here to add tip"
+          format="YYYY-MM-DD"
+          minDate={new Date(travelbook.start_date)}
+          maxDate={new Date(travelbook.end_date)}
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={datePickerCustomStyle}
+          onDateChange={date => {
+            let idxToAdd = this.state.dateArray
+              .map(Number)
+              .indexOf(Number(new Date(date)));
 
+            let newSteps = [...steps];
+
+            newSteps[idxToAdd].show = true;
+            this.setState({ steps: newSteps }, console.log(newSteps));
+            console.log("NEWSTEPS", newSteps[idxToAdd]._id);
+            this.props.navigation.navigate("TipsForm", {
+              stepId: newSteps[idxToAdd]._id
+            });
+          }}
+        />
+      );
+    else return null;
+  };
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
@@ -173,36 +224,8 @@ export default class DetailsTravelBook extends React.Component {
                   Description : {travelbook.description}
                 </Text>
               </View>
+              {this.renderAddTipDate()}
 
-              <DatePicker
-                style={{
-                  width: 200,
-                  marginBottom: 20
-                }}
-                showIcon={false}
-                mode="date"
-                placeholder="click here to add tip"
-                format="YYYY-MM-DD"
-                minDate={new Date(travelbook.start_date)}
-                maxDate={new Date(travelbook.end_date)}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={datePickerCustomStyle}
-                onDateChange={date => {
-                  let idxToAdd = this.state.dateArray
-                    .map(Number)
-                    .indexOf(Number(new Date(date)));
-
-                  let newSteps = [...steps];
-
-                  newSteps[idxToAdd].show = true;
-                  this.setState({ steps: newSteps }, console.log(newSteps));
-                  console.log("NEWSTEPS", newSteps[idxToAdd]._id);
-                  this.props.navigation.navigate("TipsForm", {
-                    stepId: newSteps[idxToAdd]._id
-                  });
-                }}
-              />
               <FlatList
                 data={steps}
                 keyExtractor={item => item._id}
