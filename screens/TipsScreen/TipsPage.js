@@ -4,12 +4,6 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import StarRating from "react-native-star-rating";
 import MapView, { Marker } from "react-native-maps";
 
-var result = geolib.getCenter([
-  { latitude: 10.298974, longitude: -85.837935 },
-  { latitude: 10.594366, longitude: -85.544151 },
-  { latitude: 10.260968, longitude: -85.584363 }
-]);
-
 export default class TipsPage extends React.Component {
   render() {
     return (

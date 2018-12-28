@@ -24,16 +24,21 @@ export default class TipsListTest extends React.Component {
     tips: [],
     city: "",
     companyName: "",
-    category: ""
+    category: "",
+    token: undefined
   };
   onChangeSearchCity = city => {
     this.setState({ city: city });
+    console.log("CIty", city);
     axios
       .get(`${config.DOMAIN}tips/`, {
         params: {
           city: city,
           company_name: this.state.companyName,
           category: this.state.category
+        },
+        headers: {
+          authorization: `Bearer ${this.state.token}`
         }
       })
       .then(response => {
@@ -53,6 +58,9 @@ export default class TipsListTest extends React.Component {
           company_name: companyName,
           city: this.state.city,
           category: this.state.category
+        },
+        headers: {
+          authorization: `Bearer ${this.state.token}`
         }
       })
       .then(response => {
@@ -74,6 +82,9 @@ export default class TipsListTest extends React.Component {
           company_name: this.state.companyName,
           city: this.state.city,
           category: category
+        },
+        headers: {
+          authorization: `Bearer ${this.state.token}`
         }
       })
       .then(response => {
@@ -88,13 +99,13 @@ export default class TipsListTest extends React.Component {
   render() {
     return (
       <Fragment>
-        {/* <SearchBar
+        <SearchBar
           onChangeText={this.onChangeSearchCompanyName}
           placeholder="Nom"
           placeholderTextColor="#AAAAAA"
           clearIcon={{ color: "#AAAAAA" }}
           inputStyle={{ backgroundColor: "white" }}
-        /> */}
+        />
         <SearchBar
           onChangeText={this.onChangeSearchCity}
           placeholder="City"
@@ -120,21 +131,8 @@ export default class TipsListTest extends React.Component {
                       this.props.navigation.navigate("TipsPage", {})
                     }
                   >
-                    <TipsCard
-                      company_name={item.company_name}
-                      city={item.city}
-                      photos={item.photos[0]}
-                      rate={item.rate[0]}
-                      pricePerDay={item.pricePerDay}
-                    />
+                    <TipsCard id={item._id} />
                   </TouchableOpacity>
-                  <TipsCard
-                    company_name={item.company_name}
-                    city={item.city}
-                    photos={item.photos[0]}
-                    rate={item.rate[0]}
-                    pricePerDay={item.pricePerDay}
-                  />
                 </View>
               );
             }}
@@ -166,7 +164,8 @@ export default class TipsListTest extends React.Component {
         .then(response => {
           console.log("response", response.data);
           this.setState({
-            tips: response.data
+            tips: response.data,
+            token: token
           });
         })
         .catch(err => {
