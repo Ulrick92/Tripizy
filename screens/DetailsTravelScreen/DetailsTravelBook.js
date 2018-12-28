@@ -173,14 +173,15 @@ export default class DetailsTravelBook extends React.Component {
                   Description : {travelbook.description}
                 </Text>
               </View>
+
               <DatePicker
                 style={{
                   width: 200,
                   marginBottom: 20
                 }}
-                date={this.state.start_date}
+                showIcon={false}
                 mode="date"
-                placeholder="select a date"
+                placeholder="click here to add tip"
                 format="YYYY-MM-DD"
                 minDate={new Date(travelbook.start_date)}
                 maxDate={new Date(travelbook.end_date)}
@@ -196,6 +197,10 @@ export default class DetailsTravelBook extends React.Component {
 
                   newSteps[idxToAdd].show = true;
                   this.setState({ steps: newSteps }, console.log(newSteps));
+                  console.log("NEWSTEPS", newSteps[idxToAdd]._id);
+                  this.props.navigation.navigate("TipsForm", {
+                    stepId: newSteps[idxToAdd]._id
+                  });
                 }}
               />
               <FlatList

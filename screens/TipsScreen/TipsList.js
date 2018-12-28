@@ -139,7 +139,7 @@ export default class TipsListTest extends React.Component {
           />
         </ScrollView>
 
-        <ActionButton buttonColor="#37449E">
+        {/* <ActionButton buttonColor="#37449E">
           <ActionButton.Item
             buttonColor="#1abc9c" //vert
             title="Filter by category"
@@ -147,7 +147,7 @@ export default class TipsListTest extends React.Component {
           >
             <FontAwesomeIcon name="filter" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-        </ActionButton>
+        </ActionButton> */}
       </Fragment>
     );
   }

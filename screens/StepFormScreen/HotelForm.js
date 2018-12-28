@@ -228,6 +228,10 @@ class HotelForm extends Component {
     this.setState({
       stepId: this.props.navigation.state.params.stepId
     });
+    console.log(
+      "stepId in hotelform : ",
+      this.props.navigation.state.params.stepId
+    );
   }
 }
 
