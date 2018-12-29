@@ -88,7 +88,11 @@ export default class TipsForm extends Component {
               name="road"
               size={50}
               color="black"
-              onPress={() => this.props.navigation.navigate("RoadForm")}
+              onPress={() =>
+                this.props.navigation.navigate("RoadForm", {
+                  stepId: this.props.navigation.state.params.stepId
+                })
+              }
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Road</Text>
           </View>

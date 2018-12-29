@@ -11,15 +11,16 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import { withNavigation } from "react-navigation";
 import axios from "axios";
-import { Fumi, Kohana } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 import { FormLabel, FormInput, Rating } from "react-native-elements";
 import { ImagePicker, Permissions } from "expo";
 import config from "../../config";
 
-export default class RoadForm extends Component {
+class RoadForm extends Component {
   static navigationOptions = {
     title: "Transport",
     headerStyle: {
@@ -29,12 +30,21 @@ export default class RoadForm extends Component {
   };
 
   state = {
-    step_id: "5c139ed9fbbb0b0016afa716",
-    category: "Transport",
+    stepId: "",
+    category: "Hotel",
     company_name: "",
     city: "",
-    start_date: "",
-    end_date: ""
+    adress: "8 street happyness",
+    start_date: "01/01/2018",
+    end_date: "01/01/2018",
+    photos: null,
+    price: undefined,
+    rating: undefined,
+    web_site: "www.booking.com",
+    tel: "0678308705",
+    description:
+      "Protectorum simulans communi iam subinde et cum venerit uti perniciem quaedam est adiumenta uti scribens contentum scribens Syriam et.",
+    currency: "USD"
   };
 
   redirectToLoginPage = () => {
@@ -43,17 +53,24 @@ export default class RoadForm extends Component {
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("result", token);
-
       const {
-        step_id,
+        stepId,
         category,
         company_name,
         city,
+        adress,
         start_date,
-        end_date
+        end_date,
+        web_site,
+        tel,
+        description,
+        price,
+        currency,
+        rating,
+        photos
       } = this.state;
-      console.log("result :", this.state);
+
+      console.log("Check error :", stepId, category, [notation], [photos]);
 
       if (!token) {
         this.redirectToLoginPage();
@@ -62,12 +79,20 @@ export default class RoadForm extends Component {
           .post(
             `${config.DOMAIN}tips/publish`,
             {
-              step_id: step_id,
+              step_id: stepId,
               category: category,
               company_name: this.state.company_name,
               city: this.state.city,
+              adress: this.state.adress,
               start_date: this.state.start_date,
-              end_date: this.state.end_date
+              end_date: this.state.end_date,
+              price: this.state.price,
+              currency: this.state.currency,
+              web_site: this.state.web_site,
+              tel: this.state.tel,
+              description: this.state.description,
+              rate: [rating],
+              files: [photos]
             },
             {
               headers: {
@@ -77,14 +102,19 @@ export default class RoadForm extends Component {
           )
 
           .then(response => {
-            console.log("response :", response.data);
-
             this.props.navigation.navigate("DetailsTravel", {
               category: response.data.category,
               company_name: response.data.company_name,
               city: response.data.city,
+              adress: response.data.adress,
               start_date: response.data.start_date,
-              end_date: response.data.end_date
+              end_date: response.data.end_date,
+              price: response.data.price,
+              currency: response.data.currency,
+              web_site: response.data.web_site,
+              tel: response.data.tel,
+              description: response.data.description,
+              photos: response.data.photos
             });
           })
           .catch(error => {
@@ -93,9 +123,9 @@ export default class RoadForm extends Component {
       }
     });
   };
-  ratingCompleted(rating) {
-    console.log("Rating is: " + rating);
-  }
+  askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  };
 
   useLibraryHandler = async () => {
     await this.askPermissionsAsync();
@@ -110,73 +140,97 @@ export default class RoadForm extends Component {
     );
   };
 
-  askPermissionsAsync = async () => {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  };
+  ratingCompleted(rating) {
+    console.log("Rating is: " + rating);
+  }
 
   render() {
     return (
       <ScrollView style={{ backgroundColor: "#a9ceca" }}>
         <KeyboardAvoidingView behavior="padding">
           <View style={[styles.card2, { backgroundColor: "#a9ceca" }]}>
-            {/* <Text style={styles.title}>Fumi</Text> */}
+            <Text style={styles.title}>Informations</Text>
             <Fumi
+              style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
               label={"Hotel Name :"}
               iconClass={FontAwesomeIcon}
               iconName={"hotel"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              autoCorrect={false}
+              value={this.state.company_name}
+              onChangeText={text => this.setState({ company_name: text })}
             />
             <Fumi
               label={"City :"}
               iconClass={MaterialsIcon}
               iconName={"place"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              value={this.state.city}
+              onChangeText={text => this.setState({ city: text })}
             />
             <Fumi
               label={"Adress :"}
               iconClass={MaterialsIcon}
               iconName={"place"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              value={this.state.adress}
+              onChangeText={text => this.setState({ adress: text })}
             />
             <Fumi
               label={"From :"}
               iconClass={FontAwesomeIcon}
               iconName={"calendar"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              value={this.state.start_date}
+              onChangeText={value => this.setState({ start_date: value })}
             />
             <Fumi
               label={"To :"}
               iconClass={FontAwesomeIcon}
               iconName={"calendar"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              value={this.state.end_date}
+              onChangeText={value => this.setState({ end_date: value })}
             />
             <Fumi
               label={"Price / night (€) :"}
               iconClass={FontAwesomeIcon}
               iconName={"money"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              onChangeText={value => this.setState({ price: value })}
+              value={this.state.price}
             />
             <Fumi
               label={"Website link :"}
               iconClass={FontAwesomeIcon}
               iconName={"link"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              value={this.state.web_site}
+              onChangeText={text => this.setState({ web_site: text })}
             />
             <Fumi
+              style={{
+                marginBottom: 10,
+                borderBottomRightRadius: 5,
+                borderBottomLeftRadius: 5
+              }}
               label={"Phone Number :"}
               iconClass={FontAwesomeIcon}
               iconName={"phone"}
-              iconColor={"#f95a25"}
+              iconColor={"#37449E"}
               iconSize={20}
+              onChangeText={value => this.setState({ tel: value })}
+              value={this.state.tel}
             />
-            <View style={{ marginTop: 5, backgroundColor: "white" }}>
+            <Text style={styles.title}>Impressions</Text>
+            <View style={{ backgroundColor: "white" }}>
               <View style={{ flexDirection: "row" }}>
                 <FormLabel>Rating :</FormLabel>
                 <Rating
@@ -193,17 +247,14 @@ export default class RoadForm extends Component {
                 />
               </View>
               <FormLabel>Describe your experience :</FormLabel>
-              {/* <FormInput
-                onChangeText={text => this.setState({ company_name: text })}
-              /> */}
               <TextInput
                 style={styles.descriptionInput}
                 multiline={true}
                 autoCapitalize="none"
                 maxLength={500}
-                value={this.state.company_name}
                 placeholder={"Tell us everything about your experience! ;)"}
-                onChangeText={text => this.setState({ company_name: text })}
+                value={this.state.description}
+                onChangeText={text => this.setState({ description: text })}
               />
             </View>
             <View style={{ marginTop: 5, alignItems: "center" }}>
@@ -218,15 +269,32 @@ export default class RoadForm extends Component {
                 />
               )}
             </View>
-            <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-              <Text style={styles.buttonText}>SUBMIT</Text>
-            </TouchableOpacity>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.handleSubmit}
+              >
+                <Text style={styles.buttonText}>SUBMIT</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
     );
   }
+
+  componentDidMount() {
+    this.setState({
+      stepId: this.props.navigation.state.params.stepId
+    });
+    console.log(
+      "stepId in Roadform : ",
+      this.props.navigation.state.params.stepId
+    );
+  }
 }
+
+export default withNavigation(RoadForm);
 
 const styles = StyleSheet.create({
   input: {
@@ -250,8 +318,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 12,
     marginRight: 12,
-    top: 10,
-    marginBottom: 20
+    top: 10
     // padding: 5,
     // color: "#37449E",
     // borderColor: "white",
@@ -268,5 +335,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: "white",
     borderRadius: 10
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold"
   }
 });
