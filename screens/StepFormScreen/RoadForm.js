@@ -32,16 +32,16 @@ class RoadForm extends Component {
   state = {
     stepId: "",
     category: "Hotel",
-    company_name: "Hotel Test Rate",
-    city: "City Test Rate",
-    adress: "8 street happyness",
+    company_name: "",
+    city: "",
+    adress: "",
     start_date: "01/01/2018",
     end_date: "01/01/2018",
     photos: null,
-    price: "30",
-    // rating: undefined,
-    web_site: "www.booking.com",
-    tel: "0678308705",
+    price: "",
+    rating: undefined,
+    web_site: "",
+    tel: "",
     description:
       "Protectorum simulans communi iam subinde et cum venerit uti perniciem quaedam est adiumenta uti scribens contentum scribens Syriam et.",
     currency: "USD"
@@ -66,11 +66,9 @@ class RoadForm extends Component {
         description,
         price,
         currency,
-        // rating,
+        rating,
         photos
       } = this.state;
-
-      console.log("Check error :", stepId, category);
 
       if (!token) {
         this.redirectToLoginPage();
@@ -91,7 +89,7 @@ class RoadForm extends Component {
               web_site: this.state.web_site,
               tel: this.state.tel,
               description: this.state.description,
-              // rate: rating,
+              rate: rating,
               files: [photos]
             },
             {
@@ -140,17 +138,10 @@ class RoadForm extends Component {
     );
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     rate: 0
-  //   };
-  // }
-
-  ratingCompleted(rating) {
-    // this.setState({ rating: [Number(rating)] });
+  ratingCompleted = rating => {
+    this.setState({ rating: [Number(rating)] });
     console.log("Rating is: " + rating);
-  }
+  };
 
   render() {
     return (
@@ -205,6 +196,7 @@ class RoadForm extends Component {
               value={this.state.end_date}
               onChangeText={value => this.setState({ end_date: value })}
             />
+
             <Fumi
               label={"Price / night (€) :"}
               iconClass={FontAwesomeIcon}
@@ -214,6 +206,7 @@ class RoadForm extends Component {
               onChangeText={value => this.setState({ price: value })}
               value={this.state.price}
             />
+
             <Fumi
               label={"Website link :"}
               iconClass={FontAwesomeIcon}
@@ -326,7 +319,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 12,
     marginRight: 12,
-    top: 10
+    top: 5,
+    marginBottom: 15
     // padding: 5,
     // color: "#37449E",
     // borderColor: "white",
