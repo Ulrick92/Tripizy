@@ -14,6 +14,7 @@ import axios from "axios";
 import styles from "./styles";
 import config from "../../config";
 import MapView, { Marker } from "react-native-maps";
+import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 
 import TipsCard from "../../components/TipsCard";
 import StepCard from "../../components/StepCard";
@@ -171,6 +172,12 @@ export default class DetailsTravelBook extends React.Component {
       ));
   };
   renderAddTipDate = () => {
+    console.log(
+      "check button :",
+      this.state.mounted,
+      this.state.travelBookUserId,
+      this.state.userId
+    );
     if (this.state.mounted && this.state.travelBookUserId === this.state.userId)
       return (
         <DatePicker
@@ -262,6 +269,20 @@ export default class DetailsTravelBook extends React.Component {
               />
             </View>
           </ScrollView>
+          <ActionButton buttonColor="#37449E">
+            <ActionButton.Item
+              buttonColor="#1abc9c" //vert
+              title="Add a Tip"
+              onPress={() => {
+                this.renderAddTipDate();
+              }}
+            >
+              <MaterialIconsIcon
+                name="add-circle"
+                style={styles.actionButtonIcon}
+              />
+            </ActionButton.Item>
+          </ActionButton>
         </Fragment>
       );
     } else {

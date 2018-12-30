@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import {
   Text,
-  TouchableOpacity,
-  TextInput,
   KeyboardAvoidingView,
   AsyncStorage,
   StyleSheet,
-  View
+  View,
+  ScrollView,
+  TextInput,
+  Button,
+  Image,
+  TouchableOpacity
 } from "react-native";
+import { withNavigation } from "react-navigation";
 import axios from "axios";
-import EntypoIcon from "react-native-vector-icons/Entypo";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-// import FontAwesomeFiveIcon from "react-native-vector-icons/FontAwesome5"; ne fonctionne pas
-import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
-import StarRating from "react-native-star-rating";
-import {
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
-  Rating
-} from "react-native-elements";
+import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
+import { FormLabel, FormInput, Rating } from "react-native-elements";
+import DatePicker from "react-native-datepicker";
+import { ImagePicker, Permissions } from "expo";
 import config from "../../config";
-export default class StepForm extends Component {
+
+class RestaurantForm extends Component {
   static navigationOptions = {
     title: "Restaurant",
     headerStyle: {
@@ -31,12 +31,21 @@ export default class StepForm extends Component {
   };
 
   state = {
-    step_id: "5c139ed9fbbb0b0016afa716",
+    stepId: "",
     category: "Restaurant",
     company_name: "",
     city: "",
+    adress: "",
     start_date: "",
-    end_date: ""
+    end_date: "",
+    photos: null,
+    price: "",
+    rating: undefined,
+    web_site: "",
+    tel: "",
+    description:
+      "Protectorum simulans communi iam subinde et cum venerit uti perniciem quaedam est adiumenta uti scribens contentum scribens Syriam et.",
+    currency: "USD"
   };
 
   redirectToLoginPage = () => {
@@ -45,17 +54,22 @@ export default class StepForm extends Component {
 
   handleSubmit = event => {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("result", token);
-
       const {
-        step_id,
+        stepId,
         category,
         company_name,
         city,
+        adress,
         start_date,
-        end_date
+        end_date,
+        web_site,
+        tel,
+        description,
+        price,
+        currency,
+        rating,
+        photos
       } = this.state;
-      console.log("result :", this.state);
 
       if (!token) {
         this.redirectToLoginPage();
@@ -64,12 +78,20 @@ export default class StepForm extends Component {
           .post(
             `${config.DOMAIN}tips/publish`,
             {
-              step_id: step_id,
+              step_id: stepId,
               category: category,
               company_name: this.state.company_name,
               city: this.state.city,
+              adress: this.state.adress,
               start_date: this.state.start_date,
-              end_date: this.state.end_date
+              end_date: this.state.end_date,
+              price: this.state.price,
+              currency: this.state.currency,
+              web_site: this.state.web_site,
+              tel: this.state.tel,
+              description: this.state.description,
+              rate: rating,
+              files: [photos]
             },
             {
               headers: {
@@ -79,14 +101,19 @@ export default class StepForm extends Component {
           )
 
           .then(response => {
-            console.log("response :", response.data);
-
             this.props.navigation.navigate("DetailsTravel", {
               category: response.data.category,
               company_name: response.data.company_name,
               city: response.data.city,
+              adress: response.data.adress,
               start_date: response.data.start_date,
-              end_date: response.data.end_date
+              end_date: response.data.end_date,
+              price: response.data.price,
+              currency: response.data.currency,
+              web_site: response.data.web_site,
+              tel: response.data.tel,
+              description: response.data.description,
+              photos: response.data.photos
             });
           })
           .catch(error => {
@@ -95,63 +122,268 @@ export default class StepForm extends Component {
       }
     });
   };
+  askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  };
 
-  ratingCompleted(rating) {
+  useLibraryHandler = async () => {
+    await this.askPermissionsAsync();
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true
+    });
+    this.setState(
+      { photos: "data:image/jpeg;base64," + result.base64 },
+      () => {}
+    );
+  };
+
+  ratingCompleted = rating => {
+    this.setState({ rating: [Number(rating)] });
     console.log("Rating is: " + rating);
-  }
+  };
+
+  renderAddDate = () => {
+    console.log("Hey Ho");
+    <DatePicker
+      style={{
+        width: 200,
+        marginBottom: 20
+      }}
+      date={this.state.end_date}
+      showIcon={false}
+      mode="date"
+      placeholder="select date"
+      format="YYYY-MM-DD"
+      minDate="2016-05-01"
+      maxDate="2016-06-01"
+      confirmBtnText="Confirm"
+      cancelBtnText="Cancel"
+      customStyles={datePickerCustomStyle}
+      onDateChange={date => {
+        this.setState({ end_date: date });
+      }}
+    />;
+  };
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.hint}>
-          <MaterialIconsIcon name="restaurant" size={50} color="black" />
-        </Text>
+      <ScrollView style={{ backgroundColor: "#a9ceca" }}>
+        <KeyboardAvoidingView behavior="padding">
+          <View style={[styles.card2, { backgroundColor: "#a9ceca" }]}>
+            <Text style={styles.title}>Informations</Text>
+            <Fumi
+              style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
+              label={"Restaurant Name :"}
+              iconClass={MaterialsIcon}
+              iconName={"restaurant"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              autoCorrect={false}
+              value={this.state.company_name}
+              onChangeText={text => this.setState({ company_name: text })}
+            />
+            <Fumi
+              label={"City :"}
+              iconClass={MaterialsIcon}
+              iconName={"place"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              value={this.state.city}
+              onChangeText={text => this.setState({ city: text })}
+            />
+            <Fumi
+              label={"Adress :"}
+              iconClass={MaterialsIcon}
+              iconName={"place"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              value={this.state.adress}
+              onChangeText={text => this.setState({ adress: text })}
+            />
 
-        <FormLabel>Restaurant Name</FormLabel>
-        <FormInput
-          onChangeText={text => this.setState({ company_name: text })}
-        />
-        <FormValidationMessage>
-          {"This field is required"}
-        </FormValidationMessage>
-        <FormLabel>City</FormLabel>
-        <FormInput onChangeText={text => this.setState({ city: text })} />
-        <FormValidationMessage>
-          {"This field is required"}
-        </FormValidationMessage>
+            <Fumi
+              label={"From :"}
+              iconClass={FontAwesomeIcon}
+              iconName={"calendar"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              value={this.state.start_date}
+              onChangeText={value => this.setState({ start_date: value })}
+            />
+            <Fumi
+              label={"To :"}
+              iconClass={FontAwesomeIcon}
+              iconName={"calendar"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              value={this.state.end_date}
+              onChangeText={value => this.setState({ end_date: value })}
+            />
 
-        <Rating
-          showRating
-          onFinishRating={this.ratingCompleted}
-          style={{ paddingVertical: 10 }}
-        />
+            <Fumi
+              label={"Price / person :"}
+              iconClass={FontAwesomeIcon}
+              iconName={"money"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              onChangeText={value => this.setState({ price: value })}
+              value={this.state.price}
+            />
 
-        <Rating
-          type="heart"
-          ratingCount={5}
-          fractions={2}
-          startingValue={0}
-          imageSize={40}
-          onFinishRating={this.ratingCompleted}
-          showRating
-          style={{ paddingVertical: 10 }}
-        />
-        <Rating showRating fractions={1} startingValue={3.3} />
-      </KeyboardAvoidingView>
+            <Fumi
+              label={"Website link :"}
+              iconClass={FontAwesomeIcon}
+              iconName={"link"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              value={this.state.web_site}
+              onChangeText={text => this.setState({ web_site: text })}
+            />
+            <Fumi
+              style={{
+                marginBottom: 10,
+                borderBottomRightRadius: 5,
+                borderBottomLeftRadius: 5
+              }}
+              label={"Phone Number :"}
+              iconClass={FontAwesomeIcon}
+              iconName={"phone"}
+              iconColor={"#37449E"}
+              iconSize={20}
+              onChangeText={value => this.setState({ tel: value })}
+              value={this.state.tel}
+            />
+            <Text style={styles.title}>Impressions</Text>
+            <View style={{ backgroundColor: "white" }}>
+              <View style={{ flexDirection: "row" }}>
+                <FormLabel>Rating :</FormLabel>
+                <Rating
+                  //   showRating
+                  startingValue={0}
+                  type="heart"
+                  onFinishRating={this.ratingCompleted}
+                  imageSize={35}
+                  style={{
+                    paddingVertical: 10,
+                    backgroundColor: "white",
+                    alignItems: "center"
+                  }}
+                />
+              </View>
+              <FormLabel>Describe your experience :</FormLabel>
+              <TextInput
+                style={styles.descriptionInput}
+                multiline={true}
+                autoCapitalize="none"
+                maxLength={500}
+                placeholder={"Tell us everything about your experience! ;)"}
+                value={this.state.description}
+                onChangeText={text => this.setState({ description: text })}
+              />
+            </View>
+            <View style={{ marginTop: 5, alignItems: "center" }}>
+              <Button
+                title="Pick an image from camera roll"
+                onPress={this.useLibraryHandler}
+              />
+              {this.state.photos && (
+                <Image
+                  source={{ uri: this.state.photos }}
+                  style={{ width: 200, height: 200 }}
+                />
+              )}
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.handleSubmit}
+              >
+                <Text style={styles.buttonText}>SUBMIT</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
+    );
+  }
+
+  componentDidMount() {
+    this.setState({
+      stepId: this.props.navigation.state.params.stepId
+    });
+    console.log(
+      "stepId in Restaurantform : ",
+      this.props.navigation.state.params.stepId
     );
   }
 }
 
+export default withNavigation(RestaurantForm);
+
 const styles = StyleSheet.create({
-  hint: {
-    marginTop: 0,
-    textAlign: "center",
-    fontSize: 20,
-    color: "#37449E"
+  input: {
+    // marginTop: 4
+    height: 40,
+    alignContent: "center"
   },
-  container: {
-    flex: 1,
-    backgroundColor: "#EAE1E2",
-    alignItems: "center"
+  card2: {
+    padding: 16
+  },
+  title: {
+    paddingBottom: 16,
+    textAlign: "center",
+    color: "#404d5b",
+    fontSize: 20,
+    fontWeight: "bold",
+    opacity: 0.8
+  },
+  descriptionInput: {
+    // height: 300,
+    fontSize: 18,
+    marginLeft: 12,
+    marginRight: 12,
+    top: 5,
+    marginBottom: 15
+    // padding: 5,
+    // color: "#37449E",
+    // borderColor: "white",
+    // borderBottomWidth: 1,
+    // alignItems: "center"
+    // backgroundColor: "white"
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "#37449E",
+    height: 50,
+    width: 250,
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "white",
+    borderRadius: 10
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold"
   }
 });
+
+const datePickerCustomStyle = {
+  dateIcon: {
+    position: "absolute",
+    left: 0,
+    top: 4,
+    marginLeft: 0
+  },
+  dateInput: {
+    marginLeft: 36
+  },
+  placeholderText: {
+    color: "grey"
+  },
+  dateText: {
+    color: "black"
+  }
+};

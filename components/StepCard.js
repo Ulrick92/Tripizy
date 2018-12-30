@@ -85,7 +85,9 @@ class StepCard extends React.Component {
             marginBottom: 5,
             //   borderRadius: 10,
             width: "100%",
-            backgroundColor: "#D9ECF2"
+            backgroundColor: "#D9ECF2",
+            borderBottomRadius: 10,
+            borderBottomRadius: 10
           }}
         >
           <Text

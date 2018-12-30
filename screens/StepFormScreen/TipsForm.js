@@ -52,11 +52,24 @@ export default class TipsForm extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.hint}>Select a Category :</Text>
         <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
+          <View style={styles.iconFrame}>
+            <FontAwesomeIcon
+              name="pencil"
+              size={50}
+              color="#37449E"
+              onPress={() =>
+                this.props.navigation.navigate("FreeForm", {
+                  stepId: this.props.navigation.state.params.stepId
+                })
+              }
+            />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Text</Text>
+          </View>
+          <View style={styles.iconFrame}>
             <FontAwesomeIcon
               name="hotel"
               size={50}
-              color="black"
+              color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("HotelForm", {
                   stepId: this.props.navigation.state.params.stepId
@@ -65,29 +78,29 @@ export default class TipsForm extends Component {
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View style={styles.iconFrame}>
             <MaterialIconsIcon
               name="restaurant"
               size={50}
-              color="black"
-              onPress={() => this.props.navigation.navigate("RestaurantForm")}
+              color="#37449E"
+              onPress={() =>
+                this.props.navigation.navigate("RestaurantForm", {
+                  stepId: this.props.navigation.state.params.stepId
+                })
+              }
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
               Restaurant
             </Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <EntypoIcon name="drink" size={45} color="black" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Bar/Club</Text>
-          </View>
         </View>
 
         <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
+          <View style={styles.iconFrame}>
             <FontAwesomeIcon
               name="road"
               size={50}
-              color="black"
+              color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("RoadForm", {
                   stepId: this.props.navigation.state.params.stepId
@@ -96,40 +109,54 @@ export default class TipsForm extends Component {
             />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Road</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <MaterialIconsIcon name="directions-boat" size={50} color="black" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Boat</Text>
+          <View style={styles.iconFrame}>
+            <MaterialIconsIcon
+              name="beach-access"
+              size={50}
+              color="#37449E"
+              onPress={() =>
+                this.props.navigation.navigate("BeachForm", {
+                  stepId: this.props.navigation.state.params.stepId
+                })
+              }
+            />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Beach</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <MaterialIconsIcon name="directions-bike" size={50} color="black" />
+
+          <View style={styles.iconFrame}>
+            <MaterialIconsIcon
+              name="directions-bike"
+              size={50}
+              color="#37449E"
+            />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Activity</Text>
           </View>
         </View>
         <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
-            <MaterialIconsIcon name="beach-access" size={50} color="black" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Beach</Text>
+          <View style={styles.iconFrame}>
+            <MaterialIconsIcon name="directions-boat" size={50} color="grey" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Boat</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <EntypoIcon name="baidu" size={45} color="black" />
+          <View style={styles.iconFrame}>
+            <EntypoIcon name="baidu" size={45} color="grey" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Animals</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="fort-awesome" size={50} color="black" />
+          <View style={styles.iconFrame}>
+            <FontAwesomeIcon name="fort-awesome" size={50} color="grey" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Historic</Text>
           </View>
         </View>
         <View style={styles.category}>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="binoculars" size={50} color="black" />
+          <View style={styles.iconFrame}>
+            <FontAwesomeIcon name="binoculars" size={50} color="grey" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>See Point</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="pencil" size={50} color="black" />
-            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Text</Text>
+          <View style={styles.iconFrame}>
+            <EntypoIcon name="drink" size={45} color="grey" />
+            <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Bar/Club</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
-            <FontAwesomeIcon name="picture-o" size={50} color="black" />
+          <View style={styles.iconFrame}>
+            <FontAwesomeIcon name="picture-o" size={50} color="grey" />
             <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Free Pics</Text>
           </View>
         </View>
@@ -152,7 +179,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#EAE1E2",
+    backgroundColor: "#a9ceca",
     alignItems: "center"
   },
   input: {
@@ -179,14 +206,17 @@ const styles = StyleSheet.create({
   },
   category: {
     marginTop: 15,
-    width: 200,
+    width: 280,
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  categorylabel: {
-    marginTop: 15,
-    width: 200,
-    flexDirection: "row",
-    justifyContent: "space-between"
+  iconFrame: {
+    alignItems: "center",
+    backgroundColor: "white",
+    width: 70,
+    height: 70,
+    borderRadius: 10,
+    shadowOpacity: 15,
+    margin: 10
   }
 });

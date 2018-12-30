@@ -10,9 +10,11 @@ import TipsPageScreen from "../screens/TipsScreen/TipsPage";
 import CityFilterScreen from "../screens/TipsScreen/CityFilter";
 import UserProfileScreen from "../screens/UserProfileScreen/UserProfile";
 import MainTabNavigator from "./MainTabNavigator";
+import FreeFormScreen from "../screens/StepFormScreen/FreeForm";
 import HotelFormScreen from "../screens/StepFormScreen/HotelForm";
 import RestaurantFormScreen from "../screens/StepFormScreen/RestaurantForm";
 import RoadFormScreen from "../screens/StepFormScreen/RoadForm";
+import BeachFormScreen from "../screens/StepFormScreen/BeachForm";
 import TitleAndDescriptionContainer from "../screens/TravelBookFormScreen/TitleAndDescriptionScreen/TitleAndDescription";
 import CountryContainer from "../screens/TravelBookFormScreen/CountryScreen/Country";
 import DatesContainer from "../screens/TravelBookFormScreen/DatesScreen/Dates";
@@ -63,6 +65,9 @@ const TravelBookNavigator = createStackNavigator({
   TipsForm: {
     screen: TipsFormScreen
   },
+  FreeForm: {
+    screen: FreeFormScreen
+  },
   HotelForm: {
     screen: HotelFormScreen
   },
@@ -71,6 +76,9 @@ const TravelBookNavigator = createStackNavigator({
   },
   RoadForm: {
     screen: RoadFormScreen
+  },
+  BeachForm: {
+    screen: BeachFormScreen
   },
   NameAndBirthday: {
     screen: NameAndBirthdayContainer
