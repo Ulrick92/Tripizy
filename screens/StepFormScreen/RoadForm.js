@@ -32,14 +32,14 @@ class RoadForm extends Component {
   state = {
     stepId: "",
     category: "Hotel",
-    company_name: "",
-    city: "",
+    company_name: "Hotel Test Rate",
+    city: "City Test Rate",
     adress: "8 street happyness",
     start_date: "01/01/2018",
     end_date: "01/01/2018",
     photos: null,
-    price: undefined,
-    rating: undefined,
+    price: "30",
+    // rating: undefined,
     web_site: "www.booking.com",
     tel: "0678308705",
     description:
@@ -66,11 +66,11 @@ class RoadForm extends Component {
         description,
         price,
         currency,
-        rating,
+        // rating,
         photos
       } = this.state;
 
-      console.log("Check error :", stepId, category, [notation], [photos]);
+      console.log("Check error :", stepId, category);
 
       if (!token) {
         this.redirectToLoginPage();
@@ -91,7 +91,7 @@ class RoadForm extends Component {
               web_site: this.state.web_site,
               tel: this.state.tel,
               description: this.state.description,
-              rate: [rating],
+              // rate: rating,
               files: [photos]
             },
             {
@@ -140,7 +140,15 @@ class RoadForm extends Component {
     );
   };
 
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     rate: 0
+  //   };
+  // }
+
   ratingCompleted(rating) {
+    // this.setState({ rating: [Number(rating)] });
     console.log("Rating is: " + rating);
   }
 
