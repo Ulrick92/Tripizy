@@ -17,6 +17,7 @@ import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 import { FormLabel, FormInput, Rating } from "react-native-elements";
+import DatePicker from "react-native-datepicker";
 import { ImagePicker, Permissions } from "expo";
 import config from "../../config";
 
@@ -31,12 +32,12 @@ class RoadForm extends Component {
 
   state = {
     stepId: "",
-    category: "Hotel",
+    category: "Transport",
     company_name: "",
     city: "",
     adress: "",
-    start_date: "01/01/2018",
-    end_date: "01/01/2018",
+    start_date: "",
+    end_date: "",
     photos: null,
     price: "",
     rating: undefined,
@@ -143,6 +144,29 @@ class RoadForm extends Component {
     console.log("Rating is: " + rating);
   };
 
+  renderAddDate = () => {
+    console.log("Hey Ho");
+    <DatePicker
+      style={{
+        width: 200,
+        marginBottom: 20
+      }}
+      date={this.state.end_date}
+      showIcon={false}
+      mode="date"
+      placeholder="select date"
+      format="YYYY-MM-DD"
+      minDate="2016-05-01"
+      maxDate="2016-06-01"
+      confirmBtnText="Confirm"
+      cancelBtnText="Cancel"
+      customStyles={datePickerCustomStyle}
+      onDateChange={date => {
+        this.setState({ end_date: date });
+      }}
+    />;
+  };
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: "#a9ceca" }}>
@@ -151,9 +175,9 @@ class RoadForm extends Component {
             <Text style={styles.title}>Informations</Text>
             <Fumi
               style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
-              label={"Hotel Name :"}
+              label={"Type of transport :"}
               iconClass={FontAwesomeIcon}
-              iconName={"hotel"}
+              iconName={"road"}
               iconColor={"#37449E"}
               iconSize={20}
               autoCorrect={false}
@@ -161,7 +185,7 @@ class RoadForm extends Component {
               onChangeText={text => this.setState({ company_name: text })}
             />
             <Fumi
-              label={"City :"}
+              label={"From : :"}
               iconClass={MaterialsIcon}
               iconName={"place"}
               iconColor={"#37449E"}
@@ -170,7 +194,7 @@ class RoadForm extends Component {
               onChangeText={text => this.setState({ city: text })}
             />
             <Fumi
-              label={"Adress :"}
+              label={"To :"}
               iconClass={MaterialsIcon}
               iconName={"place"}
               iconColor={"#37449E"}
@@ -178,6 +202,7 @@ class RoadForm extends Component {
               value={this.state.adress}
               onChangeText={text => this.setState({ adress: text })}
             />
+
             <Fumi
               label={"From :"}
               iconClass={FontAwesomeIcon}
@@ -198,7 +223,7 @@ class RoadForm extends Component {
             />
 
             <Fumi
-              label={"Price / night (€) :"}
+              label={"Price / person :"}
               iconClass={FontAwesomeIcon}
               iconName={"money"}
               iconColor={"#37449E"}
@@ -344,3 +369,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
+
+const datePickerCustomStyle = {
+  dateIcon: {
+    position: "absolute",
+    left: 0,
+    top: 4,
+    marginLeft: 0
+  },
+  dateInput: {
+    marginLeft: 36
+  },
+  placeholderText: {
+    color: "grey"
+  },
+  dateText: {
+    color: "black"
+  }
+};

@@ -35,9 +35,9 @@ export default class TravelBookCard extends React.Component {
           return (
             <Image
               style={{
-                width: 13,
-                height: 13,
-                borderRadius: 13 / 2
+                width: 14,
+                height: 14,
+                borderRadius: 14 / 2
               }}
               source={{ uri: flag }}
             />
@@ -128,14 +128,14 @@ export default class TravelBookCard extends React.Component {
             <TouchableOpacity onPress={() => this.renderProfilePage(user_id)}>
               <ImageBackground
                 style={{
-                  width: 40,
-                  height: 40,
+                  width: 43,
+                  height: 43,
                   position: "absolute",
-                  bottom: 155,
+                  bottom: 152,
                   left: 10
                 }}
                 imageStyle={{
-                  borderRadius: 40 / 2,
+                  borderRadius: 43 / 2,
                   borderWidth: 1,
                   borderColor: "white",
                   shadowOpacity: 20

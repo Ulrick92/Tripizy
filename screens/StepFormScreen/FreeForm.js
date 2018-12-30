@@ -21,9 +21,9 @@ import DatePicker from "react-native-datepicker";
 import { ImagePicker, Permissions } from "expo";
 import config from "../../config";
 
-class HotelForm extends Component {
+class FreeForm extends Component {
   static navigationOptions = {
-    title: "Hotel",
+    title: "Travel Book",
     headerStyle: {
       backgroundColor: "#37449E"
     },
@@ -32,7 +32,7 @@ class HotelForm extends Component {
 
   state = {
     stepId: "",
-    category: "Hotel",
+    category: "FreeText",
     company_name: "",
     city: "",
     adress: "",
@@ -175,9 +175,9 @@ class HotelForm extends Component {
             <Text style={styles.title}>Informations</Text>
             <Fumi
               style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
-              label={"Hotel Name :"}
+              label={"Title :"}
               iconClass={FontAwesomeIcon}
-              iconName={"hotel"}
+              iconName={"pencil"}
               iconColor={"#37449E"}
               iconSize={20}
               autoCorrect={false}
@@ -193,86 +193,11 @@ class HotelForm extends Component {
               value={this.state.city}
               onChangeText={text => this.setState({ city: text })}
             />
-            <Fumi
-              label={"Adress :"}
-              iconClass={MaterialsIcon}
-              iconName={"place"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.adress}
-              onChangeText={text => this.setState({ adress: text })}
-            />
 
-            <Fumi
-              label={"From :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"calendar"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.start_date}
-              onChangeText={value => this.setState({ start_date: value })}
-            />
-            <Fumi
-              label={"To :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"calendar"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.end_date}
-              onChangeText={value => this.setState({ end_date: value })}
-            />
-
-            <Fumi
-              label={"Price / person :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"money"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              onChangeText={value => this.setState({ price: value })}
-              value={this.state.price}
-            />
-
-            <Fumi
-              label={"Website link :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"link"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.web_site}
-              onChangeText={text => this.setState({ web_site: text })}
-            />
-            <Fumi
-              style={{
-                marginBottom: 10,
-                borderBottomRightRadius: 5,
-                borderBottomLeftRadius: 5
-              }}
-              label={"Phone Number :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"phone"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              onChangeText={value => this.setState({ tel: value })}
-              value={this.state.tel}
-            />
             <Text style={styles.title}>Impressions</Text>
             <View style={{ backgroundColor: "white" }}>
-              <View style={{ flexDirection: "row" }}>
-                <FormLabel>Rating :</FormLabel>
-                <Rating
-                  //   showRating
-                  startingValue={0}
-                  type="heart"
-                  onFinishRating={this.ratingCompleted}
-                  imageSize={35}
-                  style={{
-                    paddingVertical: 10,
-                    backgroundColor: "white",
-                    alignItems: "center"
-                  }}
-                />
-              </View>
-              <FormLabel>Describe your experience :</FormLabel>
+              <View style={{ flexDirection: "row" }} />
+              <FormLabel>Describe your day :</FormLabel>
               <TextInput
                 style={styles.descriptionInput}
                 multiline={true}
@@ -314,13 +239,13 @@ class HotelForm extends Component {
       stepId: this.props.navigation.state.params.stepId
     });
     console.log(
-      "stepId in Hotelform : ",
+      "stepId in Freeform : ",
       this.props.navigation.state.params.stepId
     );
   }
 }
 
-export default withNavigation(HotelForm);
+export default withNavigation(FreeForm);
 
 const styles = StyleSheet.create({
   input: {
