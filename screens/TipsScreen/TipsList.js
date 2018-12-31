@@ -100,13 +100,16 @@ export default class TipsListTest extends React.Component {
     return (
       <Fragment>
         <SearchBar
+          lightTheme
           onChangeText={this.onChangeSearchCompanyName}
           placeholder="Nom"
           placeholderTextColor="#AAAAAA"
           clearIcon={{ color: "#AAAAAA" }}
+          sty
           inputStyle={{ backgroundColor: "white" }}
         />
         <SearchBar
+          lightTheme
           onChangeText={this.onChangeSearchCity}
           placeholder="City"
           placeholderTextColor="#AAAAAA"
@@ -114,15 +117,15 @@ export default class TipsListTest extends React.Component {
           inputStyle={{ backgroundColor: "white" }}
         />
 
-        <View>
+        <View style={{ backgroundColor: "#a9ceca" }}>
           <SelectCategory handleCategory={this.handleCategory} />
         </View>
 
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: "#a9ceca" }}>
           <FlatList
             style={{ margin: 5 }}
-            keyExtractor={this._keyExtractor}
             data={this.state.tips}
+            keyExtractor={this._keyExtractor}
             renderItem={({ item }) => {
               return (
                 <View>

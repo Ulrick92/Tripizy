@@ -86,6 +86,7 @@ export default class ListScreen extends React.Component {
     return (
       <Fragment>
         <SearchBar
+          lightTheme
           onChangeText={this.onChangeSearchCountry}
           placeholder="Country"
           placeholderTextColor="#AAAAAA"

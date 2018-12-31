@@ -169,9 +169,9 @@ class BeachForm extends Component {
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: "#a9ceca" }}>
+      <ScrollView style={{ backgroundColor: "#f9f3cf" }}>
         <KeyboardAvoidingView behavior="padding">
-          <View style={[styles.card2, { backgroundColor: "#a9ceca" }]}>
+          <View style={[styles.card2, { backgroundColor: "#f9f3cf" }]}>
             <Text style={styles.title}>Informations</Text>
             <Fumi
               style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
