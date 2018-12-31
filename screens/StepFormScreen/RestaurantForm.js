@@ -169,9 +169,9 @@ class RestaurantForm extends Component {
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: "#a9ceca" }}>
+      <ScrollView style={{ backgroundColor: "#8781bd" }}>
         <KeyboardAvoidingView behavior="padding">
-          <View style={[styles.card2, { backgroundColor: "#a9ceca" }]}>
+          <View style={[styles.card2, { backgroundColor: "#8781bd" }]}>
             <Text style={styles.title}>Informations</Text>
             <Fumi
               style={{ borderTopRightRadius: 5, borderTopLeftRadius: 5 }}
