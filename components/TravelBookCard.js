@@ -17,6 +17,7 @@ export default class TravelBookCard extends React.Component {
   componentDidMount() {
     this.setState({ countries });
   }
+  
   renderProfilePic(user_id) {
     if (user_id) {
       if (user_id.profile_pic && user_id.profile_pic.length) {
