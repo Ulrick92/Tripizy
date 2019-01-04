@@ -33,13 +33,13 @@ class RestaurantForm extends Component {
   state = {
     stepId: "",
     category: "Restaurant",
-    company_name: "",
-    city: "",
-    adress: "",
-    start_date: "",
-    end_date: "",
+    company_name: "Love restaurant",
+    city: "Paris",
+    adress: "55 street of Paris",
+    start_date: "01/01/2018",
+    end_date: start_date,
     photos: null,
-    price: "",
+    price: "40",
     rating: undefined,
     web_site: "",
     tel: "",
@@ -74,6 +74,7 @@ class RestaurantForm extends Component {
       if (!token) {
         this.redirectToLoginPage();
       } else {
+        console.log("PHOTOS :", [photos]);
         axios
           .post(
             `${config.DOMAIN}tips/publish`,

@@ -18,8 +18,10 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
 import { FormLabel, FormInput, Rating } from "react-native-elements";
 import DatePicker from "react-native-datepicker";
-import { ImagePicker, Permissions } from "expo";
+import { Permissions } from "expo";
+import ImagePicker from "react-native-image-crop-picker";
 import config from "../../config";
+import ImageBrowser from "./ImageBrowser";
 
 class HotelForm extends Component {
   static navigationOptions = {
@@ -33,13 +35,15 @@ class HotelForm extends Component {
   state = {
     stepId: "",
     category: "Hotel",
-    company_name: "",
-    city: "",
-    adress: "",
-    start_date: "",
-    end_date: "",
-    photos: null,
-    price: "",
+    company_name: "Love Hotel",
+    city: "Paris",
+    adress: "Love avenue",
+    start_date: "01/01/2018",
+    end_date: "01/01/2018",
+    imageBrowserOpen: false,
+    photos: [],
+    images: null,
+    price: "30",
     rating: undefined,
     web_site: "",
     tel: "",
@@ -68,12 +72,14 @@ class HotelForm extends Component {
         price,
         currency,
         rating,
-        photos
+        photos,
+        images
       } = this.state;
 
       if (!token) {
         this.redirectToLoginPage();
       } else {
+        console.log("PHOTOS :", [photos]);
         axios
           .post(
             `${config.DOMAIN}tips/publish`,
@@ -122,22 +128,6 @@ class HotelForm extends Component {
       }
     });
   };
-  askPermissionsAsync = async () => {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  };
-
-  useLibraryHandler = async () => {
-    await this.askPermissionsAsync();
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      base64: true
-    });
-    this.setState(
-      { photos: "data:image/jpeg;base64," + result.base64 },
-      () => {}
-    );
-  };
 
   ratingCompleted = rating => {
     this.setState({ rating: [Number(rating)] });
@@ -167,7 +157,50 @@ class HotelForm extends Component {
     />;
   };
 
+  askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  };
+
+  useLibraryHandler = async () => {
+    await this.askPermissionsAsync();
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true
+    });
+    this.setState(
+      { photos: "data:image/jpeg;base64," + result.base64 },
+      () => {}
+    );
+  };
+
+  imageBrowserCallback = callback => {
+    callback
+      .then(photos => {
+        console.log("PAR ICI LES PHOTOS:", photos);
+        this.setState({
+          imageBrowserOpen: false,
+          photos
+        });
+      })
+      .catch(e => console.log(e));
+  };
+
+  renderImage(item, i) {
+    return (
+      <Image
+        style={{ height: 100, width: 100 }}
+        source={{ uri: item.file }}
+        key={i}
+      />
+    );
+  }
+
   render() {
+    if (this.state.imageBrowserOpen) {
+      return <ImageBrowser max={10} callback={this.imageBrowserCallback} />;
+    }
+
     return (
       <ScrollView style={{ backgroundColor: "#a9ceca" }}>
         <KeyboardAvoidingView behavior="padding">
@@ -286,14 +319,11 @@ class HotelForm extends Component {
             <View style={{ marginTop: 5, alignItems: "center" }}>
               <Button
                 title="Pick an image from camera roll"
-                onPress={this.useLibraryHandler}
+                onPress={() => this.setState({ imageBrowserOpen: true })}
               />
-              {this.state.photos && (
-                <Image
-                  source={{ uri: this.state.photos }}
-                  style={{ width: 200, height: 200 }}
-                />
-              )}
+              <ScrollView>
+                {this.state.photos.map((item, i) => this.renderImage(item, i))}
+              </ScrollView>
             </View>
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity

@@ -99,7 +99,7 @@ export default class TipsListTest extends React.Component {
   render() {
     return (
       <Fragment>
-        <SearchBar
+        {/* <SearchBar
           lightTheme
           onChangeText={this.onChangeSearchCompanyName}
           placeholder="Nom"
@@ -107,7 +107,7 @@ export default class TipsListTest extends React.Component {
           clearIcon={{ color: "#AAAAAA" }}
           sty
           inputStyle={{ backgroundColor: "white" }}
-        />
+        /> */}
         <SearchBar
           lightTheme
           onChangeText={this.onChangeSearchCity}
