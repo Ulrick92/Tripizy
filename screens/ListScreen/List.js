@@ -33,10 +33,11 @@ export default class ListScreen extends React.Component {
     country: "",
     alltravelbooks: []
   };
+
   onChangeSearchCountry = country => {
     if (COUNTRIESLABELS.indexOf(country) !== -1) {
       this.setState({ country: country });
-      console.log(COUNTRIESLABELS.indexOf(country));
+      // console.log(COUNTRIESLABELS.indexOf(country));
       axios
         .get(`${config.DOMAIN}travelbook/`, {
           params: {
@@ -58,6 +59,7 @@ export default class ListScreen extends React.Component {
       this.setState({ travelbooks: this.state.alltravelbooks });
     }
   };
+
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       axios

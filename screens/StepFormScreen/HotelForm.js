@@ -34,12 +34,13 @@ class HotelForm extends Component {
 
   state = {
     stepId: "",
+    stepDate: "",
     category: "Hotel",
     company_name: "Love Hotel",
     city: "Paris",
     adress: "Love avenue",
-    start_date: "01/01/2018",
-    end_date: "01/01/2018",
+    start_date: "",
+    end_date: "",
     imageBrowserOpen: false,
     photos: [],
     images: null,
@@ -60,6 +61,7 @@ class HotelForm extends Component {
     AsyncStorage.getItem("token", (err, token) => {
       const {
         stepId,
+        stepDate,
         category,
         company_name,
         city,
@@ -89,7 +91,7 @@ class HotelForm extends Component {
               company_name: this.state.company_name,
               city: this.state.city,
               adress: this.state.adress,
-              start_date: this.state.start_date,
+              start_date: stepDate,
               end_date: this.state.end_date,
               price: this.state.price,
               currency: this.state.currency,
@@ -341,7 +343,8 @@ class HotelForm extends Component {
 
   componentDidMount() {
     this.setState({
-      stepId: this.props.navigation.state.params.stepId
+      stepId: this.props.navigation.state.params.stepId,
+      stepDate: this.props.navigation.state.params.stepDate
     });
     console.log(
       "stepId in Hotelform : ",

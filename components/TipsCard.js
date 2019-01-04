@@ -61,7 +61,6 @@ class TipsCard extends React.Component {
 
   renderProfilePic(user_id) {
     if (user_id) {
-      console.log("TEST MA GUEULE :", user_id.profile_pic);
       if (user_id.profile_pic && user_id.profile_pic.length) {
         return { uri: user_id.profile_pic[0] };
       } else {
@@ -70,52 +69,14 @@ class TipsCard extends React.Component {
     }
   }
 
-  // renderFlag(countries, user_id) {
-  //   let flag = "";
-  //   for (i = 0; i < countries.length; i++) {
-  //     {
-  //       if (user_id.nationality === countries[i].value) {
-  //         flag = countries[i].flag;
-  //         return (
-  //           <Image
-  //             style={{
-  //               width: 14,
-  //               height: 14,
-  //               borderRadius: 14 / 2
-  //             }}
-  //             source={{ uri: flag }}
-  //           />
-  //         );
-  //       }
-  //     }
-  //   }
-  // }
-
-  // renderProfilePage(user_id) {
-  //   if (user_id) {
-  //     if (user_id.token !== this.props.currentUserToken) {
-  //       console.log("userID transmis :", this.props.userId);
-  //       this.props.navigation.navigate("UserProfile", {
-  //         user: this.props.userId
-  //       });
-  //     } else {
-  //       this.props.navigation.navigate("MyProfile");
-  //     }
-  //   }
-  // }
-
   render() {
     const { user_id } = this.props;
-
-    console.log("TEST GROS", this.props.id);
-    // const { countries } = this.state;
     return (
       <View style={styles.tipsCard}>
         <View>
           <View
             style={{
               flexDirection: "row",
-              // backgroundColor: "#EAE1E2",
               backgroundColor: "white",
               margin: 5,
               borderRadius: 10,
@@ -140,18 +101,14 @@ class TipsCard extends React.Component {
                     shadowOpacity: 20
                   }}
                   source={this.renderProfilePic(user_id)}
-                >
-                  {/* {this.renderFlag(countries, user_id)} */}
-                </ImageBackground>
+                />
               </TouchableOpacity>
             </View>
             <View
               style={{
                 alignItems: "flex-end",
-                // marginLeft: 5,
                 width: "20%",
                 justifyContent: "center"
-                // backgroundColor: "green"
               }}
             >
               <FontAwesomeIcon name="hotel" size={22} color="black" />
@@ -161,14 +118,13 @@ class TipsCard extends React.Component {
             </View>
             <View
               style={{
-                // marginleft: 5,
                 justifyContent: "center",
                 width: "50%"
-                // backgroundColor: "pink"
               }}
             >
               <Text
                 style={{ fontSize: 18, marginLeft: 12, fontWeight: "bold" }}
+                numberOfLines={1}
               >
                 {this.state.tip.company_name}
               </Text>
@@ -179,10 +135,8 @@ class TipsCard extends React.Component {
             <View
               style={{
                 justifyContent: "center",
-                // backgroundColor: "red",
                 borderRadius: 5,
                 alignItems: "center",
-                // marginRight: 10,
                 width: "30%"
               }}
             >
@@ -204,8 +158,8 @@ class TipsCard extends React.Component {
   }
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("BLOUBLOU :", this.props);
-      console.log("thips.props, ", `${config.DOMAIN}tips/${this.props.id}`);
+      // console.log("BLOUBLOU :", this.props);
+      // console.log("thips.props, ", `${config.DOMAIN}tips/${this.props.id}`);
       axios
         .get(`${config.DOMAIN}tips/${this.props.id}`, {
           headers: {
@@ -213,7 +167,6 @@ class TipsCard extends React.Component {
           }
         })
         .then(response => {
-          console.log("TIP =>", response.data);
           this.setState({
             tip: response.data,
             mounted: true
