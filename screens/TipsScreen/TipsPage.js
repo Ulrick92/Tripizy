@@ -1,10 +1,173 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  AsyncStorage
+} from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import StarRating from "react-native-star-rating";
 import MapView, { Marker } from "react-native-maps";
+import axios from "axios";
+import { Rating } from "react-native-elements";
+import config from "../../config";
+import Moment from "moment";
 
 export default class TipsPage extends React.Component {
+  state = {
+    travelbook: {},
+    steps: [],
+    tip: {},
+    user: {},
+    mounted: false,
+    userId: undefined,
+    travelBookUserId: undefined
+  };
+
+  componentDidMount() {
+    AsyncStorage.getItem("token", (err, token) => {
+      if (!this.props.navigation.state.params) {
+        return;
+      }
+      const { params } = this.props.navigation.state;
+
+      axios
+        .get(`${config.DOMAIN}tips/${params.id}`, {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.setState({
+            tip: response.data
+          });
+          console.log("TIPS DATA :", response.data);
+
+          axios
+            .get(`${config.DOMAIN}user/`, {
+              headers: {
+                authorization: `Bearer ${token}`
+              }
+            })
+            .then(response => {
+              console.log("USER DATA => ", response.data);
+              this.setState({
+                user: response.data,
+                mounted: true
+              });
+            })
+            .catch(err => {
+              console.log("get user id", err.message);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  }
+
+  renderProfilePage(user_id) {
+    if (user_id) {
+      if (user_id.token !== this.props.currentUserToken) {
+        console.log("userID transmis :", this.props.userId);
+        this.props.navigation.navigate("UserProfile", {
+          user: this.props.userId
+        });
+      } else {
+        this.props.navigation.navigate("MyProfile");
+      }
+    }
+  }
+
+  renderTipsPictures = () => {
+    if (this.state.mounted && this.state.tip.photos.length > 0) {
+      return (
+        <Image
+          style={styles.pictures}
+          source={{ uri: this.state.tip.photos[0] }}
+        />
+      );
+    } else {
+      return (
+        <View>
+          <Image
+            style={styles.pictures}
+            source={require("../../assets/images/Travel_book.png")}
+          />
+        </View>
+      );
+    }
+  };
+
+  renderTipsRating = () => {
+    if (this.state.mounted && this.state.tip.rate.length > 0) {
+      const rating = Number(this.state.tip.rate[0]);
+      return (
+        <Rating
+          ratingBackgroundColor="#a9ceca"
+          imageSize={18}
+          type="heart"
+          readonly
+          startingValue={rating}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
+  renderTipsLocation = () => {
+    if (this.state.mounted && this.state.tip.loc.length > 0) {
+      const tipLat = Number(this.state.tip.loc[0]);
+      const tipLon = Number(this.state.tip.loc[1]);
+      return (
+        <MapView
+          style={styles.mapView}
+          initialRegion={{
+            latitude: tipLat,
+            longitude: tipLon,
+            latitudeDelta: 40,
+            longitudeDelta: 40
+          }}
+          showsUserLocation={true}
+        >
+          <Marker
+            coordinate={{
+              latitude: tipLat,
+              longitude: tipLon
+            }}
+            title={this.state.tip.company_name}
+            description={this.state.tip.category}
+          />
+        </MapView>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  renderTipStartDate = () => {
+    Moment.locale("en");
+    var fromDate = this.state.tip.start_date;
+    return <Text> {Moment(fromDate).format("Do MMMM YYYY")} </Text>;
+  };
+
+  renderTipEndDate = () => {
+    Moment.locale("en");
+    var endDate = this.state.tip.end_date;
+    return <Text> {Moment(endDate).format("Do MMMM YYYY")} </Text>;
+  };
+
+  renderTipNights = () => {
+    var startDate = Moment(this.state.tip.start_date).format("YYYYMMDD");
+    var endDate = Moment(this.state.tip.end_date).format("YYYYMMDD");
+    var dateFrom = Moment(startDate, "YYYYMMDD");
+    var dateTo = Moment(endDate, "YYYYMMDD");
+    return <Text>{dateTo.diff(dateFrom, "days")}</Text>;
+  };
+
   render() {
     return (
       <ScrollView style={{ margin: 10 }}>
@@ -17,8 +180,8 @@ export default class TipsPage extends React.Component {
           </View>
 
           <View style={styles.donneeName}>
-            <Text style={styles.textName}>Laurent </Text>
-            <Text style={styles.textName}>Bonnec</Text>
+            <Text style={styles.textName}>{this.state.user.first_name} </Text>
+            <Text style={styles.textName}>{this.state.user.last_name}</Text>
           </View>
           <View style={styles.donneeAgeCountry}>
             <Text style={styles.textAgeCountry}>34 ans, </Text>
@@ -36,7 +199,9 @@ export default class TipsPage extends React.Component {
             >
               <View style={{ alignItems: "center", marginLeft: 5 }}>
                 <FontAwesomeIcon name="hotel" size={40} color="black" />
-                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Hotel</Text>
+                <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
+                  {this.state.tip.category}
+                </Text>
               </View>
               <View
                 style={{
@@ -48,10 +213,10 @@ export default class TipsPage extends React.Component {
                 <Text
                   style={{ fontSize: 18, marginLeft: 12, fontWeight: "bold" }}
                 >
-                  Le Ritz
+                  {this.state.tip.company_name}
                 </Text>
                 <Text style={{ fontSize: 14, marginLeft: 12 }}>
-                  San Jose, Costa Rica
+                  {this.state.tip.city}
                 </Text>
               </View>
               <View
@@ -66,17 +231,7 @@ export default class TipsPage extends React.Component {
                     marginTop: 5
                   }}
                 >
-                  <StarRating
-                    style={{
-                      justifyContent: "center"
-                    }}
-                    fullStarColor={"#ffc200"}
-                    emptyStarColor={"#c9c3c3"}
-                    starSize={20}
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.props.rating}
-                  />
+                  {this.renderTipsRating()}
                 </View>
                 <View
                   style={{
@@ -89,7 +244,7 @@ export default class TipsPage extends React.Component {
                       fontSize: 16
                     }}
                   >
-                    50$
+                    {this.state.tip.price}$
                   </Text>
                   <Text> / night</Text>
                 </View>
@@ -113,16 +268,16 @@ export default class TipsPage extends React.Component {
               >
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ fontWeight: "bold" }}>From: </Text>
-                  <Text>01/01/2018</Text>
+                  {this.renderTipStartDate()}
                 </View>
                 <View style={{ flexDirection: "row", marginLeft: 20 }}>
                   <Text style={{ fontWeight: "bold" }}>To: </Text>
-                  <Text>12/02/2018</Text>
+                  {this.renderTipEndDate()}
                 </View>
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontWeight: "bold" }}>Night(s): </Text>
-                <Text>9</Text>
+                {this.renderTipNights()}
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontWeight: "bold" }}>Travelling mode : </Text>
@@ -130,54 +285,24 @@ export default class TipsPage extends React.Component {
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontWeight: "bold" }}>Adress : </Text>
-                <Text>8th boulevard John Smith</Text>
+                <Text>{this.state.tip.adress}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontWeight: "bold" }}>Contact : </Text>
-                <Text>Armando Tello</Text>
+                <Text>{this.state.tip.contact}</Text>
               </View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontWeight: "bold" }}>Link : </Text>
-                <Text>www.casabobo.com</Text>
+                <Text>{this.state.tip.web_site}</Text>
               </View>
             </View>
 
-            <View>
-              <MapView
-                style={styles.mapView}
-                initialRegion={{
-                  latitude: 10.298974,
-                  longitude: -85.837935,
-                  latitudeDelta: 0.515392,
-                  longitudeDelta: 0.4937
-                }}
-                showsUserLocation={true}
-              >
-                <Marker
-                  coordinate={{
-                    latitude: 10.298974,
-                    longitude: -85.837935
-                  }}
-                  title="Casa Bobo"
-                  description="Temple of love"
-                />
-              </MapView>
-            </View>
+            <View>{this.renderTipsLocation()}</View>
             <Text style={{ marginBottom: 10 }}>
-              Post haec Gallus Hierapolim profecturus ut expeditioni specie
-              tenus adesset, Antiochensi plebi suppliciter obsecranti ut inediae
-              dispelleret metum, quae per multas difficilisque causas adfore iam
-              sperabatur, non ut mos est principibus, quorum diffusa potestas
+              {this.state.tip.description}
             </Text>
             <View style={{ flexDirection: "row" }}>
-              <Image
-                source={require("../../assets/images/bosnia.png")}
-                style={styles.pictures}
-              />
-              <Image
-                source={require("../../assets/images/oman.png")}
-                style={styles.pictures}
-              />
+              {this.renderTipsPictures()}
             </View>
           </View>
         </View>

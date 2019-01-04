@@ -86,18 +86,16 @@ export default class UserProfile extends React.Component {
                 color="#37449E"
                 onPress={() => this.props.navigation.navigate("HotelForm")}
               />
-              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Map</Text>
+              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Map</Text>
             </View>
 
             <View style={{ alignItems: "center" }}>
               <EntypoIcon name="book" size={45} color="#37449E" />
-              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>
-                My Trips
-              </Text>
+              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Trips</Text>
             </View>
             <View style={{ alignItems: "center" }}>
               <FontAwesomeIcon name="star-o" size={50} color="#37449E" />
-              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>My Tips</Text>
+              <Text style={{ fontFamily: "Arial", fontSize: 12 }}>Tips</Text>
             </View>
           </View>
 

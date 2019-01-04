@@ -32,6 +32,7 @@ class RoadForm extends Component {
 
   state = {
     stepId: "",
+    stepDate: "",
     category: "Transport",
     company_name: "",
     city: "",
@@ -56,6 +57,7 @@ class RoadForm extends Component {
     AsyncStorage.getItem("token", (err, token) => {
       const {
         stepId,
+        stepDate,
         category,
         company_name,
         city,
@@ -83,8 +85,8 @@ class RoadForm extends Component {
               company_name: this.state.company_name,
               city: this.state.city,
               adress: this.state.adress,
-              start_date: this.state.start_date,
-              end_date: this.state.end_date,
+              start_date: stepDate,
+              end_date: stepDate,
               price: this.state.price,
               currency: this.state.currency,
               web_site: this.state.web_site,
@@ -202,26 +204,6 @@ class RoadForm extends Component {
               value={this.state.adress}
               onChangeText={text => this.setState({ adress: text })}
             />
-
-            <Fumi
-              label={"From :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"calendar"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.start_date}
-              onChangeText={value => this.setState({ start_date: value })}
-            />
-            <Fumi
-              label={"To :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"calendar"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.end_date}
-              onChangeText={value => this.setState({ end_date: value })}
-            />
-
             <Fumi
               label={"Price / person :"}
               iconClass={FontAwesomeIcon}
@@ -311,7 +293,8 @@ class RoadForm extends Component {
 
   componentDidMount() {
     this.setState({
-      stepId: this.props.navigation.state.params.stepId
+      stepId: this.props.navigation.state.params.stepId,
+      stepDate: this.props.navigation.state.params.stepDate
     });
     console.log(
       "stepId in Roadform : ",

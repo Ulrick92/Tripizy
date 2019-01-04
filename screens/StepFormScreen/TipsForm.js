@@ -59,7 +59,8 @@ export default class TipsForm extends Component {
               color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("FreeForm", {
-                  stepId: this.props.navigation.state.params.stepId
+                  stepId: this.props.navigation.state.params.stepId,
+                  stepDate: this.props.navigation.state.params.stepDate
                 })
               }
             />
@@ -72,7 +73,8 @@ export default class TipsForm extends Component {
               color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("HotelForm", {
-                  stepId: this.props.navigation.state.params.stepId
+                  stepId: this.props.navigation.state.params.stepId,
+                  stepDate: this.props.navigation.state.params.stepDate
                 })
               }
             />
@@ -85,7 +87,8 @@ export default class TipsForm extends Component {
               color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("RestaurantForm", {
-                  stepId: this.props.navigation.state.params.stepId
+                  stepId: this.props.navigation.state.params.stepId,
+                  stepDate: this.props.navigation.state.params.stepDate
                 })
               }
             />
@@ -103,7 +106,8 @@ export default class TipsForm extends Component {
               color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("RoadForm", {
-                  stepId: this.props.navigation.state.params.stepId
+                  stepId: this.props.navigation.state.params.stepId,
+                  stepDate: this.props.navigation.state.params.stepDate
                 })
               }
             />
@@ -116,7 +120,8 @@ export default class TipsForm extends Component {
               color="#37449E"
               onPress={() =>
                 this.props.navigation.navigate("BeachForm", {
-                  stepId: this.props.navigation.state.params.stepId
+                  stepId: this.props.navigation.state.params.stepId,
+                  stepDate: this.props.navigation.state.params.stepDate
                 })
               }
             />

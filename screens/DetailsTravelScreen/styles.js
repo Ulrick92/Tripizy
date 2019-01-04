@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   travelCard: {
     flex: 1,
-    margin: 10
+    margin: 5
   },
   backgroundImage: {
     width: "100%",

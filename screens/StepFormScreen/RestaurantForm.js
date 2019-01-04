@@ -32,12 +32,13 @@ class RestaurantForm extends Component {
 
   state = {
     stepId: "",
+    stepDate: "",
     category: "Restaurant",
     company_name: "Love restaurant",
     city: "Paris",
     adress: "55 street of Paris",
-    start_date: "01/01/2018",
-    end_date: start_date,
+    start_date: "",
+    end_date: "",
     photos: null,
     price: "40",
     rating: undefined,
@@ -56,6 +57,7 @@ class RestaurantForm extends Component {
     AsyncStorage.getItem("token", (err, token) => {
       const {
         stepId,
+        stepDate,
         category,
         company_name,
         city,
@@ -84,8 +86,8 @@ class RestaurantForm extends Component {
               company_name: this.state.company_name,
               city: this.state.city,
               adress: this.state.adress,
-              start_date: this.state.start_date,
-              end_date: this.state.end_date,
+              start_date: stepDate,
+              end_date: stepDate,
               price: this.state.price,
               currency: this.state.currency,
               web_site: this.state.web_site,
@@ -204,7 +206,7 @@ class RestaurantForm extends Component {
               onChangeText={text => this.setState({ adress: text })}
             />
 
-            <Fumi
+            {/* <Fumi
               label={"From :"}
               iconClass={FontAwesomeIcon}
               iconName={"calendar"}
@@ -212,8 +214,8 @@ class RestaurantForm extends Component {
               iconSize={20}
               value={this.state.start_date}
               onChangeText={value => this.setState({ start_date: value })}
-            />
-            <Fumi
+            /> */}
+            {/* <Fumi
               label={"To :"}
               iconClass={FontAwesomeIcon}
               iconName={"calendar"}
@@ -221,7 +223,7 @@ class RestaurantForm extends Component {
               iconSize={20}
               value={this.state.end_date}
               onChangeText={value => this.setState({ end_date: value })}
-            />
+            /> */}
 
             <Fumi
               label={"Price / person :"}
@@ -312,11 +314,12 @@ class RestaurantForm extends Component {
 
   componentDidMount() {
     this.setState({
-      stepId: this.props.navigation.state.params.stepId
+      stepId: this.props.navigation.state.params.stepId,
+      stepDate: this.props.navigation.state.params.stepDate
     });
     console.log(
-      "stepId in Restaurantform : ",
-      this.props.navigation.state.params.stepId
+      "stepDate in Restaurantform : ",
+      this.props.navigation.state.params.stepDate
     );
   }
 }

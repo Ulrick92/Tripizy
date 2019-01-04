@@ -40,6 +40,7 @@ export default class DetailsTravelBook extends React.Component {
     },
     headerTintColor: "#fff"
   });
+
   state = {
     travelbook: {},
     steps: [],
@@ -52,16 +53,13 @@ export default class DetailsTravelBook extends React.Component {
     longitude: 0,
     markers: []
   };
+
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
       if (!this.props.navigation.state.params) {
-        console.log("hello");
         return;
       }
       const { params } = this.props.navigation.state;
-
-      console.log("detailstravelbookparams", this.props);
-      console.log("Params =>", params);
 
       axios
         .get(`${config.DOMAIN}travelbook/${params.id}`, {
@@ -70,7 +68,6 @@ export default class DetailsTravelBook extends React.Component {
           }
         })
         .then(response => {
-          console.log("Response detailtravelbook =>", response.data);
           var startDate = new Date(response.data.start_date); //YYYY-MM-DD
           var endDate = new Date(response.data.end_date); //YYYY-MM-DD
 
@@ -103,7 +100,7 @@ export default class DetailsTravelBook extends React.Component {
               }
             })
             .then(response => {
-              console.log("User => ", response.data);
+              // console.log("User => ", response.data);
               this.setState({
                 userId: response.data._id,
                 mounted: true
@@ -122,7 +119,7 @@ export default class DetailsTravelBook extends React.Component {
   renderTips = tips => {
     if (this.state.mounted && tips && tips.length > 0) {
       return tips.map(tip => (
-        <View key={tip}>
+        <View key={tip._id}>
           <TipsCard id={tip._id} />
         </View>
       ));
@@ -131,6 +128,7 @@ export default class DetailsTravelBook extends React.Component {
   };
 
   renderSteps = item => {
+    //affiche les steps si un tips existe
     if (
       (this.state.mounted &&
         item["item"].tips &&
@@ -172,12 +170,12 @@ export default class DetailsTravelBook extends React.Component {
       ));
   };
   renderAddTipDate = () => {
-    console.log(
-      "check button :",
-      this.state.mounted,
-      this.state.travelBookUserId,
-      this.state.userId
-    );
+    // console.log(
+    //   "check button :",
+    //   this.state.mounted,
+    //   this.state.travelBookUserId,
+    //   this.state.userId
+    // );
     if (this.state.mounted && this.state.travelBookUserId === this.state.userId)
       return (
         <DatePicker
@@ -203,20 +201,22 @@ export default class DetailsTravelBook extends React.Component {
 
             newSteps[idxToAdd].show = true;
             this.setState({ steps: newSteps }, console.log(newSteps));
-            console.log("NEWSTEPS", newSteps[idxToAdd]._id);
+            console.log("NEWSTEPS", newSteps[idxToAdd]);
             this.props.navigation.navigate("TipsForm", {
-              stepId: newSteps[idxToAdd]._id
+              stepId: newSteps[idxToAdd]._id,
+              stepDate: newSteps[idxToAdd].start_date
             });
           }}
         />
       );
     else return null;
   };
+
   render() {
     const { travelbook, steps, mounted } = this.state;
     const date = new Date(travelbook.start_date);
-    console.log("POSITION GEOMETRY", this.state.latitude, this.state.longitude);
-    console.log("Marker List ", this.state.markers);
+    // console.log("POSITION GEOMETRY", this.state.latitude, this.state.longitude);
+    // console.log("Marker List ", this.state.markers);
     if (mounted) {
       return (
         <Fragment>
@@ -273,9 +273,7 @@ export default class DetailsTravelBook extends React.Component {
             <ActionButton.Item
               buttonColor="#1abc9c" //vert
               title="Add a Tip"
-              onPress={() => {
-                this.renderAddTipDate();
-              }}
+              onPress={() => this.renderAddTipDate()}
             >
               <MaterialIconsIcon
                 name="add-circle"

@@ -32,6 +32,7 @@ class BeachForm extends Component {
 
   state = {
     stepId: "",
+    stepDate: "",
     category: "Beach",
     company_name: "",
     city: "",
@@ -56,6 +57,7 @@ class BeachForm extends Component {
     AsyncStorage.getItem("token", (err, token) => {
       const {
         stepId,
+        stepDate,
         category,
         company_name,
         city,
@@ -83,8 +85,8 @@ class BeachForm extends Component {
               company_name: this.state.company_name,
               city: this.state.city,
               adress: this.state.adress,
-              start_date: this.state.start_date,
-              end_date: this.state.end_date,
+              start_date: stepDate,
+              end_date: stepDate,
               price: this.state.price,
               currency: this.state.currency,
               web_site: this.state.web_site,
@@ -250,7 +252,8 @@ class BeachForm extends Component {
 
   componentDidMount() {
     this.setState({
-      stepId: this.props.navigation.state.params.stepId
+      stepId: this.props.navigation.state.params.stepId,
+      stepDate: this.props.navigation.state.params.stepDate
     });
     console.log(
       "stepId in Beachform : ",

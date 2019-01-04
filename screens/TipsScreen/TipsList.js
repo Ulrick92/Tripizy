@@ -29,7 +29,7 @@ export default class TipsListTest extends React.Component {
   };
   onChangeSearchCity = city => {
     this.setState({ city: city });
-    console.log("CIty", city);
+    // console.log("CIty", city);
     axios
       .get(`${config.DOMAIN}tips/`, {
         params: {
@@ -131,7 +131,9 @@ export default class TipsListTest extends React.Component {
                 <View>
                   <TouchableOpacity
                     onPress={() =>
-                      this.props.navigation.navigate("TipsPage", {})
+                      this.props.navigation.navigate("TipsPage", {
+                        id: item._id
+                      })
                     }
                   >
                     <TipsCard id={item._id} />
@@ -157,7 +159,7 @@ export default class TipsListTest extends React.Component {
 
   componentDidMount() {
     AsyncStorage.getItem("token", (err, token) => {
-      console.log("result token TipsList :", token);
+      // console.log("result token TipsList :", token);
       axios
         .get(`${config.DOMAIN}tips/`, {
           headers: {
@@ -165,7 +167,7 @@ export default class TipsListTest extends React.Component {
           }
         })
         .then(response => {
-          console.log("response", response.data);
+          // console.log("response", response.data);
           this.setState({
             tips: response.data,
             token: token
