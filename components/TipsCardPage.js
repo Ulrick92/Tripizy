@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
-
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-
 import StarRating from "react-native-star-rating";
 
 export default class TipsCardPage extends React.Component {

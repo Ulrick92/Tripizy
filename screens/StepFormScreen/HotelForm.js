@@ -16,12 +16,13 @@ import axios from "axios";
 import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import MaterialsIcon from "react-native-vector-icons/MaterialIcons";
-import { FormLabel, FormInput, Rating } from "react-native-elements";
+import { FormLabel, Rating } from "react-native-elements";
 import DatePicker from "react-native-datepicker";
-import { Permissions } from "expo";
-import ImagePicker from "react-native-image-crop-picker";
+import { Permissions, ImagePicker } from "expo";
+// import ImagePicker from "react-native-image-crop-picker";
 import config from "../../config";
-import ImageBrowser from "./ImageBrowser";
+// import ImageBrowser from "./ImageBrowser";
+import Moment from "moment";
 
 class HotelForm extends Component {
   static navigationOptions = {
@@ -41,9 +42,11 @@ class HotelForm extends Component {
     adress: "Love avenue",
     start_date: "",
     end_date: "",
-    imageBrowserOpen: false,
+    night: "",
+    // imageBrowserOpen: false,
     photos: [],
-    images: null,
+    photos: null,
+    // images: null,
     price: "30",
     rating: undefined,
     web_site: "",
@@ -68,6 +71,7 @@ class HotelForm extends Component {
         adress,
         start_date,
         end_date,
+        night,
         web_site,
         tel,
         description,
@@ -77,6 +81,11 @@ class HotelForm extends Component {
         photos,
         images
       } = this.state;
+
+      //define end_date in function of nights input
+      let nightDate = Moment(stepDate, "YYYY-MM-DD");
+      nightDate.add(night, "days");
+      // nightDate.add(1, "days");
 
       if (!token) {
         this.redirectToLoginPage();
@@ -92,7 +101,7 @@ class HotelForm extends Component {
               city: this.state.city,
               adress: this.state.adress,
               start_date: stepDate,
-              end_date: this.state.end_date,
+              end_date: nightDate,
               price: this.state.price,
               currency: this.state.currency,
               web_site: this.state.web_site,
@@ -176,32 +185,32 @@ class HotelForm extends Component {
     );
   };
 
-  imageBrowserCallback = callback => {
-    callback
-      .then(photos => {
-        console.log("PAR ICI LES PHOTOS:", photos);
-        this.setState({
-          imageBrowserOpen: false,
-          photos
-        });
-      })
-      .catch(e => console.log(e));
-  };
+  // imageBrowserCallback = callback => {
+  //   callback
+  //     .then(photos => {
+  //       console.log("PAR ICI LES PHOTOS:", photos);
+  //       this.setState({
+  //         imageBrowserOpen: false,
+  //         photos
+  //       });
+  //     })
+  //     .catch(e => console.log(e));
+  // };
 
-  renderImage(item, i) {
-    return (
-      <Image
-        style={{ height: 100, width: 100 }}
-        source={{ uri: item.file }}
-        key={i}
-      />
-    );
-  }
+  // renderImage(item, i) {
+  //   return (
+  //     <Image
+  //       style={{ height: 100, width: 100 }}
+  //       source={{ uri: item.file }}
+  //       key={i}
+  //     />
+  //   );
+  // }
 
   render() {
-    if (this.state.imageBrowserOpen) {
-      return <ImageBrowser max={10} callback={this.imageBrowserCallback} />;
-    }
+    // if (this.state.imageBrowserOpen) {
+    //   return <ImageBrowser max={10} callback={this.imageBrowserCallback} />;
+    // }
 
     return (
       <ScrollView style={{ backgroundColor: "#a9ceca" }}>
@@ -237,24 +246,14 @@ class HotelForm extends Component {
               value={this.state.adress}
               onChangeText={text => this.setState({ adress: text })}
             />
-
             <Fumi
-              label={"From :"}
+              label={"Number of night(s) :"}
               iconClass={FontAwesomeIcon}
               iconName={"calendar"}
               iconColor={"#37449E"}
               iconSize={20}
-              value={this.state.start_date}
-              onChangeText={value => this.setState({ start_date: value })}
-            />
-            <Fumi
-              label={"To :"}
-              iconClass={FontAwesomeIcon}
-              iconName={"calendar"}
-              iconColor={"#37449E"}
-              iconSize={20}
-              value={this.state.end_date}
-              onChangeText={value => this.setState({ end_date: value })}
+              value={this.state.night}
+              onChangeText={value => this.setState({ night: value })}
             />
 
             <Fumi
@@ -321,11 +320,21 @@ class HotelForm extends Component {
             <View style={{ marginTop: 5, alignItems: "center" }}>
               <Button
                 title="Pick an image from camera roll"
+                onPress={this.useLibraryHandler}
+              />
+              {this.state.photos && (
+                <Image
+                  source={{ uri: this.state.photos }}
+                  style={{ width: 200, height: 200 }}
+                />
+              )}
+              {/* <Button
+                title="Pick an image from camera roll"
                 onPress={() => this.setState({ imageBrowserOpen: true })}
               />
               <ScrollView>
                 {this.state.photos.map((item, i) => this.renderImage(item, i))}
-              </ScrollView>
+              </ScrollView> */}
             </View>
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity
@@ -357,7 +366,6 @@ export default withNavigation(HotelForm);
 
 const styles = StyleSheet.create({
   input: {
-    // marginTop: 4
     height: 40,
     alignContent: "center"
   },
